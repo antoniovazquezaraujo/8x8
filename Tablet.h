@@ -9,9 +9,13 @@
 using namespace std;
 
 #define RGBA(r, g, b, a) ((r)<<16)|((g)<<8)|((b))|((a)<<24)
-const int BOX_LEVELS = 2;
+const int LEVELS = 2;
 const int ROWS = 8;
 const int COLS = 8;
+typedef unsigned char Cell [3]; //r, g, b
+typedef Cell Row [COLS];
+typedef Row Level [ROWS];
+typedef Level ColorField[LEVELS];
 
 class Tablet {
 public:
@@ -23,10 +27,10 @@ public:
 	Box & box(int level, int n);
 	Box & lastBox(int level);
 	void update();
-	void paint();
+	ColorField & getColorField();
 private:
 	vector<vector<Box> > levelBoxes;
-	unsigned int levelCells[BOX_LEVELS][ROWS][COLS][3];
+	ColorField colorField;
 	int boxH, boxW;
 };
 #endif /* TABLET_H_ */

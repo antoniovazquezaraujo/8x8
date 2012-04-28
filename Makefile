@@ -82,6 +82,7 @@ clean:
 
 ####### Compile
 
+
 Animation.o: Animation.cpp Animation.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Animation.o Animation.cpp
 
@@ -99,38 +100,4 @@ Tablet.o: Tablet.cpp Tablet.h \
 		Animation.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Tablet.o Tablet.cpp
 
-Graph.o: GUI/Graph.cpp GUI/Graph.h \
-		GUI/Point.h \
-		GUI/std_lib_facilities.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Graph.o GUI/Graph.cpp
-
-GUI.o: GUI/GUI.cpp GUI/GUI.h \
-		GUI/Window.h \
-		GUI/Point.h \
-		GUI/Graph.h \
-		GUI/std_lib_facilities.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GUI.o GUI/GUI.cpp
-
-Simple_window.o: GUI/Simple_window.cpp GUI/Simple_window.h \
-		GUI/GUI.h \
-		GUI/Window.h \
-		GUI/Point.h \
-		GUI/Graph.h \
-		GUI/std_lib_facilities.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Simple_window.o GUI/Simple_window.cpp
-
-Window.o: GUI/Window.cpp GUI/Window.h \
-		GUI/Point.h \
-		GUI/Graph.h \
-		GUI/std_lib_facilities.h \
-		GUI/GUI.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Window.o GUI/Window.cpp
-
-####### Install
-
-install:   FORCE
-
-uninstall:   FORCE
-
-FORCE:
 
