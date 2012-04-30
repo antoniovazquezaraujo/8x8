@@ -10,11 +10,12 @@
 #define BG_COLOR  0 
 #define TICKS 0.025
 #include "Tablet.h"
-class Tablet;
-class FLTKSurface : public Surface , public Fl_Box {
+class FLTKSurface : public Fl_Box {
 public:
-    Surface(Tablet * tablet, int X,int Y,int W,int H,const char*L=0);
-	void draw(int row, int col, int r, int g, int b);
+	FLTKSurface(ColorField & field, int X,int Y,int W,int H,const char*L=0); 
+	void draw();
 private:
+	ColorField &colorField;
 };
+void callBack(void *object);
 #endif

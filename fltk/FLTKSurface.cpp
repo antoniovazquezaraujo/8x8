@@ -1,26 +1,32 @@
-#include "Surface.h"
-Surface::Surface(Tablet * tablet, int X,int Y,int W,int H,const char*L) 
+#include "FLTKSurface.h"
+FLTKSurface::FLTKSurface(ColorField & colorField, int X,int Y,int W,int H,const char*L) 
 	: Fl_Box(X,Y,W,H,L),
-	tablet(tablet){
+	colorField(colorField){
 		box(FL_FLAT_BOX);
 		color(BG_COLOR);
 		Fl::add_timeout(TICKS, callBack, (void*)this);
 }
-void Surface::draw(int row, int col, int r, int g, int b){
-	fl_rectf(x()+row*10, y()+col*10, 10, 10, r, g, b);
-}
-void Surface::draw() {
+void FLTKSurface::draw() {
 	Fl_Box::draw();
-	tablet->draw(this);
+
+	for (int level = 0; level < LEVELS; level++) {
+		for (int row = 0; row < ROWS; row++) {
+			for (int col = 0; col < COLS; col++) {
+				fl_rectf(
+						row*10, 
+						col*10, 
+						10, 
+						10,  
+						colorField[level][row][col][0],
+						colorField[level][row][col][1],
+						colorField[level][row][col][2]
+				);
+			}
+		}
+	}
 }
-void Surface::callBack(void *tablet) {
-	Surface *o = (Surface*)tablet;
+void callBack(void *object) {
+	FLTKSurface *o = (FLTKSurface*)object;
 	o->redraw();
-	Fl::repeat_timeout(TICKS, callBack, tablet);
-}
-int main() {
-	Fl_Double_Window win(220, 220);
-	Surface s(&t, 10, 10, win.w()-20, win.h()-20);
-	win.show();
-	return(Fl::run());
+	Fl::repeat_timeout(TICKS, callBack, object);
 }
