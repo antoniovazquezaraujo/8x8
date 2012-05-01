@@ -1,7 +1,7 @@
 #include "TabletView.h" 
 
 TabletView::TabletView(Tablet & tablet)
-	: Fl_Double_Window(20,20,500,500,"8x8"),
+	: Fl_Double_Window(20,20,640,640,"8x8"),
 	tablet(tablet){
 	end();
 	setup();

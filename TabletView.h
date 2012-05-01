@@ -19,7 +19,7 @@ using namespace std;
 #  include <sys/time.h>
 #endif // !WIN32
 
-const int BLOCK_SIZE=40;
+const int BLOCK_SIZE=80;
 const double DRAW_TIME=0.025;
 
 class TabletView : public Fl_Double_Window {
