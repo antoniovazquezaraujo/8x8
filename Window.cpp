@@ -26,14 +26,11 @@ public:
 	BlockWindow(int X, int Y, int W, int H, const char *L = 0);
 	BlockWindow(int W, int H, const char *L = 0);
 	~BlockWindow();
-
 	void  draw();
 	int	  handle(int event);
 	void  new_game();
 
 private:
-
-	bool	paused_;
 	void	setup();
 	int	    click(int col, int row);
 	void	reset();
@@ -93,6 +90,7 @@ void BlockWindow::draw() {
 }
 
 
+
 int BlockWindow::handle(int event) {
 	if (Fl_Double_Window::handle(event)){
 		return (1);
@@ -101,14 +99,9 @@ int BlockWindow::handle(int event) {
 	int mx, my;
 	switch (event) {
 	case FL_PUSH :
-		if(Fl::event_clicks()!=0){
-			cout << "Doble click" << endl;
-		}else{
-			cout << "Click" << endl;
-		}
 		mx    = w() - Fl::event_x() + BLOCK_SIZE;
 		my    = h() - Fl::event_y();
-		//return (1);
+		cout << "Clic"<<endl;
 		break;
 	case FL_DRAG:
 		cout << "Arrastrando" << endl;
@@ -117,7 +110,7 @@ int BlockWindow::handle(int event) {
 		cout << "Soltando" << endl;
 		break;
 	}
-	return (0);
+	return (1);
 }
 
 
