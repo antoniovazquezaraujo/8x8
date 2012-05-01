@@ -1,8 +1,9 @@
 #include "TabletView.h" 
 
 TabletView::TabletView(Tablet & tablet)
-	: Fl_Double_Window(100,100,300,300,"8x8"),
+	: Fl_Double_Window(20,20,500,500,"8x8"),
 	tablet(tablet){
+	end();
 	setup();
 }
 
@@ -12,8 +13,9 @@ TabletView::~TabletView() {
 }
 
 void TabletView::setup() {
-	reset();
 	Fl::add_timeout(DRAW_TIME, (Fl_Timeout_Handler)timeout_cb, (void *)this);
+	srand(time(NULL));
+	redraw();
 }
 
 void TabletView::onClick(int col, int row) {
@@ -25,27 +27,26 @@ void TabletView::onRelease(int col, int row) {
 
 
 void TabletView::draw() {
+	tablet.update();
 	ColorField &f = tablet.getColorField();
-	fl_color(FL_BLACK);
-	fl_rectf(0, 0, w(), h());
-	for (int level = 0; level < LEVELS; level++ ){
-		for (int row = 0; row< ROWS; row++ ){
-			for (int col= 0; col< COLS; col++ ){
-				fl_rectf( 
-					row*BLOCK_SIZE, 
-					col*BLOCK_SIZE, 
-					BLOCK_SIZE, 
-					BLOCK_SIZE,
-					f[level][row][col][0],
-					f[level][row][col][1],
-					f[level][row][col][2]
-					);
+	for (int row = 0; row< ROWS; row++ ){
+		for (int col= 0; col< COLS; col++ ){
+			unsigned char r=0,g=0,b=0;
+			for (int level = 0; level < LEVELS; level++ ){
+				r+= f[level][row][col][0];
+				g+= f[level][row][col][1];
+				b+= f[level][row][col][2];
 			}
+			fl_color(r,g,b);
+			fl_rectf( 
+				row*BLOCK_SIZE, 
+				col*BLOCK_SIZE, 
+				BLOCK_SIZE, 
+				BLOCK_SIZE
+			);
 		}
 	}
 }
-
-
 
 int TabletView::handle(int event) {
 	if (Fl_Double_Window::handle(event)){
@@ -64,25 +65,9 @@ int TabletView::handle(int event) {
 		onRelease(x,y);
 		break;
 	}
-	return (1);
+	return (0);
 }
 
-
-
-// Initialize the block window...
-void TabletView::reset() {
-}
-
-
-// Start a new game...
-void TabletView::new_game() {
-	srand(time(NULL));
-	reset();
-	redraw();
-}
-
-
-// Animate the game...
 void TabletView::timeout_cb(TabletView *bw) {
 	bw->redraw();
 	Fl::repeat_timeout(DRAW_TIME, (Fl_Timeout_Handler)timeout_cb, (void *)bw);

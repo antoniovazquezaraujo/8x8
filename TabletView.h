@@ -19,19 +19,18 @@ using namespace std;
 #  include <sys/time.h>
 #endif // !WIN32
 
-const int BLOCK_COLS=8;
-const int BLOCK_ROWS=8;
 const int BLOCK_SIZE=40;
-const int DRAW_TIME=0.025;
+const double DRAW_TIME=0.025;
 
 class TabletView : public Fl_Double_Window {
 public:
 
 	TabletView(Tablet & t);
 	~TabletView();
-	void  draw();
 	int	  handle(int event);
-	void  new_game();
+
+protected:
+	void  draw();
 
 private:
 	Tablet & tablet;
@@ -39,10 +38,8 @@ private:
 	void  onDrag(int x, int y);
 	void  onRelease(int x, int y);
 	void  setup();
-	int   click(int col, int row);
-	void  reset();
-
 	static void	timeout_cb(TabletView *bw);
+
 };
 
 #endif

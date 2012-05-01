@@ -9,6 +9,7 @@
 #include <string.h>
 #include <time.h>
 #include <math.h>
+//#include "Tablet.h" 
 using namespace std;
 
 #ifndef WIN32
@@ -18,23 +19,26 @@ using namespace std;
 
 const int BLOCK_COLS=8;
 const int BLOCK_ROWS=8;
-const int BLOCK_SIZE=20;
+const int BLOCK_SIZE=40;
 
-class BlockWindow : public Fl_Double_Window {
+class TabletView : public Fl_Double_Window {
 public:
 
-	BlockWindow(int X, int Y, int W, int H, const char *L = 0);
-	BlockWindow(int W, int H, const char *L = 0);
-	~BlockWindow();
+	TabletView();
+	~TabletView();
 	void  draw();
 	int	  handle(int event);
 	void  new_game();
 
 private:
-	void	setup();
-	int	    click(int col, int row);
-	void	reset();
-	static void	timeout_cb(BlockWindow *bw);
+	void  onClick(int x, int y);
+	void  onDrag(int x, int y);
+	void  onRelease(int x, int y);
+	void  setup();
+	int   click(int col, int row);
+	void  reset();
+
+	static void	timeout_cb(TabletView *bw);
 };
 
 
@@ -42,72 +46,55 @@ int main(int argc, char *argv[]) {
 	Fl::scheme("plastic");
 	Fl::visible_focus(0);
 
-	BlockWindow *bw = new BlockWindow(
-		BLOCK_COLS * BLOCK_SIZE,
-		BLOCK_ROWS * BLOCK_SIZE + 20,
-		"8x8"
-	);
-
+	TabletView *bw = new TabletView(); 
 	bw->show(argc, argv);
 	return (Fl::run());
 }
 
-BlockWindow::BlockWindow(int X, int Y, int W, int H, const char *L)
-	: Fl_Double_Window(X, Y, W, H, L) {
+TabletView::TabletView()
+	: Fl_Double_Window(0,0,200,200,"8x8") {
 	setup();
 }
 
-BlockWindow::BlockWindow(int W, int H, const char *L)
-	: Fl_Double_Window(W, H, L) {
-	setup();
-}
 
-BlockWindow::~BlockWindow() {
+TabletView::~TabletView() {
 	Fl::remove_timeout((Fl_Timeout_Handler)timeout_cb, (void *)this);
 }
 
-void BlockWindow::setup() {
+void TabletView::setup() {
 	reset();
-	Fl::add_timeout(0.1, (Fl_Timeout_Handler)timeout_cb, (void *)this);
+	Fl::add_timeout(1, (Fl_Timeout_Handler)timeout_cb, (void *)this);
 }
 
-int BlockWindow::click(int col, int row) {
-	cout << "click"<<endl;
+void TabletView::onClick(int col, int row) {
+}
+void TabletView::onDrag(int col, int row) {
+}
+void TabletView::onRelease(int col, int row) {
 }
 
 
-void BlockWindow::draw() {
-	fl_color(FL_BLACK);
-	fl_rectf(0, 0, w(), h());
-	static int red=0;
-	// Draw the blocks...
-	for (int row = 0; row< 8; row++ ){
-		for (int col= 0; col< 8; col++ ){
-			fl_rectf( row*BLOCK_SIZE, col*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE,red,0 ,0);
-		}
-	}
-	red++;
+void TabletView::draw() {
+	cout << "pintando";
 }
 
 
 
-int BlockWindow::handle(int event) {
+int TabletView::handle(int event) {
 	if (Fl_Double_Window::handle(event)){
 		return (1);
 	} 
-
-	int mx, my;
+	int x = w() - Fl::event_x() + BLOCK_SIZE;
+	int y = h() - Fl::event_y();
 	switch (event) {
 	case FL_PUSH :
-		mx    = w() - Fl::event_x() + BLOCK_SIZE;
-		my    = h() - Fl::event_y();
-		cout << "Clic"<<endl;
+		onClick(x,y);
 		break;
 	case FL_DRAG:
-		cout << "Arrastrando" << endl;
+		onDrag(x,y);
 		break;
 	case FL_RELEASE:
-		cout << "Soltando" << endl;
+		onRelease(x,y);
 		break;
 	}
 	return (1);
@@ -116,12 +103,12 @@ int BlockWindow::handle(int event) {
 
 
 // Initialize the block window...
-void BlockWindow::reset() {
+void TabletView::reset() {
 }
 
 
 // Start a new game...
-void BlockWindow::new_game() {
+void TabletView::new_game() {
 	srand(time(NULL));
 	reset();
 	redraw();
@@ -129,8 +116,8 @@ void BlockWindow::new_game() {
 
 
 // Animate the game...
-void BlockWindow::timeout_cb(BlockWindow *bw) {
+void TabletView::timeout_cb(TabletView *bw) {
 	bw->redraw();
-	Fl::repeat_timeout(0.1, (Fl_Timeout_Handler)timeout_cb, (void *)bw);
+	Fl::repeat_timeout(1, (Fl_Timeout_Handler)timeout_cb, (void *)bw);
 }
 
