@@ -6,7 +6,7 @@ CFLAGS        = -pipe -Wall -W -D_REENTRANT $(DEFINES)
 CXXFLAGS      = $(INCLUDES) -time -O3 -Wall -DEBUG -ggdb
 INCPATH       = -IGUI -I.
 LINK          = g++
-LFLAGS        = -Wl,-O1 -L/usr/local/lib -lfltk -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11
+LFLAGS        = -Wl,-O1 -L/usr/local/lib -lfltk -lXext -lXft -lfontconfig -ldl -lm -lX11
 LIBS          = -lstdc++  -lfltk 
 AR            = ar cqs
 RANLIB        = 
@@ -82,7 +82,7 @@ dist:
 	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/8x81.0.0/ && $(COPY_FILE) --parents Animation.h Box.h FltkTabletController.h FltkTabletView.h MoTabletController.h MoTabletView.h Tablet.h .tmp/8x81.0.0/ && $(COPY_FILE) --parents Animation.cpp Box.cpp FltkMain.cpp FltkTabletController.cpp FltkTabletView.cpp MoMain.cpp MoTabletController.cpp MoTabletView.cpp Tablet.cpp .tmp/8x81.0.0/ && (cd `dirname .tmp/8x81.0.0` && $(TAR) 8x81.0.0.tar 8x81.0.0 && $(COMPRESS) 8x81.0.0.tar) && $(MOVE) `dirname .tmp/8x81.0.0`/8x81.0.0.tar.gz . && $(DEL_FILE) -r .tmp/8x81.0.0
 
 
-clean:compiler_clean 
+clean:
 	-$(DEL_FILE) $(OBJECTS)
 	-$(DEL_FILE) *~ core *.core
 
