@@ -2,14 +2,13 @@
 #include "TabletModel.h"
 #include "TabletView.h"
 Prueba1::Prueba1(TabletView * view)
-	:TabletControler(view){
+	:TabletController(view){
 
-	}
 }
 void Prueba1::setup(){
 	for(int col =0; col <COLS; col++){
 		for(int row = 0; row < ROWS; row++){ 
-			model->addBox(0, col, row, 1,1,true);
+			model->addBox(0, col, row, 1,1, false);
 			model->lastBox(0).addColorChange(     0, col*32,    128,      0,      0,      0, 100);
 			model->lastBox(0).addColorChange(col*32, col*32,      0, row*32,      0,      0, 100);
 			model->lastBox(0).addColorChange(col*32,      0, row*32,    128,      0, col*32, 100);
@@ -28,7 +27,7 @@ void Prueba1::stop(){
 void Prueba1::onClick(int col, int row){
 	static bool added = false;
 	if(!added){
-		model->addBox(1, col, row, 1,1,true);
+		model->addBox(1, col, row, 1,1,false);
 		model->lastBox(1).setColor(64,64,64);
 		model->lastBox(1).addColorChange(255,155,  0,155,100, 40,100);
 		model->lastBox(1).addColorChange(155,  0,155,255, 40,  0,100);

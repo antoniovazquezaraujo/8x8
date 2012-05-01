@@ -11,7 +11,7 @@ public:
 	virtual void onClick(int col, int row)=0;
 	virtual void onRelease(int col, int row)=0;
 	virtual void onDrag(int col, int row)=0;
-private:
+protected:
 	TabletModel* model;
 	TabletView * view;
 };

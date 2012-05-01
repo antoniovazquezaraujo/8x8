@@ -16,6 +16,5 @@ public:
 private:
 //Provisional...
 	Box * box;
-	Color color;
 };
 #endif
