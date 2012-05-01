@@ -1,50 +1,5 @@
 #include "Animation.h"
-ostream & operator<<(ostream & o, const Animation & a){
-	o
-	<<	" actualTime:" << (int)a.actualTime
-	<< endl
-	<<	" r     :"     << (int)a.r 
-	<<	" rCount:"     << (int)a.rCount 
-	<< endl
-	<<	" g     :"     << (int)a.g 
-	<<	" gCount:"     << (int)a.gCount 
-	<< endl
-	<<	" b     :"     << (int)a.b 
-	<<	" bCount:"     << (int)a.bCount 
-	<< endl
-	;
-	return o;
-}
-void Animation::test(){
-	/*
-	Animation a(0,10,0,0,0,0,10);
-	while(!a.isFinished()){
-		cout << a;
-		a.update();
-	}
-	Animation b(10,0,0,0,0,0,10);
-	while(!b.isFinished()){
-		cout << b;
-		b.update();
-	}
-	Animation b(10,0,0,20,0,0,10);
-	while(!b.isFinished()){
-		cout << b;
-		b.update();
-	}
-	Animation b(2,0,0,3,100,0,5);
-	while(!b.isFinished()){
-		cout << b;
-		b.update();
-	}
-	*/
-	Animation b(0,0,0,0,255,0,7);
-	while(!b.isFinished()){
-		cout << b;
-		b.update();
-	}
 
-}
 Animation::Animation(int fromR , int toR , int fromG , int toG ,
 		int fromB, int toB, int time) :
 		fromR(fromR), toR(toR), fromG(fromG), toG(toG), fromB(fromB), toB(toB), time(

@@ -1,5 +1,5 @@
-#ifndef TABLET_VIEW_H
-#define TABLET_VIEW_H
+#ifndef MO_TABLET_VIEW_H
+#define MO_TABLET_VIEW_H
 
 #include <conprint.h>
 #include <MAUtil/Environment.h>

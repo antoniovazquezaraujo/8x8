@@ -1,18 +1,19 @@
-#ifndef TABLET_CONTROLLER_H
-#define TABLET_CONTROLLER_H
-#include "FltkTabletView.h"
-class FltkTabletController{
+#ifndef  PRUEBA1_H
+#define  PRUEBA1_H 
+#include "TabletController.h"
+class TabletView;
+class Box; 
+class Color;
+class Prueba1 :public TabletController{
 public:
-	FltkTabletController();
+	Prueba1(TabletView * view);
 	void setup();
 	void start();
-	void end();
+	void stop();
 	void onClick(int col, int row);
 	void onRelease(int col, int row);
 	void onDrag(int col, int row);
 private:
-	TabletModel model;
-	FltkTabletView * view;
 //Provisional...
 	Box * box;
 	Color color;

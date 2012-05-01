@@ -43,6 +43,8 @@ public:
 	void fill(bool filled);
 	void move(int deltaRow, int deltaCol);
 	void setPos(Rect r);
+	void setSize(int width, int height);
+	Rect getPos();
 	void grow(int deltaHeight, int deltaWidth);
 private:
 

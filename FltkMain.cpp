@@ -1,6 +1,7 @@
-#include "FltkTabletController.h"
+#include "FltkTabletView.h"
+#include "Prueba1.h"
 int main(){
-	FltkTabletController t;
-	t.setup();
-	t.start();
+	Prueba1 p(new FltkTabletView());
+	p.setup();
+	p.start();
 }

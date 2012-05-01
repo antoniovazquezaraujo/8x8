@@ -1,75 +1,67 @@
-class TabletGame{
+class TabletView{
 public:
-	void start();
-	void pause();
-	void stop();
-	void reset();
-	void drawRect( int level, Rect rect, Color color, bool filled = false);
-	void addBox(int level, int col, int row, int width, int height, bool filled = false);
-	Box & box(int level, int n);
-	void start(Box & box, int turns=-1, int numAnimation = -1);
-	void stop(Box & box);
-	void addAnimation(
-			Box & box,
-			unsigned char fromR,
-			unsigned char toR,
-			unsigned char fromG,
-			unsigned char toG,
-			unsigned char fromB,     
-			unsigned char toB,
-			int time
-			);
-	Box & lastBox(int level);
-	Color getColor(int col, int row);
-	void setColor(int col, int row,int width, int height, Color color);
-};
-class FltkTabletGame:public TabletGame{
-
-};
-class MoTabletGame: public TabletGame{
-
+	void setModel(TabletModel* model){
+		this->model = model;
+	}
+	void setController(TabletController* controller){
+		this->controller = controller;
+	}
+	virtual void start()=0;
+	virtual void stop()=0;
+private:
+	TabletModel * model;
+	TabletController* controller;
 };
 
-class TabletEventListener{
+class TabletController{
 public:
+	TabletController(TabletView * view)
+		view(view){
+		view->setModel(model);
+		view->setController(this);
+	}
+	~TabletController(){
+		delete view;
+	}
+	void start(){
+		view->start();
+	}
+	void stop(){
+		view->stop();
+	}
 	virtual void onClick(int col, int row)=0;
 	virtual void onDoubleClick(int col, int row)=0;
 	virtual void onRelease(int col, int row)=0;
 	virtual void onDrag(int col, int row)=0;
+private:
+	TabletModel  model;
+	TabletView * view;
 };
-
-class MyGame: public TabletEventListener{
+class Packman: public TabletController{
 public:
-	MyGame()
-		:game(new FltkTabletGame(this)){ 
-		setup();
-	}
-	~MyGame(){
-		delete game;
-	}
-	void start(){
-		game->start();
-	}
-	void setup(){
+	Pacman(TabletView* view)
+		:TabletControler(view){
 
 	}
 	void onClick(int col, int row){
-
+		//Pac, pac, pac ...
 	}
-	void onDoubleClick(int col, int row){
-
-	}
-	void onRelease(int col, int row){
-
-	}
-	void onDrag(int col, int row){
-
-	}
-private:
-	TabletGame * game;
 };
-
 int main(){
-	MyGame g();
-	g.start();
+	TabletController * t = new Packman((new FltkTabletView()));
+	TabletController * t2= new Packman((new MoTabletView()));
+	t.start();
+	t2.start();
 }
+class FltkTabletController : public TabletController{
+	FltkTablet()
+	:Tablet(new FltkTabletView()){
+	Fl::scheme("plastic");
+	Fl::visible_focus(0);
+};
+class MoTabletController: public TabletController{
+	MoTablet()
+	:Tablet(new MoTabletView()){
+	Fl::scheme("plastic");
+	Fl::visible_focus(0);
+};
