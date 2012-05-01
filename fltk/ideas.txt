@@ -1,0 +1,63 @@
+class Tablet{
+	Tablet(){
+
+	}
+	void setup(){
+
+	}
+	void onClick(int row, int col){
+
+	}
+	void onDoubleClick(int row, int col){
+
+	}
+	void onStartDrag(int row, int col){
+
+	}
+	void onStopDrag(int row, int col){
+
+	}
+};
+int main(){
+	Tablet t;
+	t.setup();
+	while(true){
+		processEvents();
+		t.update();
+		paint(t);
+	}
+}
+Eventos que interesan a un tablet:
+	onClick(int row, int col);
+	onDoubleClick(int row, int col);
+	onStartDrag(int row, int col);
+	onMoveDrag(int row, int col);
+	onStopDrag(int row, int col);
+struct Rect{
+	Point pos;
+	Point size;
+};
+Acciones que debe poder realizar:
+	Point box.getPos();
+	Point box.getSize();
+	box.move(int row, int col);
+	box.grow(int height, int width);
+	box.hide();
+	box.show();
+	box.start();
+	box.stop();
+	box.continue();
+	box.end();
+
+Como seleccionar un box de un tablet?
+	Box & Tablet::box(int level, int boxNum);
+	Box & Tablet::lastBox(int level);
+
+Box cuyo origen está en una posicion:
+	Box * Tablet::boxAt(int row, int col, int level); // 0 si no hay
+Como hay varios niveles, cuando haces clic puedes pillar a varias cajas que se superponen,
+	 incluso en un solo nivel. Además, puedes hacer clic en cualquier punto de una box que
+	 ocupe varios puntos. Así que...
+	 Esto devería devolver un vector<Box> con las cajas que acabas de tocar.
+
+

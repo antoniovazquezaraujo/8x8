@@ -34,15 +34,17 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES = \
+		Main.cpp \
+		TabletView.cpp \
 		Animation.cpp \
 		Box.cpp \
-		Main.cpp \
 		Tablet.cpp 
 
 OBJECTS = \
+		Main.o \
+		TabletView.o \
 		Animation.o \
 		Box.o \
-		Main.o \
 		Tablet.o 
 
 DESTDIR       = 
@@ -82,6 +84,13 @@ clean:
 
 ####### Compile
 
+Main.o: Main.cpp Tablet.h \
+		Box.h \
+		Animation.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Main.o Main.cpp
+
+TabletView.o: TabletView.cpp TabletView.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TabletView.o TabletView.cpp
 
 Animation.o: Animation.cpp Animation.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Animation.o Animation.cpp
@@ -89,11 +98,6 @@ Animation.o: Animation.cpp Animation.h
 Box.o: Box.cpp Box.h \
 		Animation.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Box.o Box.cpp
-
-Main.o: Main.cpp Tablet.h \
-		Box.h \
-		Animation.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Main.o Main.cpp
 
 Tablet.o: Tablet.cpp Tablet.h \
 		Box.h \
