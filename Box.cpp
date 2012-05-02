@@ -1,4 +1,5 @@
 #include "Box.h"
+/*
 ostream & operator<<(ostream & o, const Box & b){
 	o << "Estado: --------------------" << endl;
 	o 
@@ -31,6 +32,7 @@ void Box::test(){
 		b.update();
 	}
 }
+*/
 Box::Box(int row , int col, int height, int width, bool filled) :
 		row(row), col(col), height(height), width(width), filled(filled) {
 	r = g = b = 0;

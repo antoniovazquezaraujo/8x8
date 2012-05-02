@@ -41,7 +41,7 @@ ColorField & Tablet::getColorField(){
 }
 void Tablet::update() {
 	for (int level = 0; level < LEVELS; level++) {
-		for (int n = 0; n < levelBoxes[level].size(); n++) {
+		for (unsigned int n = 0; n < levelBoxes[level].size(); n++) {
 			Box & b = levelBoxes[level][n];
 			if (!b.isTerminated()) {
 				b.update();

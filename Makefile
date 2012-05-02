@@ -1,13 +1,13 @@
-INCLUDES = -I"GUI" -I"$(FLTK)"
+INCLUDES = -I"$(FLTK)" -I/usr/local/include
 CC            = gcc
 CXX           = g++
 DEFINES       = 
-CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT $(DEFINES)
-CXXFLAGS      = $(INCLUDES) -Wall -time -O3 -DEBUG -ggdb
+CFLAGS        = -pipe -Wall -W -D_REENTRANT $(DEFINES)
+CXXFLAGS      = $(INCLUDES) -O3 -Wall -time -DEBUG -ggdb
 INCPATH       = -IGUI -I.
 LINK          = g++
-LFLAGS        = -L "GUI" -Wl,-O1
-LIBS          = -lstdc++ -lbookgui -lfltk -lfltk_images
+LFLAGS        = -Wl,-O1 -L/usr/local/lib -lfltk -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11
+LIBS          = -lstdc++  -lfltk 
 AR            = ar cqs
 RANLIB        = 
 TAR           = tar -cf
@@ -36,6 +36,7 @@ OBJECTS_DIR   = ./
 SOURCES = \
 		Main.cpp \
 		TabletView.cpp \
+		TabletController.cpp \
 		Animation.cpp \
 		Box.cpp \
 		Tablet.cpp 
@@ -43,6 +44,7 @@ SOURCES = \
 OBJECTS = \
 		Main.o \
 		TabletView.o \
+		TabletController.o\
 		Animation.o \
 		Box.o \
 		Tablet.o 
@@ -84,10 +86,11 @@ clean:
 
 ####### Compile
 
-Main.o: Main.cpp Tablet.h \
-		Box.h \
-		Animation.h
+Main.o: Main.cpp TabletController.h 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Main.o Main.cpp
+
+TabletController.o: TabletController.cpp TabletController.h TabletView.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TabletController.o TabletController.cpp
 
 TabletView.o: TabletView.cpp TabletView.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TabletView.o TabletView.cpp

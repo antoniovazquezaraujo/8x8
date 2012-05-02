@@ -39,12 +39,12 @@ public:
 	void grow(int deltaHeight, int deltaWidth);
 private:
 
-	unsigned char r, g, b;
-	bool filled;
 	int row, col, height, width;
+	bool filled;
+	unsigned char r, g, b;
 	int times, actualTimes;
 	vector<Animation> animations;
-	int actualAnimation;
+	unsigned int actualAnimation;
 	int numAnimation;
 	bool terminated;
 	bool allFinished;

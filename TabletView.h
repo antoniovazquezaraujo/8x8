@@ -13,7 +13,7 @@
 #include <math.h>
 #include "Tablet.h" 
 using namespace std;
-
+class TabletController;
 #ifndef WIN32
 #  include <unistd.h>
 #  include <sys/time.h>
@@ -25,7 +25,7 @@ const double DRAW_TIME=0.025;
 class TabletView : public Fl_Double_Window {
 public:
 
-	TabletView(Tablet & t);
+	TabletView(Tablet & t, TabletController * controller);
 	~TabletView();
 	int	  handle(int event);
 
@@ -39,7 +39,7 @@ private:
 	void  onRelease(int x, int y);
 	void  setup();
 	static void	timeout_cb(TabletView *bw);
-
+	TabletController * controller;
 };
 
 #endif

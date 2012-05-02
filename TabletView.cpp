@@ -1,12 +1,12 @@
 #include "TabletView.h" 
+#include "TabletController.h" 
 
-TabletView::TabletView(Tablet & tablet)
+TabletView::TabletView(Tablet & tablet, TabletController * controller)
 	: Fl_Double_Window(20,20,640,640,"8x8"),
 	tablet(tablet){
 	end();
 	setup();
 }
-
 
 TabletView::~TabletView() {
 	Fl::remove_timeout((Fl_Timeout_Handler)timeout_cb, (void *)this);
@@ -19,10 +19,13 @@ void TabletView::setup() {
 }
 
 void TabletView::onClick(int col, int row) {
+	controller->onClick(row, col);
 }
 void TabletView::onDrag(int col, int row) {
+	controller->onDrag(row, col);
 }
 void TabletView::onRelease(int col, int row) {
+	controller->onRelease(row, col);
 }
 
 
