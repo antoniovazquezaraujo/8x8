@@ -33,22 +33,20 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES = \
-		Main.cpp \
-		TabletView.cpp \
-		TabletController.cpp \
-		Animation.cpp \
+SOURCES = Animation.cpp \
 		Box.cpp \
+		FltkMain.cpp \
+		FltkTabletController.cpp \
+		FltkTabletView.cpp \
 		Tablet.cpp 
-
-OBJECTS = \
-		Main.o \
-		TabletView.o \
-		TabletController.o\
-		Animation.o \
+OBJECTS = Animation.o \
 		Box.o \
-		Tablet.o 
+		FltkMain.o \
+		FltkTabletController.o \
+		FltkTabletView.o \
+		Tablet.o
 
+QMAKE_TARGET  = 8x8
 DESTDIR       = 
 TARGET        = 8x8
 
@@ -74,26 +72,29 @@ first: all
 
 ####### Build rules
 
-all: $(TARGET)
+all: Makefile $(TARGET)
 
 $(TARGET):  $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
-clean:
+dist: 
+	@$(CHK_DIR_EXISTS) .tmp/8x81.0.0 || $(MKDIR) .tmp/8x81.0.0 
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/8x81.0.0/ && $(COPY_FILE) --parents Animation.h Box.h FltkTabletController.h FltkTabletView.h MoTabletController.h MoTabletView.h Tablet.h .tmp/8x81.0.0/ && $(COPY_FILE) --parents Animation.cpp Box.cpp FltkMain.cpp FltkTabletController.cpp FltkTabletView.cpp MoMain.cpp MoTabletController.cpp MoTabletView.cpp Tablet.cpp .tmp/8x81.0.0/ && (cd `dirname .tmp/8x81.0.0` && $(TAR) 8x81.0.0.tar 8x81.0.0 && $(COMPRESS) 8x81.0.0.tar) && $(MOVE) `dirname .tmp/8x81.0.0`/8x81.0.0.tar.gz . && $(DEL_FILE) -r .tmp/8x81.0.0
+
+
+clean:compiler_clean 
 	-$(DEL_FILE) $(OBJECTS)
 	-$(DEL_FILE) *~ core *.core
 
 
+####### Sub-libraries
+
+distclean: clean
+	-$(DEL_FILE) $(TARGET) 
+	-$(DEL_FILE) Makefile
+
+
 ####### Compile
-
-Main.o: Main.cpp TabletController.h 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Main.o Main.cpp
-
-TabletController.o: TabletController.cpp TabletController.h TabletView.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TabletController.o TabletController.cpp
-
-TabletView.o: TabletView.cpp TabletView.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TabletView.o TabletView.cpp
 
 Animation.o: Animation.cpp Animation.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Animation.o Animation.cpp
@@ -102,9 +103,37 @@ Box.o: Box.cpp Box.h \
 		Animation.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Box.o Box.cpp
 
+FltkMain.o: FltkMain.cpp FltkTabletController.h \
+		FltkTabletView.h \
+		Tablet.h \
+		Box.h \
+		Animation.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FltkMain.o FltkMain.cpp
+
+FltkTabletController.o: FltkTabletController.cpp FltkTabletController.h \
+		FltkTabletView.h \
+		Tablet.h \
+		Box.h \
+		Animation.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FltkTabletController.o FltkTabletController.cpp
+
+FltkTabletView.o: FltkTabletView.cpp FltkTabletView.h \
+		Tablet.h \
+		Box.h \
+		Animation.h \
+		FltkTabletController.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FltkTabletView.o FltkTabletView.cpp
+
 Tablet.o: Tablet.cpp Tablet.h \
 		Box.h \
 		Animation.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Tablet.o Tablet.cpp
 
+####### Install
+
+install:   FORCE
+
+uninstall:   FORCE
+
+FORCE:
 
