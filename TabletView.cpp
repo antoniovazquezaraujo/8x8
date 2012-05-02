@@ -2,35 +2,27 @@
 #include "TabletController.h" 
 
 TabletView::TabletView(Tablet & tablet, TabletController * controller)
-	: Fl_Double_Window(20,20,640,640,"8x8"),
-	tablet(tablet),
+	:tablet(tablet),
 	controller(controller){
-	end();
-	setup();
+	MAExtent scrSize = maGetScrSize();
+	screenWidth = EXTENT_X(scrSize);
+	screenHeight = EXTENT_Y(scrSize);
+	blockSize = screenWidth<screenHeight?screenWidth/COLS:screenHeight/COLS;
+	addTimer(this, TIMER_PERIOD, 0);
+
+	maSetColor(0);
+	maFillRect(0, 0, screenWidth, screenHeight);
+	maUpdateScreen();
 }
 
 TabletView::~TabletView() {
-	Fl::remove_timeout((Fl_Timeout_Handler)timeout_cb, (void *)this);
-}
 
-void TabletView::setup() {
-	Fl::add_timeout(DRAW_TIME, (Fl_Timeout_Handler)timeout_cb, (void *)this);
-	srand(time(NULL));
-	redraw();
-}
-
-void TabletView::onClick(int col, int row) {
-	controller->onClick(row, col);
-}
-void TabletView::onDrag(int col, int row) {
-	controller->onDrag(row, col);
-}
-void TabletView::onRelease(int col, int row) {
-	controller->onRelease(row, col);
 }
 
 
-void TabletView::draw() {
+
+
+void TabletView::runTimerEvent() {
 	tablet.update();
 	ColorField &f = tablet.getColorField();
 	for (int col= 0; col< COLS; col++ ){
@@ -41,39 +33,38 @@ void TabletView::draw() {
 				g+= f[level][col][row][1];
 				b+= f[level][col][row][2];
 			}
-			fl_color(r,g,b);
-			fl_rectf( 
-				row*BLOCK_SIZE, 
-				col*BLOCK_SIZE, 
-				BLOCK_SIZE, 
-				BLOCK_SIZE
-			);
+			maSetColor((r<<16)|(g<<8)|b);
+			maFillRect(
+					col*blockSize,
+					row*blockSize,
+					blockSize,
+					blockSize);
+
 		}
 	}
+	maUpdateScreen();
 }
-
-int TabletView::handle(int event) {
-	if (Fl_Double_Window::handle(event)){
-		return (1);
-	} 
-	int col = Fl::event_x() / BLOCK_SIZE;
-	int row = Fl::event_y() / BLOCK_SIZE;
-	switch (event) {
-	case FL_PUSH :
-		onClick(col, row);
-		break;
-	case FL_DRAG:
-		onDrag(col, row);
-		break;
-	case FL_RELEASE:
-		onRelease(col, row);
-		break;
+void TabletView::keyPressEvent(int keyCode, int nativeCode) {
+	switch(keyCode) {
+		case MAK_FIRE:
+			break;
+		case MAK_SOFTRIGHT:
+		case MAK_0:
+		case MAK_BACK:
+			maExit(0);
+		default:
+			break;
 	}
-	return (0);
+}
+void TabletView::pointerPressEvent(MAPoint2d p) {
+	controller->onClick(p.x/blockSize, p.y/blockSize);
+}
+void TabletView::pointerMoveEvent(MAPoint2d p) {
+	controller->onDrag(p.x/blockSize, p.y/blockSize);
+}
+void TabletView::pointerReleaseEvent(MAPoint2d p) {
+	controller->onRelease(p.x/blockSize, p.y/blockSize);
 }
 
-void TabletView::timeout_cb(TabletView *bw) {
-	bw->redraw();
-	Fl::repeat_timeout(DRAW_TIME, (Fl_Timeout_Handler)timeout_cb, (void *)bw);
-}
+
 

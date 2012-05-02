@@ -1,10 +1,7 @@
 #ifndef TABLET_H_
 #define TABLET_H_
-#include <cstdlib>
-#include <iostream>
-#include <iomanip>
+#include <stdlib.h>
 #include <vector>
-#include <cassert>
 #include "Box.h"
 using namespace std;
 

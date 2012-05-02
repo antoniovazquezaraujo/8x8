@@ -1,8 +1,7 @@
 #include "TabletController.h"
 TabletController::TabletController()
 	:view(new TabletView(tablet, this)){
-	Fl::scheme("plastic");
-	Fl::visible_focus(0);
+
 }
 void TabletController::setup(){
 	for (int col = 0; col < COLS; col++) {
@@ -13,8 +12,8 @@ void TabletController::setup(){
 	}
 }
 void TabletController::start(){
-	view->show();
-	(Fl::run());
+	Moblet::run(view);
+
 }
 void TabletController::end(){
 

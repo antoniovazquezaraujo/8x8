@@ -1,45 +1,51 @@
 #ifndef TABLET_VIEW_H
 #define TABLET_VIEW_H
-#include <FL/Fl.H>
-#include <FL/Fl_Double_Window.H>
-#include <FL/Fl_Button.H>
-#include <FL/Fl_Preferences.H>
-#include <FL/fl_draw.H>
-#include <FL/x.H>
-#include <iostream>
+
+#include <conprint.h>
+#include <MAUtil/Environment.h>
+#include <MAUtil/Moblet.h>
+#include <madmath.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include <math.h>
-#include "Tablet.h" 
-using namespace std;
-class TabletController;
 #ifndef WIN32
 #  include <unistd.h>
 #  include <sys/time.h>
 #endif // !WIN32
 
-const int BLOCK_SIZE=80;
-const double DRAW_TIME=0.025;
+#include "Tablet.h"
 
-class TabletView : public Fl_Double_Window {
+using namespace MAUtil;
+using namespace std;
+
+#ifdef MA_PROF_SUPPORT_STYLUS
+#define MESSAGE "Tap screen to bounce"
+#else
+#define MESSAGE "Press fire to bounce"
+#endif
+
+#define TIMER_PERIOD 20
+const int BLOCK_SIZE=80;
+
+class TabletController;
+class TabletView :  public Moblet, public TimerListener{
 public:
 
 	TabletView(Tablet & t, TabletController * controller);
 	~TabletView();
-	int	  handle(int event);
-
-protected:
-	void  draw();
 
 private:
 	Tablet & tablet;
-	void  onClick(int col, int row);
-	void  onDrag(int col, int row);
-	void  onRelease(int col, int row);
-	void  setup();
-	static void	timeout_cb(TabletView *bw);
+	void runTimerEvent();
+	void keyPressEvent(int keyCode, int nativeCode);
+	virtual void pointerPressEvent(MAPoint2d p);
+	virtual void pointerMoveEvent(MAPoint2d p);
+	virtual void pointerReleaseEvent(MAPoint2d p) ;
 	TabletController * controller;
+	int screenWidth;
+	int screenHeight;
+	int blockSize;
 };
 
 #endif

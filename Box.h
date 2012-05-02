@@ -1,10 +1,8 @@
 #ifndef BOX_H_
 #define BOX_H_
 
-#include <cstdlib>
-#include <iostream>
+#include <stdlib.h>
 #include <vector>
-#include <cassert>
 #include "Animation.h"
 using namespace std;
 class Box {
@@ -49,7 +47,7 @@ private:
 	bool terminated;
 	bool allFinished;
 	bool stopped;
-	friend ostream & operator<<(ostream & o, const Box & b);
+
 };
 
 #endif
