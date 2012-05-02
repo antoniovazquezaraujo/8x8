@@ -20,6 +20,11 @@ void TabletController::end(){
 
 }
 void TabletController::onClick(int col, int row){
+}
+void TabletController::onRelease(int col, int row){
+
+}
+void TabletController::onDrag(int col, int row){
 	tablet.addBox(1, col,row, 1, 1);
 	tablet.lastBox(1).setColor(0,0,0);
 	unsigned char r    = rand()%255;
@@ -29,10 +34,4 @@ void TabletController::onClick(int col, int row){
 	int time = 10 + rand()%200; 
 	tablet.lastBox(1).addAnimation(r,x,g,x,b,x,time);
 	tablet.lastBox(1).start();
-}
-void TabletController::onRelease(int col, int row){
-
-}
-void TabletController::onDrag(int col, int row){
-
 }
