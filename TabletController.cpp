@@ -5,26 +5,10 @@ TabletController::TabletController()
 	Fl::visible_focus(0);
 }
 void TabletController::setup(){
-	int time = 60;
-	for (int row = 0; row < 8; row++) {
-		for (int col = 0; col < 8; col++) {
-			tablet.addBox(0, row, col, 1, 1);
-			tablet.lastBox(0).setColor(0,0,0);
-			unsigned char r    = col*32;
-			unsigned char g    = row*32;
-			unsigned char b    = row*16+col*16;
-			unsigned char x    = 0; 
-			tablet.lastBox(0).addAnimation(r,x,g,x,b,x,time);
-			for(int n=0; n<100; n++){
-				unsigned char r    = rand()%255;
-				unsigned char g    = r/2; 
-				unsigned char b    = 255-g; 
-				unsigned char x    = rand()%255; 
-				time = 10 + rand()%200; 
-				tablet.lastBox(0).addAnimation(r,x,g,x,b,x,time);
-				tablet.lastBox(0).addAnimation(x,r,x,g,x,b,time);
-			}
-			tablet.lastBox(0).start();
+	for (int col = 0; col < COLS; col++) {
+		for (int row = 0; row < ROWS; row++) {
+			tablet.addBox(0, col, row, 1, 1);
+			tablet.lastBox(0).setColor(col*32, 32, 16);
 		}
 	}
 }
@@ -35,12 +19,20 @@ void TabletController::start(){
 void TabletController::end(){
 
 }
-void TabletController::onClick(int row, int col){
+void TabletController::onClick(int col, int row){
+	tablet.addBox(1, col,row, 1, 1);
+	tablet.lastBox(1).setColor(0,0,0);
+	unsigned char r    = rand()%255;
+	unsigned char g    = rand()%255; 
+	unsigned char b    = rand()%255; 
+	unsigned char x    = rand()%255; 
+	int time = 10 + rand()%200; 
+	tablet.lastBox(1).addAnimation(r,x,g,x,b,x,time);
+	tablet.lastBox(1).start();
+}
+void TabletController::onRelease(int col, int row){
 
 }
-void TabletController::onRelease(int row, int col){
-
-}
-void TabletController::onDrag(int row, int col){
+void TabletController::onDrag(int col, int row){
 
 }

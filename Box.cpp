@@ -33,8 +33,8 @@ void Box::test(){
 	}
 }
 */
-Box::Box(int row , int col, int height, int width, bool filled) :
-		row(row), col(col), height(height), width(width), filled(filled) {
+Box::Box(int col, int row, int width, int height, bool filled) :
+		col(col), row(row), width(width), height(height), filled(filled) {
 	r = g = b = 0;
 	times = 0;
 	actualTimes = 0;
@@ -153,14 +153,14 @@ void Box::show(){
 void Box::fill(bool filled){
 
 }
-void Box::move(int deltaRow, int deltaCol) {
-	row += deltaRow;
+void Box::move(int deltaCol, int deltaRow) {
 	col += deltaCol;
+	row += deltaRow;
 }
-void Box::setPos(int row, int col) {
-	this->row = row;
+void Box::setPos(int col, int row) {
 	this->col = col;
+	this->row = row;
 }
-void Box::grow(int deltaHeight, int deltaWidth){
+void Box::grow(int deltaWidth,int deltaHeight ){
 
 }

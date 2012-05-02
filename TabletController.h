@@ -7,9 +7,9 @@ public:
 	void setup();
 	void start();
 	void end();
-	void onClick(int row, int col);
-	void onRelease(int row, int col);
-	void onDrag(int row, int col);
+	void onClick(int col, int row);
+	void onRelease(int col, int row);
+	void onDrag(int col, int row);
 private:
 	Tablet tablet;
 	TabletView * view;

@@ -10,7 +10,7 @@ using namespace std;
 class Box {
 public:
 	static void test();
-	Box(int row = 0, int col = 0, int height = 1, int width = 1, bool filled=true);
+	Box(int col = 0, int row = 0, int width= 1, int height= 1, bool filled=true);
 	void setColor(unsigned char r, unsigned char g, unsigned char b);
 
 	unsigned char getR();
@@ -39,7 +39,7 @@ public:
 	void grow(int deltaHeight, int deltaWidth);
 private:
 
-	int row, col, height, width;
+	int col, row, width, height;  
 	bool filled;
 	unsigned char r, g, b;
 	int times, actualTimes;

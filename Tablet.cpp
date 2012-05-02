@@ -13,11 +13,11 @@ Tablet::Tablet() {
 }
 void Tablet::reset() {
 	for (int level = 0; level < LEVELS; level++) {
-		for (int row = 0; row < ROWS; row++) {
-			for (int col = 0; col < COLS; col++) {
-				colorField[level][row][col][0] = 0;
-				colorField[level][row][col][1] = 0;
-				colorField[level][row][col][2] = 0;
+		for (int col = 0; col < COLS; col++) {
+			for (int row = 0; row < ROWS; row++) {
+				colorField[level][col][row][0] = 0;
+				colorField[level][col][row][1] = 0;
+				colorField[level][col][row][2] = 0;
 			}
 		}
 		vector<Box>::iterator actualBox = levelBoxes[level].begin();
@@ -26,9 +26,9 @@ void Tablet::reset() {
 		}
 	}
 }
-void Tablet::addBox(int level, int row, int col, int height, int width,
+void Tablet::addBox(int level, int col, int row, int width, int height,
 		bool filled) {
-	levelBoxes[level].push_back(Box(row, col, height, width));
+	levelBoxes[level].push_back(Box(col, row, width, height));
 }
 Box & Tablet::box(int level, int n) {
 	return levelBoxes[level][n];
@@ -46,11 +46,11 @@ void Tablet::update() {
 			if (!b.isTerminated()) {
 				b.update();
 			}
-			for (int row = b.getRow(); row < b.getRow() + b.getHeight(); row++) {
-				for (int col = b.getCol(); col < b.getCol() + b.getWidth(); col++) {
-					colorField[level][row][col][0] = b.getR();
-					colorField[level][row][col][1] = b.getG();
-					colorField[level][row][col][2] = b.getB();
+			for (int col = b.getCol(); col < b.getCol() + b.getWidth(); col++) {
+				for (int row = b.getRow(); row < b.getRow() + b.getHeight(); row++) {
+					colorField[level][col][row][0] = b.getR();
+					colorField[level][col][row][1] = b.getG();
+					colorField[level][col][row][2] = b.getB();
 				}
 			}
 		}

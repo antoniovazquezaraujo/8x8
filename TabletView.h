@@ -34,9 +34,9 @@ protected:
 
 private:
 	Tablet & tablet;
-	void  onClick(int x, int y);
-	void  onDrag(int x, int y);
-	void  onRelease(int x, int y);
+	void  onClick(int col, int row);
+	void  onDrag(int col, int row);
+	void  onRelease(int col, int row);
 	void  setup();
 	static void	timeout_cb(TabletView *bw);
 	TabletController * controller;
