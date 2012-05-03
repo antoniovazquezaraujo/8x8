@@ -1,8 +1,8 @@
 #include "MoTabletView.h" 
 #include "MoTabletController.h" 
 
-MoTabletView::MoTabletView(Tablet & tablet, MoTabletController * controller)
-	:tablet(tablet),
+MoTabletView::MoTabletView(TabletModel & model, MoTabletController * controller)
+	:model(model),
 	controller(controller){
 	MAExtent scrSize = maGetScrSize();
 	screenWidth = EXTENT_X(scrSize);
@@ -23,8 +23,8 @@ MoTabletView::~MoTabletView() {
 
 
 void MoTabletView::runTimerEvent() {
-	tablet.update();
-	ColorField &f = tablet.getColorField();
+	model.update();
+	ColorField &f = model.getColorField();
 	for (int col= 0; col< COLS; col++ ){
 		for (int row = 0; row< ROWS; row++ ){
 			unsigned char r=0,g=0,b=0;

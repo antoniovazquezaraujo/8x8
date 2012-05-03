@@ -4,6 +4,7 @@ public:
 	void pause();
 	void stop();
 	void reset();
+	void drawRect( int level, Rect rect, Color color, bool filled = false);
 	void addBox(int level, int col, int row, int width, int height, bool filled = false);
 	Box & box(int level, int n);
 	void start(Box & box, int turns=-1, int numAnimation = -1);
@@ -19,9 +20,56 @@ public:
 			int time
 			);
 	Box & lastBox(int level);
-	void onClick(int col, int row);
-	void onDoubleClick(int col, int row);
-	void onDrag(int col, int row);
 	Color getColor(int col, int row);
 	void setColor(int col, int row,int width, int height, Color color);
 };
+class FltkTabletGame:public TabletGame{
+
+};
+class MoTabletGame: public TabletGame{
+
+};
+
+class TabletEventListener{
+public:
+	virtual void onClick(int col, int row)=0;
+	virtual void onDoubleClick(int col, int row)=0;
+	virtual void onRelease(int col, int row)=0;
+	virtual void onDrag(int col, int row)=0;
+};
+
+class MyGame: public TabletEventListener{
+public:
+	MyGame()
+		:game(new FltkTabletGame(this)){ 
+		setup();
+	}
+	~MyGame(){
+		delete game;
+	}
+	void start(){
+		game->start();
+	}
+	void setup(){
+
+	}
+	void onClick(int col, int row){
+
+	}
+	void onDoubleClick(int col, int row){
+
+	}
+	void onRelease(int col, int row){
+
+	}
+	void onDrag(int col, int row){
+
+	}
+private:
+	TabletGame * game;
+};
+
+int main(){
+	MyGame g();
+	g.start();
+}

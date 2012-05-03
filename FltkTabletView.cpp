@@ -1,9 +1,9 @@
 #include "FltkTabletView.h" 
 #include "FltkTabletController.h" 
 
-FltkTabletView::FltkTabletView(Tablet & tablet, FltkTabletController * controller)
+FltkTabletView::FltkTabletView(TabletModel & model, FltkTabletController * controller)
 	: Fl_Double_Window(20,20,640,640,"8x8"),
-	tablet(tablet),
+	model(model),
 	controller(controller){
 	end();
 	setup();
@@ -31,8 +31,8 @@ void FltkTabletView::onRelease(int col, int row) {
 
 
 void FltkTabletView::draw() {
-	tablet.update();
-	ColorField &f = tablet.getColorField();
+	model.update();
+	ColorField &f = model.getColorField();
 	for (int col= 0; col< COLS; col++ ){
 		for (int row = 0; row< ROWS; row++ ){
 			unsigned char r=0,g=0,b=0;

@@ -11,7 +11,7 @@
 #include <string.h>
 #include <time.h>
 #include <math.h>
-#include "Tablet.h" 
+#include "TabletModel.h" 
 using namespace std;
 class FltkTabletController;
 #ifndef WIN32
@@ -25,7 +25,7 @@ const double DRAW_TIME=0.025;
 class FltkTabletView : public Fl_Double_Window {
 public:
 
-	FltkTabletView(Tablet & t, FltkTabletController * controller);
+	FltkTabletView(TabletModel & t, FltkTabletController * controller);
 	~FltkTabletView();
 	int	  handle(int event);
 
@@ -33,7 +33,7 @@ protected:
 	void  draw();
 
 private:
-	Tablet & tablet;
+	TabletModel & model;
 	void  onClick(int col, int row);
 	void  onDrag(int col, int row);
 	void  onRelease(int col, int row);

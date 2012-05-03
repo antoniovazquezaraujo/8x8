@@ -38,13 +38,13 @@ SOURCES = Animation.cpp \
 		FltkMain.cpp \
 		FltkTabletController.cpp \
 		FltkTabletView.cpp \
-		Tablet.cpp 
+		TabletModel.cpp 
 OBJECTS = Animation.o \
 		Box.o \
 		FltkMain.o \
 		FltkTabletController.o \
 		FltkTabletView.o \
-		Tablet.o
+		TabletModel.o
 
 QMAKE_TARGET  = 8x8
 DESTDIR       = 
@@ -77,11 +77,6 @@ all: Makefile $(TARGET)
 $(TARGET):  $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
-dist: 
-	@$(CHK_DIR_EXISTS) .tmp/8x81.0.0 || $(MKDIR) .tmp/8x81.0.0 
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/8x81.0.0/ && $(COPY_FILE) --parents Animation.h Box.h FltkTabletController.h FltkTabletView.h MoTabletController.h MoTabletView.h Tablet.h .tmp/8x81.0.0/ && $(COPY_FILE) --parents Animation.cpp Box.cpp FltkMain.cpp FltkTabletController.cpp FltkTabletView.cpp MoMain.cpp MoTabletController.cpp MoTabletView.cpp Tablet.cpp .tmp/8x81.0.0/ && (cd `dirname .tmp/8x81.0.0` && $(TAR) 8x81.0.0.tar 8x81.0.0 && $(COMPRESS) 8x81.0.0.tar) && $(MOVE) `dirname .tmp/8x81.0.0`/8x81.0.0.tar.gz . && $(DEL_FILE) -r .tmp/8x81.0.0
-
-
 clean:
 	-$(DEL_FILE) $(OBJECTS)
 	-$(DEL_FILE) *~ core *.core
@@ -107,29 +102,29 @@ Box.o: Box.cpp Box.h \
 
 FltkMain.o: FltkMain.cpp FltkTabletController.h \
 		FltkTabletView.h \
-		Tablet.h \
+		TabletModel.h \
 		Box.h \
 		Animation.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FltkMain.o FltkMain.cpp
 
 FltkTabletController.o: FltkTabletController.cpp FltkTabletController.h \
 		FltkTabletView.h \
-		Tablet.h \
+		TabletModel.h \
 		Box.h \
 		Animation.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FltkTabletController.o FltkTabletController.cpp
 
 FltkTabletView.o: FltkTabletView.cpp FltkTabletView.h \
-		Tablet.h \
+		TabletModel.h \
 		Box.h \
 		Animation.h \
 		FltkTabletController.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FltkTabletView.o FltkTabletView.cpp
 
-Tablet.o: Tablet.cpp Tablet.h \
+TabletModel.o: TabletModel.cpp TabletModel.h \
 		Box.h \
 		Animation.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Tablet.o Tablet.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TabletModel.o TabletModel.cpp
 
 ####### Install
 

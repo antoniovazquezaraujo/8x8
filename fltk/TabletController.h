@@ -1,9 +1,9 @@
 #ifndef TABLET_CONTROLLER_H
 #define TABLET_CONTROLLER_H
-#include "FltkTabletView.h"
-class FltkTabletController{
+#include "TabletView.h"
+class TabletController{
 public:
-	FltkTabletController();
+	TabletController();
 	void setup();
 	void start();
 	void end();
@@ -11,10 +11,7 @@ public:
 	void onRelease(int col, int row);
 	void onDrag(int col, int row);
 private:
-	TabletModel model;
-	FltkTabletView * view;
-//Provisional...
-	Rect * rect;
-	Color color;
+	Tablet tablet;
+	TabletView * view;
 };
 #endif

@@ -1,6 +1,6 @@
 #include "FltkTabletController.h"
 FltkTabletController::FltkTabletController()
-	:view(new FltkTabletView(tablet, this)){
+	:view(new FltkTabletView(model, this)){
 	Fl::scheme("plastic");
 	Fl::visible_focus(0);
 	//provisional
@@ -10,8 +10,8 @@ void FltkTabletController::setup(){
 	return;
 	for (int col = 0; col < COLS; col++) {
 		for (int row = 0; row < ROWS; row++) {
-			tablet.addBox(0, col, row, 1, 1);
-			tablet.lastBox(0).setColor(col*32, 32, 16);
+			model.addBox(0, col, row, 1, 1);
+			model.lastBox(0).setColor(col*32, 32, 16);
 		}
 	}
 }
@@ -28,7 +28,7 @@ void FltkTabletController::onClick(int col, int row){
 	}
 	rect = new Rect(col, row,0,0);
 	color.rnd();
-	tablet.drawRect(1,*rect, color, false);
+	model.drawRect(1,*rect, color, false);
 }
 void FltkTabletController::onRelease(int col, int row){
 	if(rect){
@@ -49,10 +49,10 @@ void FltkTabletController::onDrag(int col, int row){
 	if(rect->col == col && rect->row == row){
 		return;
 	}
-	tablet.drawRect(1,*rect, Color(0,0,0), false);
+	model.drawRect(1,*rect, Color(0,0,0), false);
 	rect->width = col- rect->col;
 	rect->height= row - rect->row;
 	if(rect->width<0) rect->width=0;
 	if(rect->height<0) rect->height=0;
-	tablet.drawRect(1,*rect, color, false);
+	model.drawRect(1,*rect, color, false);
 }

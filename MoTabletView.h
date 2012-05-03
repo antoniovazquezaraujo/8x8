@@ -14,7 +14,7 @@
 #  include <sys/time.h>
 #endif // !WIN32
 
-#include "Tablet.h"
+#include "TabletModel.h"
 
 using namespace MAUtil;
 using namespace std;
@@ -32,11 +32,11 @@ class MoTabletController;
 class MoTabletView :  public Moblet, public TimerListener{
 public:
 
-	MoTabletView(Tablet & t, MoTabletController * controller);
+	MoTabletView(TabletModel & model, MoTabletController * controller);
 	~MoTabletView();
 
 private:
-	Tablet & tablet;
+	TabletModel & model;
 	void runTimerEvent();
 	void keyPressEvent(int keyCode, int nativeCode);
 	virtual void pointerPressEvent(MAPoint2d p);

@@ -11,7 +11,7 @@ public:
 	void onRelease(int col, int row);
 	void onDrag(int col, int row);
 private:
-	Tablet tablet;
+	Tablet model;
 	MoTabletView * view;
 };
 #endif
