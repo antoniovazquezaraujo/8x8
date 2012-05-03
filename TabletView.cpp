@@ -19,6 +19,13 @@ void TabletView::setup() {
 }
 
 void TabletView::onClick(int col, int row) {
+	tablet.addBox(1, row/80, col/80, 1, 1);
+	tablet.lastBox(1).setColor(0,0,0);
+	int r    = rand()%255;
+	int x    = 0; 
+	tablet.lastBox(1).addAnimation(125,150,0,0,0,0,15);
+	tablet.lastBox(1).addAnimation(185,150,100,100,0,0,15);
+	tablet.lastBox(1).start();
 }
 void TabletView::onDrag(int col, int row) {
 }
@@ -52,17 +59,17 @@ int TabletView::handle(int event) {
 	if (Fl_Double_Window::handle(event)){
 		return (1);
 	} 
-	int x = w() - Fl::event_x() + BLOCK_SIZE;
-	int y = h() - Fl::event_y();
+	int col =  Fl::event_x() + BLOCK_SIZE;
+	int row =  Fl::event_y() + BLOCK_SIZE;
 	switch (event) {
 	case FL_PUSH :
-		onClick(x,y);
+		onClick(row, col);
 		break;
 	case FL_DRAG:
-		onDrag(x,y);
+		onDrag(row, col);
 		break;
 	case FL_RELEASE:
-		onRelease(x,y);
+		onRelease(row, col);
 		break;
 	}
 	return (0);
