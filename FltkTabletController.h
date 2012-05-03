@@ -13,5 +13,8 @@ public:
 private:
 	Tablet tablet;
 	FltkTabletView * view;
+//Provisional...
+	Rect * rect;
+	Color color;
 };
 #endif

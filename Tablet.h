@@ -9,11 +9,6 @@ using namespace std;
 const int LEVELS = 2;
 const int COLS = 8;
 const int ROWS = 8;
-struct Color{
-	unsigned char r;
-	unsigned char g;
-	unsigned char b;
-};
 //typedef unsigned char Cell [3]; //r, g, b
 typedef Color Col [ROWS];
 typedef Col Level [COLS];
@@ -26,8 +21,7 @@ public:
 	void reset();
 	void drawRect(
 		int level, 
-		int col, int row, 
-		int width, int height,
+		Rect rect,
 		Color color,
 		bool filled = false
 	);

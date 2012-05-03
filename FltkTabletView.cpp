@@ -58,6 +58,8 @@ int FltkTabletView::handle(int event) {
 	} 
 	int col = Fl::event_x() / BLOCK_SIZE;
 	int row = Fl::event_y() / BLOCK_SIZE;
+	if(col >= COLS) col=COLS-1;
+	if(row >= ROWS) row=ROWS-1;
 	switch (event) {
 	case FL_PUSH :
 		onClick(col, row);

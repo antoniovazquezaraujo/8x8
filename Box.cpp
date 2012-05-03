@@ -1,7 +1,7 @@
 #include "Box.h"
 
 Box::Box(int col, int row, int width, int height, bool filled) :
-		col(col), row(row), width(width), height(height), filled(filled) {
+		rect(col,row,width,height), filled(filled) {
 	r = g = b = 0;
 	times = 0;
 	actualTimes = 0;
@@ -26,16 +26,16 @@ unsigned char Box::getB() {
 }
 
 int Box::getRow() {
-	return row;
+	return rect.row;
 }
 int Box::getCol() {
-	return col;
+	return rect.col;
 }
 int Box::getHeight() {
-	return height;
+	return rect.height;
 }
 int Box::getWidth() {
-	return width;
+	return rect.width;
 }
 void Box::addAnimation(int fromR, int toR, int fromG, int toG, int fromB,
 		int toB, int time) {
@@ -121,12 +121,12 @@ void Box::fill(bool filled){
 
 }
 void Box::move(int deltaCol, int deltaRow) {
-	col += deltaCol;
-	row += deltaRow;
+	rect.col += deltaCol;
+	rect.row += deltaRow;
 }
 void Box::setPos(int col, int row) {
-	this->col = col;
-	this->row = row;
+	rect.col = col;
+	rect.row = row;
 }
 void Box::grow(int deltaWidth,int deltaHeight ){
 

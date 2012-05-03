@@ -1,5 +1,7 @@
 #include "Tablet.h"
 #include "Box.h"
+//provisional
+#include <iostream>
 void Tablet::test() {
 
 }
@@ -28,32 +30,31 @@ void Tablet::reset() {
 }
 void Tablet::drawRect(
 		int level, 
-		int c, int r, 
-		int width, int height,
+		Rect rect,
 		Color color,
 		bool filled 
 	){
-	for (int col = c;col < width; col++) {
-		colorField[level][col][r].r = color.r;
-		colorField[level][col][r].g = color.g;
-		colorField[level][col][r].b = color.b;
-		colorField[level][col][r+height].r = color.r;
-		colorField[level][col][r+height].g = color.g;
-		colorField[level][col][r+height].b = color.b;
+	for (int col = rect.col;col < rect.col+rect.width+1; col++) {
+		colorField[level][col][rect.row].r = color.r;
+		colorField[level][col][rect.row].g = color.g;
+		colorField[level][col][rect.row].b = color.b;
+		colorField[level][col][rect.row+rect.height].r = color.r;
+		colorField[level][col][rect.row+rect.height].g = color.g;
+		colorField[level][col][rect.row+rect.height].b = color.b;
 	}
-	for (int row = r; row < height; row++) {
-		colorField[level][c][row].r  = color.r;
-		colorField[level][c][row].g  = color.g;
-		colorField[level][c][row].b  = color.b;
-		colorField[level][c+width][row].r = color.r;
-		colorField[level][c+width][row].g = color.g;
-		colorField[level][c+width][row].b = color.b;
+	for (int row = rect.row; row < rect.row+rect.height+1; row++) {
+		colorField[level][rect.col][row].r  = color.r;
+		colorField[level][rect.col][row].g  = color.g;
+		colorField[level][rect.col][row].b  = color.b;
+		colorField[level][rect.col+rect.width][row].r = color.r;
+		colorField[level][rect.col+rect.width][row].g = color.g;
+		colorField[level][rect.col+rect.width][row].b = color.b;
 	}
 	if(!filled){
 		return;
 	}
-	for (int col = c+1;col < width-1; col++) {
-		for (int row = r+1; row < height-1; row++) {
+	for (int col = rect.col+1;col < rect.col+1+rect.width-1; col++) {
+		for (int row = rect.row+1; row < rect.row+1+rect.height-1; row++) {
 			colorField[level][col][row].r = color.r;
 			colorField[level][col][row].g = color.g;
 			colorField[level][col][row].b = color.b;

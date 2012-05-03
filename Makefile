@@ -100,7 +100,9 @@ Animation.o: Animation.cpp Animation.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Animation.o Animation.cpp
 
 Box.o: Box.cpp Box.h \
-		Animation.h
+		Animation.h \
+		Rect.h \
+		Color.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Box.o Box.cpp
 
 FltkMain.o: FltkMain.cpp FltkTabletController.h \

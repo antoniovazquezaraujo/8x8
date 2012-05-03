@@ -57,13 +57,26 @@ void MoTabletView::keyPressEvent(int keyCode, int nativeCode) {
 	}
 }
 void MoTabletView::pointerPressEvent(MAPoint2d p) {
-	controller->onClick(p.x/blockSize, p.y/blockSize);
+	int x = p.x/blockSize;
+	int y = p.y/blockSize;
+	if(x >= COLS) x = COLS -1;
+	if(y >= ROWS) y = ROWS -1;
+	
+	controller->onClick(x,y);
 }
 void MoTabletView::pointerMoveEvent(MAPoint2d p) {
-	controller->onDrag(p.x/blockSize, p.y/blockSize);
+	int x = p.x/blockSize;
+	int y = p.y/blockSize;
+	if(x >= COLS) x = COLS -1;
+	if(y >= ROWS) y = ROWS -1;
+	controller->onDrag(x,y);
 }
 void MoTabletView::pointerReleaseEvent(MAPoint2d p) {
-	controller->onRelease(p.x/blockSize, p.y/blockSize);
+	int x = p.x/blockSize;
+	int y = p.y/blockSize;
+	if(x >= COLS) x = COLS -1;
+	if(y >= ROWS) y = ROWS -1;
+	controller->onRelease(x,y);
 }
 
 

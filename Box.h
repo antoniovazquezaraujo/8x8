@@ -1,8 +1,9 @@
 #ifndef BOX_H_
 #define BOX_H_
-
 #include <stdlib.h>
 #include <vector>
+#include "Rect.h"
+#include "Color.h"
 #include "Animation.h"
 using namespace std;
 class Box {
@@ -37,7 +38,8 @@ public:
 	void grow(int deltaHeight, int deltaWidth);
 private:
 
-	int col, row, width, height;  
+	//int col, row, width, height;  
+	Rect rect;
 	bool filled;
 	unsigned char r, g, b;
 	int times, actualTimes;
