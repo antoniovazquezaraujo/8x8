@@ -37,9 +37,9 @@ void FltkTabletView::draw() {
 		for (int row = 0; row< ROWS; row++ ){
 			unsigned char r=0,g=0,b=0;
 			for (int level = 0; level < LEVELS; level++ ){
-				r+= f[level][col][row][0];
-				g+= f[level][col][row][1];
-				b+= f[level][col][row][2];
+				r+= f[level][col][row].r;
+				g+= f[level][col][row].g;
+				b+= f[level][col][row].b;
 			}
 			fl_color(r,g,b);
 			fl_rectf( 
