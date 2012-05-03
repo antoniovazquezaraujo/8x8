@@ -1,16 +1,14 @@
 #ifndef BOX_H_
 #define BOX_H_
 
-#include <cstdlib>
-#include <iostream>
+#include <stdlib.h>
 #include <vector>
-#include <cassert>
 #include "Animation.h"
 using namespace std;
 class Box {
 public:
 	static void test();
-	Box(int row = 0, int col = 0, int height = 1, int width = 1, bool filled=true);
+	Box(int col = 0, int row = 0, int width= 1, int height= 1, bool filled=true);
 	void setColor(unsigned char r, unsigned char g, unsigned char b);
 
 	unsigned char getR();
@@ -39,17 +37,17 @@ public:
 	void grow(int deltaHeight, int deltaWidth);
 private:
 
-	unsigned char r, g, b;
+	int col, row, width, height;  
 	bool filled;
-	int row, col, height, width;
+	unsigned char r, g, b;
 	int times, actualTimes;
 	vector<Animation> animations;
-	int actualAnimation;
+	unsigned int actualAnimation;
 	int numAnimation;
 	bool terminated;
 	bool allFinished;
 	bool stopped;
-	friend ostream & operator<<(ostream & o, const Box & b);
+
 };
 
 #endif

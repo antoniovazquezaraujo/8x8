@@ -28,12 +28,12 @@ using namespace std;
 #define TIMER_PERIOD 20
 const int BLOCK_SIZE=80;
 
-class TabletController;
-class TabletView :  public Moblet, public TimerListener{
+class MoTabletController;
+class MoTabletView :  public Moblet, public TimerListener{
 public:
 
-	TabletView(Tablet & t, TabletController * controller);
-	~TabletView();
+	MoTabletView(Tablet & t, MoTabletController * controller);
+	~MoTabletView();
 
 private:
 	Tablet & tablet;
@@ -42,7 +42,7 @@ private:
 	virtual void pointerPressEvent(MAPoint2d p);
 	virtual void pointerMoveEvent(MAPoint2d p);
 	virtual void pointerReleaseEvent(MAPoint2d p) ;
-	TabletController * controller;
+	MoTabletController * controller;
 	int screenWidth;
 	int screenHeight;
 	int blockSize;

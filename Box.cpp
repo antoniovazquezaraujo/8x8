@@ -1,38 +1,7 @@
 #include "Box.h"
-ostream & operator<<(ostream & o, const Box & b){
-	o << "Estado: --------------------" << endl;
-	o 
-	<< endl
-	<< " R: "       << (int) b.r 
-	<< " G: "       << (int) b.g
-	<< " B: "       << (int) b.b 
-	<<endl
-	<< " Times:"    << (int) b.times 
-	<< " aTimes: "  << (int) b.actualTimes 
-	<< " anim:"     << (int) b.numAnimation 
-	<< " aAnim:"    << (int) b.actualAnimation 
-	<< " allEnd: "  << (int) b.allFinished 
-	<< " termin: "  << (int) b.terminated 
-	<< endl
-	;
-	o << "Animacion actual: --------------------" << endl;
-	if(b.actualAnimation < b.animations.size()){
-		o << b.animations[b.actualAnimation];
-	}
-	o << "Fin de la animación: -----------------" << endl;
-	return o;
-}
-void Box::test(){
-	Box b(0,0,10,10);
-	b.addAnimation(0,255,10,0,100,0,3);
-	b.start(2);
-	while(!b.isTerminated()){
-		cout << b;
-		b.update();
-	}
-}
-Box::Box(int row , int col, int height, int width, bool filled) :
-		row(row), col(col), height(height), width(width), filled(filled) {
+
+Box::Box(int col, int row, int width, int height, bool filled) :
+		col(col), row(row), width(width), height(height), filled(filled) {
 	r = g = b = 0;
 	times = 0;
 	actualTimes = 0;
@@ -151,14 +120,14 @@ void Box::show(){
 void Box::fill(bool filled){
 
 }
-void Box::move(int deltaRow, int deltaCol) {
-	row += deltaRow;
+void Box::move(int deltaCol, int deltaRow) {
 	col += deltaCol;
+	row += deltaRow;
 }
-void Box::setPos(int row, int col) {
-	this->row = row;
+void Box::setPos(int col, int row) {
 	this->col = col;
+	this->row = row;
 }
-void Box::grow(int deltaHeight, int deltaWidth){
+void Box::grow(int deltaWidth,int deltaHeight ){
 
 }
