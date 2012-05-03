@@ -75,6 +75,15 @@ ColorField & TabletModel::getColorField(){
 	return colorField;
 }
 void TabletModel::update() {
+	for (int level = 1; level < LEVELS; level++) {
+		for (int col = 0; col < COLS; col++) {
+			for (int row = 0; row < ROWS; row++) {
+				colorField[level][col][row].r = 0;
+				colorField[level][col][row].g = 0;
+				colorField[level][col][row].b = 0;
+			}
+		}
+	}
 	for (int level = 0; level < LEVELS; level++) {
 		for (unsigned int n = 0; n < levelBoxes[level].size(); n++) {
 			Box & b = levelBoxes[level][n];

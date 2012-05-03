@@ -37,10 +37,31 @@ int Box::getHeight() {
 int Box::getWidth() {
 	return rect.width;
 }
+void Box::addSpaceAnimation (int fromCol , int toCol, int fromRow, int toRow,
+			int fromWidth, int toWidth, int fromHeight, int toHeight,  int time){
+	spaceAnimations.push_back(SpaceAnimation(fromCol, toCol, fromRow, toRow, fromWidth, toWidth, fromHeight, toHeight, time));
+	actualSpaceAnimation = 0;
+}
 void Box::addAnimation(int fromR, int toR, int fromG, int toG, int fromB,
 		int toB, int time) {
 	animations.push_back(Animation(fromR, toR, fromG, toG, fromB, toB, time));
 	actualAnimation = 0;
+}
+void Box::startSpaceAnimation(int numAnimation, int times){
+	stopped= false;
+	this->spaceTimes = times;
+	this->actualSpaceTimes = times;
+	spaceTerminated = false;
+	numSpaceAnimation = -1;
+	reset();
+}
+void Box::startSpaceAnimation(int times){
+	stopped= false;
+	this->spaceTimes = times;
+	this->actualSpaceTimes = times;
+	spaceTerminated = false;
+	numSpaceAnimation = -1;
+	reset();
 }
 void Box::start(int times ) {
 	stopped= false;
@@ -84,6 +105,23 @@ void Box::update() {
 		reset();
 		nextTurn();
 	}
+	if (actualSpaceAnimation < spaceAnimations.size()) {
+		if (!spaceAnimations[actualSpaceAnimation].isFinished()) {
+			spaceAnimations[actualSpaceAnimation].update();
+			setPos(spaceAnimations[actualSpaceAnimation].getRect(rect));
+			allSpaceFinished = false;
+		} else {
+			spaceAnimations[actualSpaceAnimation].reset();
+			if (numSpaceAnimation == -1) {
+				actualSpaceAnimation++;
+			}else{
+				nextSpaceTurn();
+			}
+		}
+	} else {
+		spaceReset();
+		nextSpaceTurn();
+	}
 }
 
 bool Box::isTerminated() {
@@ -103,6 +141,27 @@ void Box::nextTurn() {
 		}
 	}
 	allFinished = true;
+}
+void Box::nextSpaceTurn() {
+	if (actualSpaceTimes == -1) {
+		spaceTerminated = false;
+	} else {
+		if (actualSpaceTimes > 0) {
+			actualSpaceTimes--;
+			spaceTerminated = false;
+		} else {
+			actualSpaceTimes = spaceTimes;
+			spaceTerminated = true;
+		}
+	}
+	allSpaceFinished = true;
+}
+void Box::spaceReset() {
+	if (numSpaceAnimation != -1) {
+		actualSpaceAnimation = numSpaceAnimation;
+	} else {
+		actualSpaceAnimation = 0;
+	}
 }
 void Box::reset() {
 	if (numAnimation != -1) {
@@ -124,9 +183,8 @@ void Box::move(int deltaCol, int deltaRow) {
 	rect.col += deltaCol;
 	rect.row += deltaRow;
 }
-void Box::setPos(int col, int row) {
-	rect.col = col;
-	rect.row = row;
+void Box::setPos(Rect r) {
+	rect = r;
 }
 void Box::grow(int deltaWidth,int deltaHeight ){
 

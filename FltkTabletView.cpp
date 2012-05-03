@@ -20,13 +20,13 @@ void FltkTabletView::setup() {
 }
 
 void FltkTabletView::onClick(int col, int row) {
-	controller->onClick(row, col);
+	controller->onClick(col, row);
 }
 void FltkTabletView::onDrag(int col, int row) {
-	controller->onDrag(row, col);
+	controller->onDrag(col, row);
 }
 void FltkTabletView::onRelease(int col, int row) {
-	controller->onRelease(row, col);
+	controller->onRelease(col, row);
 }
 
 
@@ -43,8 +43,8 @@ void FltkTabletView::draw() {
 			}
 			fl_color(r,g,b);
 			fl_rectf( 
-				row*BLOCK_SIZE, 
 				col*BLOCK_SIZE, 
+				row*BLOCK_SIZE, 
 				BLOCK_SIZE, 
 				BLOCK_SIZE
 			);

@@ -34,12 +34,14 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES = Animation.cpp \
+		SpaceAnimation.cpp \
 		Box.cpp \
 		FltkMain.cpp \
 		FltkTabletController.cpp \
 		FltkTabletView.cpp \
 		TabletModel.cpp 
 OBJECTS = Animation.o \
+		SpaceAnimation.o \
 		Box.o \
 		FltkMain.o \
 		FltkTabletController.o \
@@ -94,36 +96,49 @@ distclean: clean
 Animation.o: Animation.cpp Animation.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Animation.o Animation.cpp
 
-Box.o: Box.cpp Box.h \
-		Animation.h \
-		Rect.h \
+SpaceAnimation.o: SpaceAnimation.cpp SpaceAnimation.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SpaceAnimation.o SpaceAnimation.cpp
+
+Box.o:	Box.cpp          \
+		Box.h            \
+		Animation.h      \
+		SpaceAnimation.h \
+		Rect.h           \
 		Color.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Box.o Box.cpp
 
-FltkMain.o: FltkMain.cpp FltkTabletController.h \
-		FltkTabletView.h \
-		TabletModel.h \
-		Box.h \
-		Animation.h
+FltkMain.o: FltkMain.cpp       \
+		FltkTabletController.h \
+		FltkTabletView.h       \
+		TabletModel.h          \
+		Box.h                  \
+		Animation.h            \
+		SpaceAnimation.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FltkMain.o FltkMain.cpp
 
-FltkTabletController.o: FltkTabletController.cpp FltkTabletController.h \
-		FltkTabletView.h \
-		TabletModel.h \
-		Box.h \
-		Animation.h
+FltkTabletController.o: FltkTabletController.cpp \
+		FltkTabletController.h                   \
+		FltkTabletView.h                         \
+		TabletModel.h                            \
+		Box.h                                    \
+		Animation.h                              \
+		SpaceAnimation.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FltkTabletController.o FltkTabletController.cpp
 
-FltkTabletView.o: FltkTabletView.cpp FltkTabletView.h \
-		TabletModel.h \
-		Box.h \
-		Animation.h \
+FltkTabletView.o: FltkTabletView.cpp \
+		FltkTabletView.h             \
+		TabletModel.h                \
+		Box.h                        \
+		Animation.h                  \
+		SpaceAnimation.h             \
 		FltkTabletController.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FltkTabletView.o FltkTabletView.cpp
 
-TabletModel.o: TabletModel.cpp TabletModel.h \
-		Box.h \
-		Animation.h
+TabletModel.o: TabletModel.cpp  \
+		TabletModel.h           \
+		Box.h                   \
+		Animation.h             \
+		SpaceAnimation.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TabletModel.o TabletModel.cpp
 
 ####### Install
