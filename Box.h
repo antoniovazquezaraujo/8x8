@@ -4,8 +4,9 @@
 #include <vector>
 #include "Rect.h"
 #include "Color.h"
-#include "Animation.h"
-#include "SpaceAnimation.h"
+#include "ColorChange.h"
+#include "PosChange.h"
+#include "SizeChange.h"
 using namespace std;
 class Box {
 public:
@@ -21,22 +22,22 @@ public:
 	int getCol();
 	int getHeight();
 	int getWidth();
-	void addSpaceAnimation (int fromCol , int toCol, int fromRow, int toRow,
-			int fromWidth, int toWidth, int fromHeight, int toHeight,  int time);
-	void addAnimation(int fromR, int toR, int fromG, int toG, int fromB,
+	void addSizeChange (int widthDelta, int heightDelta, int time, int repetitions);
+	void addPosChange (int colDelta, int rowDelta, int time, int repetitions);
+	void addColorChange(int fromR, int toR, int fromG, int toG, int fromB,
 			int toB, int time);
-	void start(int times = -1);
-	void start(int numAnimation, int times);
-	void startSpaceAnimation(int numAnimation, int times);
-	void startSpaceAnimation(int times = -1);
+	void startColorChanges(int times = -1);
+	void startColorChanges(int numColorChange, int times);
+	void startPosChanges(int numPosChange=-1);
+	void startSizeChanges(int numSizeChange=-1);
 	void stop();
 	void update();
 
 	bool isTerminated();
 	void nextTurn();
-	void nextSpaceTurn();
 	void reset();
 	void spaceReset();
+	void sizeReset();
 	void hide();
 	void show();
 	void fill(bool filled);
@@ -50,17 +51,26 @@ private:
 	unsigned char r, g, b;
 	int times, actualTimes;
 	int spaceTimes, actualSpaceTimes;
-	vector<Animation> animations;
-	//provisional
-	vector<SpaceAnimation>spaceAnimations;
-	unsigned int actualAnimation;
-	unsigned int actualSpaceAnimation;
-	int numAnimation;
-	int numSpaceAnimation;
+	int sizeTimes, actualSizeTimes;
+
+	vector<ColorChange> colorChanges;
+	vector<PosChange>posChanges;
+	vector<SizeChange>sizeChanges;
+
+	unsigned int actualColorChange;
+	unsigned int actualPosChange;
+	unsigned int actualSizeChange;
+
+	int numColorChange;
+	int numPosChange;
+	int numSizeChange;
+
 	bool terminated;
 	bool spaceTerminated;
+	bool sizeTerminated;
 	bool allFinished;
 	bool allSpaceFinished;
+	bool allSizeFinished;
 	bool stopped;
 
 };

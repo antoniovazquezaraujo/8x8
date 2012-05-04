@@ -4,7 +4,7 @@ FltkTabletController::FltkTabletController()
 	Fl::scheme("plastic");
 	Fl::visible_focus(0);
 	//provisional
-	rect=0;
+		rect=0;
 }
 void FltkTabletController::setup(){
 	return;
@@ -30,19 +30,19 @@ void FltkTabletController::onClick(int col, int row){
 	color.rnd();
 	model.drawRect(0,*rect, color, false);
 
-	model.addBox(1,0, 0, 1,1, false);
+	model.addBox(1,col,row, 1,1, false);
 	model.lastBox(1).setColor(255,255,255);
-	model.lastBox(1).start();
-	
-	//model.lastBox(1).addSpaceAnimation(0, 0, 0, 0, 1,8,1,8,80);
-	//model.lastBox(1).addSpaceAnimation(0, 0, 0, 0, 8,1,8,1,80);
-	model.lastBox(1).addSpaceAnimation(-1, 7,  -1, 7, 1,1,1,1,100);
-	/*
-	model.lastBox(1).addSpaceAnimation(-1, 3, -1, 0, -1,0,-1,0,20);
-	model.lastBox(1).addSpaceAnimation(-1, 0, -1,-3, -1,0,-1,0,30);
-	model.lastBox(1).addSpaceAnimation(-1,-3, -1, 0, -1,0,-1,0,40);
-	*/
-	model.lastBox(1).startSpaceAnimation();
+	model.lastBox(1).addColorChange(255,255,255,0,255,255,8);
+	model.lastBox(1).addColorChange(255,255,0,255,255,255,8);
+
+	model.lastBox(1).addPosChange(-1,  -1, 1, 1);
+	model.lastBox(1).addSizeChange(+2, +2, 1, 1);
+	model.lastBox(1).addPosChange(+1,  +1, 1, 1);
+	model.lastBox(1).addSizeChange(-2, -2, 1, 1);
+
+	model.lastBox(1).startPosChanges();
+	model.lastBox(1).startColorChanges(1);
+	model.lastBox(1).startSizeChanges();
 }
 void FltkTabletController::onRelease(int col, int row){
 	if(rect){

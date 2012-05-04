@@ -63,7 +63,7 @@ void TabletModel::drawRect(
 }
 void TabletModel::addBox(int level, int col, int row, int width, int height,
 		bool filled) {
-	levelBoxes[level].push_back(Box(col, row, width, height));
+	levelBoxes[level].push_back(Box(col, row, width, height, filled));
 }
 Box & TabletModel::box(int level, int n) {
 	return levelBoxes[level][n];
@@ -86,10 +86,10 @@ void TabletModel::update() {
 	}
 	for (int level = 0; level < LEVELS; level++) {
 		for (unsigned int n = 0; n < levelBoxes[level].size(); n++) {
-			Box & b = levelBoxes[level][n];
-			if (!b.isTerminated()) {
-				b.update();
+			if (!levelBoxes[level][n].isTerminated()) {
+				levelBoxes[level][n].update();
 			}
+			Box b = levelBoxes[level][n];
 			for (int col = b.getCol(); col < b.getCol() + b.getWidth(); col++) {
 				for (int row = b.getRow(); row < b.getRow() + b.getHeight(); row++) {
 					colorField[level][col][row].r = b.getR();

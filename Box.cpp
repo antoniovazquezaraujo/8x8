@@ -1,13 +1,23 @@
 #include "Box.h"
+#include <iostream> 
 
 Box::Box(int col, int row, int width, int height, bool filled) :
 		rect(col,row,width,height), filled(filled) {
 	r = g = b = 0;
 	times = 0;
 	actualTimes = 0;
-	numAnimation = -1;
-	actualAnimation = 0;
+	numColorChange = -1;
+	numPosChange = -1;
+	numSizeChange = -1;
+
+	actualColorChange = 0;
+	actualPosChange = 0;
+	actualSizeChange = 0;
+
 	allFinished = true;
+	terminated= false;
+	spaceTerminated= false;
+	sizeTerminated= false;
 }
 void Box::setColor(unsigned char r, unsigned char g, unsigned char b) {
 	this->r = r;
@@ -37,45 +47,46 @@ int Box::getHeight() {
 int Box::getWidth() {
 	return rect.width;
 }
-void Box::addSpaceAnimation (int fromCol , int toCol, int fromRow, int toRow,
-			int fromWidth, int toWidth, int fromHeight, int toHeight,  int time){
-	spaceAnimations.push_back(SpaceAnimation(fromCol, toCol, fromRow, toRow, fromWidth, toWidth, fromHeight, toHeight, time));
-	actualSpaceAnimation = 0;
+void Box::addPosChange (int colDelta, int rowDelta, int time, int repetitions){
+	posChanges.push_back(PosChange(colDelta, rowDelta, time, repetitions));
+	actualPosChange = 0;
 }
-void Box::addAnimation(int fromR, int toR, int fromG, int toG, int fromB,
+void Box::addSizeChange (int widthDelta, int heightDelta, int time, int repetitions){
+	sizeChanges.push_back(SizeChange(widthDelta, heightDelta, time, repetitions));
+	actualSizeChange = 0;
+}
+void Box::addColorChange(int fromR, int toR, int fromG, int toG, int fromB,
 		int toB, int time) {
-	animations.push_back(Animation(fromR, toR, fromG, toG, fromB, toB, time));
-	actualAnimation = 0;
+	colorChanges.push_back(ColorChange(fromR, toR, fromG, toG, fromB, toB, time));
+	actualColorChange = 0;
 }
-void Box::startSpaceAnimation(int numAnimation, int times){
+void Box::startPosChanges(int numPosChange){
 	stopped= false;
-	this->spaceTimes = times;
-	this->actualSpaceTimes = times;
+	this->numPosChange = numPosChange;
 	spaceTerminated = false;
-	numSpaceAnimation = -1;
-	reset();
+	spaceReset();
 }
-void Box::startSpaceAnimation(int times){
+void Box::startSizeChanges(int numSizeChange){
 	stopped= false;
-	this->spaceTimes = times;
-	this->actualSpaceTimes = times;
-	spaceTerminated = false;
-	numSpaceAnimation = -1;
-	reset();
+	this->numSizeChange = numSizeChange;
+	sizeTerminated = false;
+	sizeReset();
 }
-void Box::start(int times ) {
+void Box::startColorChanges(int times ) {
 	stopped= false;
+	this->numColorChange = -1;
 	this->times = times;
 	this->actualTimes = times;
+
 	terminated = false;
-	numAnimation = -1;
 	reset();
 }
-void Box::start(int numAnimation, int times) {
+void Box::startColorChanges(int numColorChange, int times) {
 	stopped= false;
-	this->numAnimation = numAnimation;
+	this->numColorChange = numColorChange;
 	this->times = times;
 	this->actualTimes = times;
+
 	terminated = false;
 	reset();
 }
@@ -86,17 +97,17 @@ void Box::stop() {
 
 void Box::update() {
 	if(stopped) return;
-	if (actualAnimation < animations.size()) {
-		if (!animations[actualAnimation].isFinished()) {
-			animations[actualAnimation].update();
-			setColor(animations[actualAnimation].getR(),
-					animations[actualAnimation].getG(),
-					animations[actualAnimation].getB());
+	if (actualColorChange < colorChanges.size()) {
+		if (!colorChanges[actualColorChange].isFinished()) {
+			colorChanges[actualColorChange].update();
+			setColor(colorChanges[actualColorChange].getR(),
+					colorChanges[actualColorChange].getG(),
+					colorChanges[actualColorChange].getB());
 			allFinished = false;
 		} else {
-			animations[actualAnimation].reset();
-			if (numAnimation == -1) {
-				actualAnimation++;
+			colorChanges[actualColorChange].reset();
+			if (numColorChange == -1) {
+				actualColorChange++;
 			}else{
 				nextTurn();
 			}
@@ -105,27 +116,38 @@ void Box::update() {
 		reset();
 		nextTurn();
 	}
-	if (actualSpaceAnimation < spaceAnimations.size()) {
-		if (!spaceAnimations[actualSpaceAnimation].isFinished()) {
-			spaceAnimations[actualSpaceAnimation].update();
-			setPos(spaceAnimations[actualSpaceAnimation].getRect(rect));
-			allSpaceFinished = false;
+	if (actualPosChange < posChanges.size()) {
+		if (!posChanges[actualPosChange].isFinished()) {
+			posChanges[actualPosChange].update();
+			Rect rr = posChanges[actualPosChange].getRect(rect);
+			setPos(rr);
 		} else {
-			spaceAnimations[actualSpaceAnimation].reset();
-			if (numSpaceAnimation == -1) {
-				actualSpaceAnimation++;
-			}else{
-				nextSpaceTurn();
+			posChanges[actualPosChange].reset();
+			if (numPosChange == -1) {
+				actualPosChange++;
 			}
 		}
 	} else {
-		spaceReset();
-		nextSpaceTurn();
+		spaceTerminated =true;
+	}
+	if (actualSizeChange < sizeChanges.size()) {
+		if (!sizeChanges[actualSizeChange].isFinished()) {
+			sizeChanges[actualSizeChange].update();
+			Rect rr = sizeChanges[actualSizeChange].getRect(rect);
+			setPos(rr); //cambiar el nombre de esto.
+		} else {
+			sizeChanges[actualSizeChange].reset();
+			if (numSizeChange == -1) {
+				actualSizeChange++;
+			}
+		}
+	} else {
+		sizeTerminated =true;
 	}
 }
 
 bool Box::isTerminated() {
-	return terminated;
+	return terminated && spaceTerminated && sizeTerminated;
 }
 
 void Box::nextTurn() {
@@ -142,32 +164,25 @@ void Box::nextTurn() {
 	}
 	allFinished = true;
 }
-void Box::nextSpaceTurn() {
-	if (actualSpaceTimes == -1) {
-		spaceTerminated = false;
-	} else {
-		if (actualSpaceTimes > 0) {
-			actualSpaceTimes--;
-			spaceTerminated = false;
-		} else {
-			actualSpaceTimes = spaceTimes;
-			spaceTerminated = true;
-		}
-	}
-	allSpaceFinished = true;
-}
 void Box::spaceReset() {
-	if (numSpaceAnimation != -1) {
-		actualSpaceAnimation = numSpaceAnimation;
+	if (numPosChange != -1) {
+		actualPosChange = numPosChange;
 	} else {
-		actualSpaceAnimation = 0;
+		actualPosChange = 0;
+	}
+}
+void Box::sizeReset() {
+	if (numSizeChange != -1) {
+		actualSizeChange = numSizeChange;
+	} else {
+		actualSizeChange = 0;
 	}
 }
 void Box::reset() {
-	if (numAnimation != -1) {
-		actualAnimation = numAnimation;
+	if (numColorChange != -1) {
+		actualColorChange = numColorChange;
 	} else {
-		actualAnimation = 0;
+		actualColorChange = 0;
 	}
 }
 void Box::hide(){

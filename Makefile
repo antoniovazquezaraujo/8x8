@@ -33,15 +33,17 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES = Animation.cpp \
-		SpaceAnimation.cpp \
+SOURCES = ColorChange.cpp \
+		PosChange.cpp \
+		SizeChange.cpp \
 		Box.cpp \
 		FltkMain.cpp \
 		FltkTabletController.cpp \
 		FltkTabletView.cpp \
 		TabletModel.cpp 
-OBJECTS = Animation.o \
-		SpaceAnimation.o \
+OBJECTS = ColorChange.o \
+		PosChange.o \
+		SizeChange.o \
 		Box.o \
 		FltkMain.o \
 		FltkTabletController.o \
@@ -93,16 +95,20 @@ distclean: clean
 
 ####### Compile
 
-Animation.o: Animation.cpp Animation.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Animation.o Animation.cpp
+SizeChange.o: SizeChange.cpp SizeChange.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SizeChange.o SizeChange.cpp
 
-SpaceAnimation.o: SpaceAnimation.cpp SpaceAnimation.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SpaceAnimation.o SpaceAnimation.cpp
+ColorChange.o: ColorChange.cpp ColorChange.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ColorChange.o ColorChange.cpp
+
+PosChange.o: PosChange.cpp PosChange.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o PosChange.o PosChange.cpp
 
 Box.o:	Box.cpp          \
 		Box.h            \
-		Animation.h      \
-		SpaceAnimation.h \
+		ColorChange.h    \
+		PosChange.h      \
+		SizeChange.h     \
 		Rect.h           \
 		Color.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Box.o Box.cpp
@@ -112,8 +118,9 @@ FltkMain.o: FltkMain.cpp       \
 		FltkTabletView.h       \
 		TabletModel.h          \
 		Box.h                  \
-		Animation.h            \
-		SpaceAnimation.h
+		ColorChange.h          \
+		SizeChange.h           \
+		PosChange.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FltkMain.o FltkMain.cpp
 
 FltkTabletController.o: FltkTabletController.cpp \
@@ -121,24 +128,26 @@ FltkTabletController.o: FltkTabletController.cpp \
 		FltkTabletView.h                         \
 		TabletModel.h                            \
 		Box.h                                    \
-		Animation.h                              \
-		SpaceAnimation.h
+		ColorChange.h                            \
+		SizeChange.h                             \
+		PosChange.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FltkTabletController.o FltkTabletController.cpp
 
 FltkTabletView.o: FltkTabletView.cpp \
 		FltkTabletView.h             \
 		TabletModel.h                \
 		Box.h                        \
-		Animation.h                  \
-		SpaceAnimation.h             \
+		SizeChange.h                 \
+		PosChange.h                  \
 		FltkTabletController.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FltkTabletView.o FltkTabletView.cpp
 
 TabletModel.o: TabletModel.cpp  \
 		TabletModel.h           \
 		Box.h                   \
-		Animation.h             \
-		SpaceAnimation.h
+		ColorChange.h           \
+		SizeChange.h            \
+		PosChange.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TabletModel.o TabletModel.cpp
 
 ####### Install
