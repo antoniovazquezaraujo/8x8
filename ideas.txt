@@ -1,0 +1,26 @@
+- Sonido
+- Formas diferentes de un rectángulo, estilo tetris
+- Componentes, como botones, pantallas, páginas, scrolls, etc, que reciban eventos
+- Problema de la mezcla de varios planos, estudio de las mezclas de color
+- Offscreen, espacio de dibujo fuera de la pantalla, scroll, arrastres...
+- Choques entre objetos
+- Degradados, sombras, suavizado de bordes
+- Texto, fuentes, scroll de palabras
+- Colecciones, portapapeles, borrar, insertar, etc...
+- Video, representar video en 8x8
+- Multitouch, gestos
+- VanGo
+- Juegos: ajedrez, pentominos, pacman, tenis, tetris, galaxian, frog, parchis, inventar nuevos.
+- Expresiones mediante cambios de color, caracter de personajes, ritmos, mezclas de color, tonalidades, estudio
+- Mejorar ColorChange, PosChange y SpaceChange, mismo interfaz, repeticiones consistentes
+- Permitir editar animaciones, objetos, rellenos, colores, etc
+- Un solo interfaz de programación para todos: 8x8, con factorías para cada sistema
+- Instrumento musical marciano
+- Logotipo, imagen corportativa, font propio
+- Textos filosóficos, bases del proyecto, ideas, futuro
+- Convertirlo en biblioteca, fácil de usar, promover la creación de programas
+- Buen gusto. No abusar de los colorines, hacer tonalidades, respetar la vista del usuario   
+- Crominancia y luminancia, estudio profundo, consecuencias y usos
+- Gestos generales, interfaz unico para todo, copiar, pegar, mover, menu, salir, entrar, borrar, cancelar...
+- Resumir una pantalla en un solo pixel, qué color escoger si hay varios, mezclas, animacion, etc...
+
