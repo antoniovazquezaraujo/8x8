@@ -1,5 +1,5 @@
-#ifndef TABLET_VIEW_H
-#define TABLET_VIEW_H
+#ifndef FLTKTABLET_VIEW_H
+#define FLTKTABLET_VIEW_H
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Button.H>
@@ -11,9 +11,8 @@
 #include <string.h>
 #include <time.h>
 #include <math.h>
-#include "TabletModel.h" 
+#include "TabletView.h" 
 using namespace std;
-class FltkTabletController;
 #ifndef WIN32
 #  include <unistd.h>
 #  include <sys/time.h>
@@ -22,24 +21,22 @@ class FltkTabletController;
 const int BLOCK_SIZE=80;
 const double DRAW_TIME=0.025;
 
-class FltkTabletView : public Fl_Double_Window {
+class FltkTabletView : public TabletView,  public Fl_Double_Window {
 public:
-
-	FltkTabletView(TabletModel & t, FltkTabletController * controller);
+	FltkTabletView();
 	~FltkTabletView();
-	int	  handle(int event);
-
+	void start();
+	void stop();
 protected:
 	void  draw();
-
 private:
-	TabletModel & model;
+
+	int	  handle(int event);
 	void  onClick(int col, int row);
 	void  onDrag(int col, int row);
 	void  onRelease(int col, int row);
 	void  setup();
 	static void	timeout_cb(FltkTabletView *bw);
-	FltkTabletController * controller;
 };
 
 #endif

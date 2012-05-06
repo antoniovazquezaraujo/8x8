@@ -1,10 +1,5 @@
 #include "TabletModel.h"
 #include "Box.h"
-//provisional
-#include <iostream>
-void TabletModel::test() {
-
-}
 TabletModel::TabletModel() {
 	boxW = 200/ COLS;
 	boxH = 200/ ROWS;

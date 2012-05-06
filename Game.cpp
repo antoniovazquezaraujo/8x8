@@ -1,14 +1,34 @@
-//Fichero Tablet.h
+class TabletView{
+public:
+	void setModel(TabletModel* model){
+		this->model = model;
+	}
+	void setController(TabletController* controller){
+		this->controller = controller;
+	}
+	virtual void start()=0;
+	virtual void stop()=0;
+private:
+	TabletModel * model;
+	TabletController* controller;
+};
+
 class TabletController{
 public:
 	TabletController(TabletView * view)
 		view(view){
 		view->setModel(model);
 		view->setController(this);
-
 	}
-	void start();
-	void stop();
+	~TabletController(){
+		delete view;
+	}
+	void start(){
+		view->start();
+	}
+	void stop(){
+		view->stop();
+	}
 	virtual void onClick(int col, int row)=0;
 	virtual void onDoubleClick(int col, int row)=0;
 	virtual void onRelease(int col, int row)=0;
@@ -19,6 +39,10 @@ private:
 };
 class Packman: public TabletController{
 public:
+	Pacman(TabletView* view)
+		:TabletControler(view){
+
+	}
 	void onClick(int col, int row){
 		//Pac, pac, pac ...
 	}
@@ -41,41 +65,3 @@ class MoTabletController: public TabletController{
 	Fl::scheme("plastic");
 	Fl::visible_focus(0);
 };
-//////////////////////////////// Programa ejemplo //////////////////////////////////////
-#include "TabletListener.h"
-#include "FltkTablet.h"
-class MyGame: public TabletListener{
-public:
-	MyGame()
-		:tablet(new FltkTablet(this)){ 
-		setup();
-	}
-	~MyGame(){
-		delete game;
-	}
-	void start(){
-		game->start();
-	}
-	void setup(){
-
-	}
-	void onClick(int col, int row){
-
-	}
-	void onDoubleClick(int col, int row){
-
-	}
-	void onRelease(int col, int row){
-
-	}
-	void onDrag(int col, int row){
-
-	}
-private:
-	Tablet * tablet;
-};
-
-int main(){
-	MyGame g();
-	g.start();
-}

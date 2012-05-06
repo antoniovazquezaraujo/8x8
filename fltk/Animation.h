@@ -1,13 +1,12 @@
 #ifndef ANIMATION_H_
 #define ANIMATION_H_
 
-#include <cstdlib>
-#include <iostream>
-#include <cassert>
+#include <stdlib.h>
+
 
 using namespace std;
 class Animation {
-friend ostream & operator<<(ostream & o, const Animation & a);
+
 public:
 	static void test();
 	Animation(int fromR = 0, int toR = 0, int fromG = 0, int toG = 0,

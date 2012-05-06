@@ -1,5 +1,5 @@
-#ifndef SPACE_ANIMATION_H_
-#define SPACE_ANIMATION_H_
+#ifndef POS_CHANGE_H
+#define POS_CHANGE_H
 #include <stdlib.h>
 #include "Rect.h" 
 
