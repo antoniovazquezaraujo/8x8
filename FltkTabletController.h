@@ -14,7 +14,7 @@ private:
 	TabletModel model;
 	FltkTabletView * view;
 //Provisional...
-	Rect * rect;
+	Box * box;
 	Color color;
 };
 #endif

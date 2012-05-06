@@ -3,15 +3,17 @@ FltkTabletController::FltkTabletController()
 	:view(new FltkTabletView(model, this)){
 	Fl::scheme("plastic");
 	Fl::visible_focus(0);
-	//provisional
-		rect=0;
 }
 void FltkTabletController::setup(){
-	return;
-	for (int col = 0; col < COLS; col++) {
-		for (int row = 0; row < ROWS; row++) {
-			model.addBox(0, col, row, 1, 1);
-			model.lastBox(0).setColor(col*32, 32, 16);
+	for(int col =0; col <COLS; col++){
+		for(int row = 0; row < ROWS; row++){ 
+			model.addBox(0, col, row, 1,1,true);
+			model.lastBox(0).addColorChange(     0, col*32,    128,      0,      0,      0, 100);
+			model.lastBox(0).addColorChange(col*32, col*32,      0, row*32,      0,      0, 100);
+			model.lastBox(0).addColorChange(col*32,      0, row*32,    128,      0, col*32, 100);
+			model.lastBox(0).addColorChange(     0, col*32,      0, row*32, col*32, row*32, 100);
+			model.lastBox(0).addColorChange(col*32, col*32, row*32,      0, col*32,    128, 100);
+			model.lastBox(0).startColorChanges();
 		}
 	}
 }
@@ -23,50 +25,22 @@ void FltkTabletController::end(){
 
 }
 void FltkTabletController::onClick(int col, int row){
-	if(rect){
-		return;
+	static bool added = false;
+	if(!added){
+		model.addBox(1, col, row, 1,1,true);
+		model.lastBox(1).setColor(64,64,64);
+		model.lastBox(1).addColorChange(255,155,  0,155,100, 40,100);
+		model.lastBox(1).addColorChange(155,  0,155,255, 40,  0,100);
+		model.lastBox(1).addColorChange(0,   50,255, 25,  0, 50,100);
+		model.lastBox(1).addColorChange(50, 255, 25,  0, 50,100,100);
+		model.lastBox(1).startColorChanges();
+		//added=true;
 	}
-	rect = new Rect(col, row,0,0);
-	color.rnd();
-	model.drawRect(0,*rect, color, false);
-
-	model.addBox(1,col,row, 1,1, false);
-	model.lastBox(1).setColor(255,255,255);
-	model.lastBox(1).addColorChange(255,255,255,0,255,255,8);
-	model.lastBox(1).addColorChange(255,255,0,255,255,255,8);
-
-	model.lastBox(1).addPosChange(-1,  -1, 1, 1);
-	model.lastBox(1).addSizeChange(+2, +2, 1, 1);
-	model.lastBox(1).addPosChange(+1,  +1, 1, 1);
-	model.lastBox(1).addSizeChange(-2, -2, 1, 1);
-
-	model.lastBox(1).startPosChanges();
-	model.lastBox(1).startColorChanges(1);
-	model.lastBox(1).startSizeChanges();
+	model.lastBox(1).setPos(Rect(col,row));
 }
 void FltkTabletController::onRelease(int col, int row){
-	if(rect){
-		delete rect;
-		rect=0;
-	}
 }
 void FltkTabletController::onDrag(int col, int row){
-	static int lastCol=-1, lastRow=-1;
-	if(lastCol == col && lastRow == row){
-		return;
-	}
-	lastCol = col;
-	lastRow = row;
-	if(!rect){
-		return;
-	}
-	if(rect->col == col && rect->row == row){
-		return;
-	}
-	model.drawRect(0,*rect, Color(0,0,0), false);
-	rect->width = col- rect->col;
-	rect->height= row - rect->row;
-	if(rect->width<0) rect->width=0;
-	if(rect->height<0) rect->height=0;
-	model.drawRect(0,*rect, color, false);
+	Rect pos = model.lastBox(1).getPos();
+	model.lastBox(1).setSize(col-pos.col+1, row-pos.row+1);
 }

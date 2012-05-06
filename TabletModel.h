@@ -19,18 +19,13 @@ public:
 	static void test();
 	TabletModel();
 	void reset();
-	void drawRect(
-		int level, 
-		Rect rect,
-		Color color,
-		bool filled = false
-	);
 	void addBox(
 		int level, 
 		int col, int row, 
 		int width, int height,
 		bool filled = false
 	);
+	void addBox(int level, Box b);
 	Box & box(int level, int n);
 	Box & lastBox(int level);
 	void update();

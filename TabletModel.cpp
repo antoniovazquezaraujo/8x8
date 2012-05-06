@@ -28,42 +28,12 @@ void TabletModel::reset() {
 		}
 	}
 }
-void TabletModel::drawRect(
-		int level, 
-		Rect rect,
-		Color color,
-		bool filled 
-	){
-	for (int col = rect.col;col < rect.col+rect.width+1; col++) {
-		colorField[level][col][rect.row].r = color.r;
-		colorField[level][col][rect.row].g = color.g;
-		colorField[level][col][rect.row].b = color.b;
-		colorField[level][col][rect.row+rect.height].r = color.r;
-		colorField[level][col][rect.row+rect.height].g = color.g;
-		colorField[level][col][rect.row+rect.height].b = color.b;
-	}
-	for (int row = rect.row; row < rect.row+rect.height+1; row++) {
-		colorField[level][rect.col][row].r  = color.r;
-		colorField[level][rect.col][row].g  = color.g;
-		colorField[level][rect.col][row].b  = color.b;
-		colorField[level][rect.col+rect.width][row].r = color.r;
-		colorField[level][rect.col+rect.width][row].g = color.g;
-		colorField[level][rect.col+rect.width][row].b = color.b;
-	}
-	if(!filled){
-		return;
-	}
-	for (int col = rect.col+1;col < rect.col+1+rect.width-1; col++) {
-		for (int row = rect.row+1; row < rect.row+1+rect.height-1; row++) {
-			colorField[level][col][row].r = color.r;
-			colorField[level][col][row].g = color.g;
-			colorField[level][col][row].b = color.b;
-		}
-	}
-}
 void TabletModel::addBox(int level, int col, int row, int width, int height,
 		bool filled) {
 	levelBoxes[level].push_back(Box(col, row, width, height, filled));
+}
+void TabletModel::addBox(int level, Box box) {
+	levelBoxes[level].push_back(box);
 }
 Box & TabletModel::box(int level, int n) {
 	return levelBoxes[level][n];

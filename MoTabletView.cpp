@@ -19,9 +19,6 @@ MoTabletView::~MoTabletView() {
 
 }
 
-
-
-
 void MoTabletView::runTimerEvent() {
 	model.update();
 	ColorField &f = model.getColorField();

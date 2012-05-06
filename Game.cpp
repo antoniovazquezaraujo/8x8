@@ -1,47 +1,53 @@
-class TabletGame{
+//Fichero Tablet.h
+class TabletController{
 public:
+	TabletController(TabletView * view)
+		view(view){
+		view->setModel(model);
+		view->setController(this);
+
+	}
 	void start();
-	void pause();
 	void stop();
-	void reset();
-	void drawRect( int level, Rect rect, Color color, bool filled = false);
-	void addBox(int level, int col, int row, int width, int height, bool filled = false);
-	Box & box(int level, int n);
-	void start(Box & box, int turns=-1, int numAnimation = -1);
-	void stop(Box & box);
-	void addAnimation(
-			Box & box,
-			unsigned char fromR,
-			unsigned char toR,
-			unsigned char fromG,
-			unsigned char toG,
-			unsigned char fromB,     
-			unsigned char toB,
-			int time
-			);
-	Box & lastBox(int level);
-	Color getColor(int col, int row);
-	void setColor(int col, int row,int width, int height, Color color);
-};
-class FltkTabletGame:public TabletGame{
-
-};
-class MoTabletGame: public TabletGame{
-
-};
-
-class TabletEventListener{
-public:
 	virtual void onClick(int col, int row)=0;
 	virtual void onDoubleClick(int col, int row)=0;
 	virtual void onRelease(int col, int row)=0;
 	virtual void onDrag(int col, int row)=0;
+private:
+	TabletModel  model;
+	TabletView * view;
 };
-
-class MyGame: public TabletEventListener{
+class Packman: public TabletController{
+public:
+	void onClick(int col, int row){
+		//Pac, pac, pac ...
+	}
+};
+int main(){
+	TabletController * t = new Packman((new FltkTabletView()));
+	TabletController * t2= new Packman((new MoTabletView()));
+	t.start();
+	t2.start();
+}
+class FltkTabletController : public TabletController{
+	FltkTablet()
+	:Tablet(new FltkTabletView()){
+	Fl::scheme("plastic");
+	Fl::visible_focus(0);
+};
+class MoTabletController: public TabletController{
+	MoTablet()
+	:Tablet(new MoTabletView()){
+	Fl::scheme("plastic");
+	Fl::visible_focus(0);
+};
+//////////////////////////////// Programa ejemplo //////////////////////////////////////
+#include "TabletListener.h"
+#include "FltkTablet.h"
+class MyGame: public TabletListener{
 public:
 	MyGame()
-		:game(new FltkTabletGame(this)){ 
+		:tablet(new FltkTablet(this)){ 
 		setup();
 	}
 	~MyGame(){
@@ -66,7 +72,7 @@ public:
 
 	}
 private:
-	TabletGame * game;
+	Tablet * tablet;
 };
 
 int main(){
