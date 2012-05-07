@@ -1,0 +1,8 @@
+- Sonido, fundamental.
+- Pasar todo a un solo interfaz(Game, con factorías)
+- Planos de color, cómo mezclarlos
+- Salirse del mapa, qué hacer
+- Crear conjuntos de Tablets, es decir, Páginas
+- MultiTouch, interesante y fácil aparentemente
+- 
+
