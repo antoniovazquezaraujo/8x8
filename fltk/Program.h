@@ -1,5 +1,0 @@
-class Program{
-
-
-	Tablet tablet;
-};
