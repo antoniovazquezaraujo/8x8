@@ -1,17 +1,18 @@
 #ifndef TABLET_CONTROLLER_H
 #define TABLET_CONTROLLER_H
-#include "TabletView.h"
+class TabletView;
+class TabletModel;
 class TabletController{
 public:
-	TabletController();
-	void setup();
+	TabletController(TabletView * view);
+	~TabletController();
 	void start();
-	void end();
-	void onClick(int col, int row);
-	void onRelease(int col, int row);
-	void onDrag(int col, int row);
-private:
-	Tablet tablet;
+	void stop();
+	virtual void onClick(int col, int row)=0;
+	virtual void onRelease(int col, int row)=0;
+	virtual void onDrag(int col, int row)=0;
+protected:
+	TabletModel* model;
 	TabletView * view;
 };
 #endif

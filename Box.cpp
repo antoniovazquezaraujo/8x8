@@ -201,6 +201,14 @@ void Box::move(int deltaCol, int deltaRow) {
 void Box::setPos(Rect r) {
 	rect = r;
 }
+Rect Box::getPos() {
+	return rect;
+}
 void Box::grow(int deltaWidth,int deltaHeight ){
-
+	rect.width+=deltaWidth;
+	rect.height+=deltaHeight;
+}
+void Box::setSize(int width,int height ){
+	rect.width=width;
+	rect.height=height;
 }

@@ -33,27 +33,24 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES = ColorChange.cpp    \
-		PosChange.cpp        \
-		SizeChange.cpp       \
-		Box.cpp              \
-		TabletModel.cpp      \
-		TabletView.cpp       \
+SOURCES = ColorChange.cpp \
+		PosChange.cpp \
+		SizeChange.cpp \
+		Box.cpp \
+		FltkMain.cpp \
 		TabletController.cpp \
-		FltkTabletView.cpp   \
-		Prueba1.cpp          \
-		FltkPrueba1.cpp
-
-OBJECTS = ColorChange.o\
-		PosChange.o        \
-		SizeChange.o       \
-		Box.o              \
-		TabletModel.o      \
-		TabletView.o       \
+		TabletView.cpp \
+		FltkTabletView.cpp \
+		TabletModel.cpp 
+OBJECTS = ColorChange.o \
+		PosChange.o \
+		SizeChange.o \
+		Box.o \
+		FltkMain.o \
 		TabletController.o \
-		FltkTabletView.o   \
-		Prueba1.o          \
-		FltkPrueba1.o
+		TabletView.o \
+		FltkTabletView.o \
+		TabletModel.o
 
 QMAKE_TARGET  = 8x8
 DESTDIR       = 
@@ -124,10 +121,22 @@ FltkPrueba1.o: FltkPrueba1.cpp     \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FltkPrueba1.o FltkPrueba1.cpp
 
 Prueba1.o: Prueba1.cpp         \
-		Prueba1.h              \
+		Prueba1.h     \
+		FltkTabletView.h       \
 		TabletView.h           \
-		TabletModel.h
+		TabletController.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Prueba1.o Prueba1.cpp
+
+FltkMain.o: FltkMain.cpp       \
+		TabletController.h     \
+		FltkTabletView.h       \
+		TabletModel.h          \
+		TabletView.h           \
+		Box.h                  \
+		ColorChange.h          \
+		SizeChange.h           \
+		PosChange.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FltkMain.o FltkMain.cpp
 
 TabletController.o: TabletController.cpp         \
 		TabletView.h                             \
@@ -154,12 +163,6 @@ TabletModel.o: TabletModel.cpp  \
 		SizeChange.h            \
 		PosChange.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TabletModel.o TabletModel.cpp
-
-TabletView.o: TabletView.cpp  \
-		TabletView.h          \
-		TabletModel.h         \
-		TabletController.h     
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TabletView.o TabletView.cpp
 
 ####### Install
 

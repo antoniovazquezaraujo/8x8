@@ -1,5 +1,4 @@
 #include "PosChange.h"
-#include <iostream> 
 
 PosChange::PosChange(int colDelta, int rowDelta, int time, int repetitions) 
 	:colDelta(colDelta),

@@ -1,8 +1,7 @@
-#ifndef ANIMATION_H_
-#define ANIMATION_H_
+#ifndef COLOR_CHANGE_H 
+#define COLOR_CHANGE_H 
 
 #include <stdlib.h>
-
 
 using namespace std;
 class ColorChange {

@@ -1,10 +1,9 @@
 #include "FltkTabletView.h" 
-#include "FltkTabletController.h" 
+#include "TabletController.h" 
+#include "TabletModel.h" 
 
-FltkTabletView::FltkTabletView(TabletModel & model, FltkTabletController * controller)
-	: Fl_Double_Window(20,20,640,640,"8x8"),
-	model(model),
-	controller(controller){
+FltkTabletView::FltkTabletView()
+	: Fl_Double_Window(20,20,640,640,"8x8"){
 	end();
 	setup();
 }
@@ -13,9 +12,17 @@ FltkTabletView::~FltkTabletView() {
 	Fl::remove_timeout((Fl_Timeout_Handler)timeout_cb, (void *)this);
 }
 
+void FltkTabletView::start(){
+	show();
+	Fl::run();
+}
+void FltkTabletView::stop(){
+
+}
 void FltkTabletView::setup() {
+	Fl::scheme("plastic");
+	Fl::visible_focus(0);
 	Fl::add_timeout(DRAW_TIME, (Fl_Timeout_Handler)timeout_cb, (void *)this);
-	srand(time(NULL));
 	redraw();
 }
 
@@ -31,15 +38,15 @@ void FltkTabletView::onRelease(int col, int row) {
 
 
 void FltkTabletView::draw() {
-	model.update();
-	ColorField &f = model.getColorField();
+	model->update();
+	ColorField &f = model->getColorField();
 	for (int col= 0; col< COLS; col++ ){
 		for (int row = 0; row< ROWS; row++ ){
 			unsigned char r=0,g=0,b=0;
 			for (int level = 0; level < LEVELS; level++ ){
-				r+= f[level][col][row].r;
-				g+= f[level][col][row].g;
-				b+= f[level][col][row].b;
+				r+= f[level][col][row].r/LEVELS;
+				g+= f[level][col][row].g/LEVELS;
+				b+= f[level][col][row].b/LEVELS;
 			}
 			fl_color(r,g,b);
 			fl_rectf( 
