@@ -8,6 +8,8 @@ class Box:
 	public RotationAnimable {
 
 public:
+	enum AnimationType{ POS, SIZE, COLOR, ROTATION };
+
 	Box(Point pos, Size size, Color color)
 		:BasicShape(pos, size, color){
 
@@ -19,11 +21,22 @@ public:
 
 	void update();
 	void startAnimations(AnimationType type, int times = -1);
-	void startAnimation(AnimationType type, int numChange, int times = -1);
-	void stopAnimations(AnimationType type);
+	void startAnimation (AnimationType type, int numChange, int times = -1);
+
+	void stopAnimations (AnimationType type);
 	bool isFinished(AnimationType type);
 	void nextTurn(AnimationType type);
 	void reset(AnimationType type);
-	enum AnimationType{ POS, SIZE, COLOR, ROTATION };
+
+	Point getPos();
+	Size getSize();
+	Color getColor();
+	void setPos(Point pos);
+	void setSize(Size);
+	void setColor(Color);
+private:
+	Point pos;
+	Size size;
+	Color color;
 };
 #endif
