@@ -1,15 +1,12 @@
-struct Point{
-	int col, row;
-};
+#ifndef POINT_H
+#define POINT_H
 struct Point {
-    int x, y;
-    Point(int x, int y) 
+    Point(int x=0, int y=0) 
 		: x(x), y(y) { 
 	}
-    Point() 
-		:x(0), y(0) { 
-	}
+    int x, y;
 };
 
 inline bool operator==(Point a, Point b) { return a.x==b.x && a.y==b.y; } 
 inline bool operator!=(Point a, Point b) { return !(a==b); }
+#endif
