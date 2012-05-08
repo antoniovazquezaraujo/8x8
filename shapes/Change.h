@@ -4,6 +4,7 @@
 using namespace std;
 class Change {
 public:
+	Change();
 	void reset();
 	void update();
 	bool isFinished();

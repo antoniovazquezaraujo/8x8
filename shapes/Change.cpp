@@ -1,5 +1,12 @@
 #include "Change.h"
 
+Change::Change(int time, int repeats) :
+	time(time),
+	actualTime(time),
+	repeats(repeats),
+	actualRepeats(repeats){
+	reset();
+}
 void Change::reset() {
 	actualTime = time;
 	finished = false;

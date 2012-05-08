@@ -1,9 +1,14 @@
 #include "ColorChange.h"
 
-ColorChange::ColorChange(int fromR , int toR , int fromG , int toG ,
-		int fromB, int toB, int time) :
-		fromR(fromR), toR(toR), fromG(fromG), toG(toG), fromB(fromB), toB(toB), time(
-				time), finished(false) {
+ColorChange::ColorChange(
+		int fromR, int toR, 
+		int fromG, int toG,
+		int fromB, int toB, 
+		int time
+	):
+		from(fromR, fromG, fromB), 
+		to(toR, toG, toB), 
+		time( time), finished(false) {
 
 	rRange = toR - fromR;
 	if (rRange == 0) {
@@ -51,11 +56,10 @@ ColorChange::ColorChange(int fromR , int toR , int fromG , int toG ,
 	reset();
 }
 void ColorChange::reset() {
-	actualTime = time;
+	Change::reset();
 	r = fromR;
 	g = fromG;
 	b = fromB;
-	finished = false;
 }
 void ColorChange::update() {
 	if (actualTime > 0) {
@@ -98,17 +102,6 @@ void ColorChange::update() {
 		b = toB;
 		finished = true;
 	}
-}
-bool ColorChange::isFinished() {
-	return finished;
-}
-
-void ColorChange::start() {
-	actualTime = time;
-}
-void ColorChange::stop() {
-	finished = true;
-	actualTime = 0;
 }
 
 unsigned char ColorChange::getR() {
