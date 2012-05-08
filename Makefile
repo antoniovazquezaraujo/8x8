@@ -33,16 +33,13 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES = ColorChange.cpp    \
-		PosChange.cpp        \
-		SizeChange.cpp       \
-		Box.cpp              \
-		TabletModel.cpp      \
-		TabletView.cpp       \
-		TabletController.cpp \
-		FltkTabletView.cpp   \
-		Prueba1.cpp          \
-		FltkPrueba1.cpp
+BASE = ColorChange.o\
+		PosChange.o        \
+		SizeChange.o       \
+		Box.o              \
+		TabletModel.o      \
+		TabletView.o       \
+		TabletController.o  
 
 OBJECTS = ColorChange.o\
 		PosChange.o        \
@@ -55,9 +52,14 @@ OBJECTS = ColorChange.o\
 		Prueba1.o          \
 		FltkPrueba1.o
 
+OBJECTS_DEMO1  = $(BASE)   \
+		FltkTabletView.o   \
+		Demo1.o           
+
 QMAKE_TARGET  = 8x8
 DESTDIR       = 
 TARGET        = 8x8
+DEMO1         = demo1 
 
 first: all
 ####### Implicit rules
@@ -81,10 +83,13 @@ first: all
 
 ####### Build rules
 
-all: Makefile $(TARGET)
+all: Makefile $(TARGET) $(DEMO1)
 
 $(TARGET):  $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
+
+$(DEMO1):  $(OBJECTS_DEMO1)  
+	$(LINK) $(LFLAGS) -o $(DEMO1) $(OBJECTS_DEMO1) $(OBJCOMP) $(LIBS)
 
 clean:
 	-$(DEL_FILE) $(OBJECTS)
@@ -122,6 +127,13 @@ FltkPrueba1.o: FltkPrueba1.cpp     \
 		FltkTabletView.h           \
 		Prueba1.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FltkPrueba1.o FltkPrueba1.cpp
+
+Demo1.o: Demo1.cpp         \
+		FltkTabletView.h       \
+		TabletView.h           \
+		TabletController.h     \
+		TabletModel.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Demo1.o Demo1.cpp
 
 Prueba1.o: Prueba1.cpp         \
 		Prueba1.h              \
