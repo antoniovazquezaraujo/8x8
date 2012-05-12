@@ -1,18 +1,11 @@
 #include "SizeChange.h"
 #include <iostream> 
 
-SizeChange::SizeChange(int widthDelta, int heightDelta, int time, int repetitions) 
-	:widthDelta(widthDelta),
+SizeChange::SizeChange(int widthDelta, int heightDelta, int time, int repeats) 
+	:Change(time, repeats)
+	 widthDelta(widthDelta),
 	heightDelta(heightDelta),
-	time(time),
-	actualTime(time),
-	repetitions(repetitions),
-	actualRepetitions(repetitions){
 	reset();
-}
-void SizeChange::reset() {
-	finished = false;
-	actualTime = time;
 }
 void SizeChange::update() {
 	if(repetitions >0){
@@ -25,17 +18,6 @@ void SizeChange::update() {
 	}else{
 		finished = true;
 	}
-}
-bool SizeChange::isFinished() {
-	return finished;
-}
-
-void SizeChange::start() {
-	actualTime = time;
-}
-void SizeChange::stop() {
-	finished = true;
-	actualTime = 0;
 }
 
 Rect SizeChange::getRect(Rect original) {

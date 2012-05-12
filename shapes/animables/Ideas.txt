@@ -1,0 +1,26 @@
+Que es un cambio????????????????????????????????????????????????
+
+Puede ir desde un valor inicial hasta un valor final o simplemente modificarse en cada turno
+en una cantidad.
+Eso depende de si es un cambio absoluto o relativo.
+Así, un color puede ir subiendo o bajando de 10 en 10 o bien puede ir de 13 a 220 exactamente.
+El tiempo será el tiempo total para llegar de uno a otro valor en el modo absoluto o bien
+el tiempo que tarda para hacer cada modificación, puesto que no hay un fin.
+Se puede realizar un cambio relativo una serie de veces o uno absoluto una vez.
+Cuando el modelo se actualiza, actua según el tipo de cambio, asignándo el valor del cambio si es
+absoluto, o agregándolo a su valor si es relativo.
+Así se puede mover una pieza 10 veces hacia abajo, o hacer que vaya siempre desde la posición 1,3
+a la 2,5 en un tiempo de 1000.
+O que incremente su tamaño en 1 cada 100 turnos exactamenta 4 veces. O que cambie 100 veces desde
+3x2 a 8x7.
+Es simple.
+
+Realmente, todos los cambios son iguales, es decir: simplemente tienen un update al que se le envia
+el Animable a modificar. Nada más.
+Sin embargo no estamos teniendo en cuenta la SINCRONIZACIÓN de los cambios. De este modo se están realizando uno tras otro pero simultaneamente todos los del mismo tipo. Tiene sentido?
+
+Si yo agregase una animación para que se ejecute en secuencia después de otra, debería decirlo.
+Si simplemente la agrego, se va a ejecutar ya, y a su ritmo.
+Digamos que una animación debería estar compuesta por una colección de cambios, que se ejecutan en secuencia. Una form puede tener varias animaciones que se ejecutan asíncronamente, e incluso en respuesta a eventos, como clics o fin de otras animaciones.
+Bien.
+

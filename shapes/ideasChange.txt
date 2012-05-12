@@ -1,0 +1,98 @@
+/*
+ColorChange
+	Desde color a hasta color b en tiempo t repetido r veces
+SizeChange
+	Desde tamaño a hasta tamaño b en tiempo t repetido r veces
+PosChange
+	Desde posicion a hasta posicion b en tiempo t repetido r veces
+RotationChange
+	Desde angulo a hasta angulo b en tiempo t repetido r veces
+
+ColorChange
+	Variar en v en tiempo t repetido r veces
+SizeChange
+	Variar en v b en tiempo t repetido r veces
+PosChange
+	Variar en v b en tiempo t repetido r veces
+RotationChange
+	Variar en v b en tiempo t repetido r veces
+
+Una cosa es cambiar y otra variar. Cambiar se le da el valor que se desea, pero a
+Variar se le da la derivada que se quiere que tome.
+Sumarle o restarle una cantidad a un valor es una cosa.
+Asignarle un valor es otra.
+Es decir, se trata de cambios RELATIVOS o ABSOLUTOS, simplemente eso.
+Relativo = sumar
+Absoluto = asignar
+
+ColorChange    (Mode mode, signed char r, signed char g, signed char b,    int time, int repeats)
+	ColorChange    (RELATIVE, 1,0,-1 , 100, 200)
+	ColorChange    (ABSOLUTE, 100,0,200 , 100, 1)
+SizeChange     (Mode mode, Size size,   int time, int repeats)
+	SizeChange    (RELATIVE, 0,-1 , 100, 3)
+	SizeChange    (ABSOLUTE, 0, 3 , 100, 1)
+PosChange      (Mode mode, Point pos,   int time, int repeats)
+	PosChange    (RELATIVE, 0,-1 , 100, 3)
+	PosChange    (ABSOLUTE, 2, 3 , 100, 1)
+RotationChange (Mode mode, int degrees, int time, int repeats)
+	RotationChange    (RELATIVE, -1 , 100, 3)
+	RotationChange    (ABSOLUTE, 45 , 100, 1)
+
+Time es el tiempo que tarda en hacer cada cambio. Es un contador que se va decrementando, cuando se termina se hace el cambio, mientras no. Se decrementa en cada turno, y al terminar se pone otra vez como al principio. Los cambios absolutos debería repetirse solo una vez, es decir, repeats=0, pues lo que dices es que cuando pase ese tiempo tome ese valor.
+A cualquier cambio de estos, se le puede variar sobre la marcha cualquier propiedad, como por ejemplo que seleccione aleatoriamente la dirección, o el tiempo que tarda en cambiar o las veces que se repite.
+*/
+#ifndef CHANGE_H 
+#define CHANGE_H 
+#include <stdlib.h>
+using namespace std;
+class Change {
+public:
+	Change(int time, int repeats=0) :
+	void reset();
+	void update();
+	bool isFinished();
+protected:
+	makeChange();
+private:
+	int time, actualTime;
+	int repeats, actualRepeats;
+	bool finished;
+};
+#endif
+#include "Change.h"
+
+Change::Change(int time, int repeats) :
+	time(time),
+	repeats(repeats){
+	reset();
+}
+void Change::reset() {
+	actualTime = time;
+	actualRepeats= repeats;
+	finished = false;
+}
+void Change::update(){
+	if(actualTime > 0){
+		actualTime--;
+	}else{
+		if(actualRepeats==-1){
+			makeChange();
+			actualTime=time;
+			finished=false;	
+		}else if(actualRepeats>=0){
+			actualRepeats--;
+			makeChange();
+			actualTime=time;
+			if(actualRepeats>=0){
+				finished=false;
+			}else{
+				finished=true;	
+			} 
+		}
+	}
+}
+bool Change::isFinished() {
+	return finished;
+}
+
+

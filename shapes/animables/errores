@@ -1,0 +1,79 @@
+Animable.cpp: En la función miembro ‘void Animable::update()’:
+Animable.cpp:15:14: error: ‘assert’ no se declaró en este ámbito
+Animable.cpp: En la función miembro ‘void Animable::startChanges(int)’:
+Animable.cpp:20:2: error: ‘stopped’ no se declaró en este ámbito
+Animable.cpp: En la función miembro ‘void Animable::startChange(int, int)’:
+Animable.cpp:29:2: error: ‘stopped’ no se declaró en este ámbito
+Animable.cpp: En el ámbito global:
+Animable.cpp:34:21: error: no hay una función miembro ‘void Animable::stop()’ declarada en la clase ‘Animable’
+Change.cpp:3:1: error: el prototipo para ‘Change::Change(int, int)’ no coincide con ningún otro en la clase ‘Change’
+Change.h:5:7: error: los candidatos son: Change::Change(const Change&)
+Change.h:7:2: error:                 Change::Change()
+Change.cpp: En la función miembro ‘void Change::update()’:
+Change.cpp:15:14: error: ‘assert’ no se declaró en este ámbito
+In file included from ColorAnimable.h:4:0,
+                 from ColorAnimable.cpp:1:
+ColorChange.h:14:2: error: ‘Color’ no nombra a un tipo
+ColorChange.h:17:2: error: ‘Color’ no nombra a un tipo
+ColorChange.h:18:2: error: ‘Color’ no nombra a un tipo
+In file included from ColorAnimable.cpp:1:0:
+ColorAnimable.h:16:2: error: ‘Color’ no nombra a un tipo
+ColorAnimable.h:18:2: error: ‘vector’ no nombra a un tipo
+ColorAnimable.h:19:2: error: ‘Color’ no nombra a un tipo
+ColorAnimable.cpp: En la función miembro ‘void ColorAnimable::addChange(int, int, int, int, int, int, int, int)’:
+ColorAnimable.cpp:8:2: error: ‘changes’ no se declaró en este ámbito
+ColorAnimable.cpp:8:81: error: no se encontró una función coincidente para la llamada a ‘ColorChange::ColorChange(int&, int&, int&, int&, int&, int&, int&, int&)’
+ColorAnimable.cpp:8:81: nota: los candidatos son:
+ColorChange.h:6:2: nota: ColorChange::ColorChange(int, int, int, int, int, int, int)
+ColorChange.h:6:2: nota:   el candidato espera 7 argumentos, se proporcionaron 8
+ColorChange.h:3:7: nota: ColorChange::ColorChange(const ColorChange&)
+ColorChange.h:3:7: nota:   el candidato espera 1 argumento, se proporcionaron 8
+ColorAnimable.cpp: En la función miembro ‘void ColorAnimable::update()’:
+ColorAnimable.cpp:11:5: error: ‘stopped’ no se declaró en este ámbito
+ColorAnimable.cpp:12:21: error: ‘changes’ no se declaró en este ámbito
+ColorAnimable.cpp:16:4: error: ‘color’ no se declaró en este ámbito
+ColorAnimable.cpp: En el ámbito global:
+ColorAnimable.cpp:34:1: error: ‘Color’ no nombra a un tipo
+In file included from ColorChange.cpp:1:0:
+ColorChange.h:14:2: error: ‘Color’ no nombra a un tipo
+ColorChange.h:17:2: error: ‘Color’ no nombra a un tipo
+ColorChange.h:18:2: error: ‘Color’ no nombra a un tipo
+ColorChange.cpp: En el constructor ‘ColorChange::ColorChange(int, int, int, int, int, int, int)’:
+ColorChange.cpp:9:3: error: la clase ‘ColorChange’ no tiene ningún campo llamado ‘from’
+ColorChange.cpp:10:3: error: la clase ‘ColorChange’ no tiene ningún campo llamado ‘to’
+ColorChange.cpp:11:3: error: la clase ‘ColorChange’ no tiene ningún campo llamado ‘time’
+ColorChange.cpp:11:16: error: la clase ‘ColorChange’ no tiene ningún campo llamado ‘finished’
+ColorChange.cpp:18:23: error: ‘abs’ no se declaró en este ámbito
+ColorChange.cpp:32:23: error: ‘abs’ no se declaró en este ámbito
+ColorChange.cpp:47:23: error: ‘abs’ no se declaró en este ámbito
+ColorChange.cpp: En la función miembro ‘void ColorChange::reset()’:
+ColorChange.cpp:59:2: error: ‘Change’ no se ha declarado
+ColorChange.cpp:60:2: error: ‘r’ no se declaró en este ámbito
+ColorChange.cpp:60:6: error: ‘fromR’ no se declaró en este ámbito
+ColorChange.cpp:61:2: error: ‘g’ no se declaró en este ámbito
+ColorChange.cpp:61:6: error: ‘fromG’ no se declaró en este ámbito
+ColorChange.cpp:62:2: error: ‘b’ no se declaró en este ámbito
+ColorChange.cpp:62:6: error: ‘fromB’ no se declaró en este ámbito
+ColorChange.cpp: En la función miembro ‘void ColorChange::update()’:
+ColorChange.cpp:65:6: error: ‘actualTime’ no se declaró en este ámbito
+ColorChange.cpp:67:4: error: ‘r’ no se declaró en este ámbito
+ColorChange.cpp:72:5: error: ‘r’ no se declaró en este ámbito
+ColorChange.cpp:77:4: error: ‘g’ no se declaró en este ámbito
+ColorChange.cpp:82:5: error: ‘g’ no se declaró en este ámbito
+ColorChange.cpp:87:4: error: ‘b’ no se declaró en este ámbito
+ColorChange.cpp:92:5: error: ‘b’ no se declaró en este ámbito
+ColorChange.cpp:96:3: error: ‘finished’ no se declaró en este ámbito
+ColorChange.cpp:100:3: error: ‘r’ no se declaró en este ámbito
+ColorChange.cpp:100:7: error: ‘toR’ no se declaró en este ámbito
+ColorChange.cpp:101:3: error: ‘g’ no se declaró en este ámbito
+ColorChange.cpp:101:7: error: ‘toG’ no se declaró en este ámbito
+ColorChange.cpp:102:3: error: ‘b’ no se declaró en este ámbito
+ColorChange.cpp:102:7: error: ‘toB’ no se declaró en este ámbito
+ColorChange.cpp:103:3: error: ‘finished’ no se declaró en este ámbito
+ColorChange.cpp: En el ámbito global:
+ColorChange.cpp:107:33: error: no hay una función miembro ‘unsigned char ColorChange::getR()’ declarada en la clase ‘ColorChange’
+ColorChange.cpp:110:33: error: no hay una función miembro ‘unsigned char ColorChange::getG()’ declarada en la clase ‘ColorChange’
+ColorChange.cpp:113:33: error: no hay una función miembro ‘unsigned char ColorChange::getB()’ declarada en la clase ‘ColorChange’
+In file included from Main.cpp:3:0:
+Color.h: En la función miembro ‘unsigned int Color::getRGBA() const’:
+Color.h:47:74: aviso: cuenta de desplazamiento a la izquierda >= anchura del tipo [activado por defecto]
