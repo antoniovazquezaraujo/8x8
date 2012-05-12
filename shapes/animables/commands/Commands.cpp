@@ -4,8 +4,8 @@
 #include <vector>
 #include <map>
 using namespace std;
-class Change;
-class Box;
+
+////////////////
 class Sound{
 
 };
@@ -17,6 +17,7 @@ class ColorStep{
 		}
 	signed int r,g,b;
 };
+////////////////
 class Color{
 	public:
 		Color(const Color & color)
@@ -50,10 +51,28 @@ ostream & operator<<(ostream& o, Color c){
 	return o;
 }
 ////////////////
+class SizeStep{
+	public:
+		SizeStep(int w=0, int h=0)
+			:w(w),h(h){
+		}
+	signed int w, h; 
+};
+////////////////
 class Size{
 	public:
 		Size(int w=0, int h=0)
 			:w(w), h(h){
+		}
+		SizeStep stepTo(Size s){
+			return SizeStep(
+				s.w==w?0:s.w>w?1:-1,
+				s.h==h?0:s.h>h?1:-1 
+			);
+		}
+		void operator+=(SizeStep step){
+			w+=step.w;
+			h+=step.h;
 		}
 		int w,h;
 };
@@ -65,12 +84,30 @@ ostream & operator<<(ostream& o, Size s){
 	return o;
 }
 ////////////////
+class PointStep{
+	public:
+		PointStep(int x=0, int y=0)
+			:x(x),y(y){
+		}
+	signed int x, y; 
+};
+////////////////
 class Point{
 	public:
 		Point(int x=0, int y=0)
 			:x(x), y(y){
 
-			}
+		}
+		PointStep stepTo(Point p){
+			return PointStep(
+				p.x==x?0:p.x>x?1:-1,
+				p.y==y?0:p.y>y?1:-1 
+			);
+		}
+		void operator+=(PointStep step){
+			x+=step.x;
+			y+=step.y;
+		}
 		int x,y;
 };
 bool operator==(const Point & p, const Point & q){
@@ -81,6 +118,42 @@ ostream & operator<<(ostream& o, Point p){
 	return o;
 }
 ////////////////
+class Box{
+	public:
+		void setColor(Color color){
+			this->color = color;
+		}
+		Color getColor(){
+			return color;
+		}
+		void setPos(Point pos){
+			this->pos=pos;
+		}
+		Point getPos(){
+			return pos;
+		}
+		void setSize(Size size){
+			this->size = size;
+		}
+		Size getSize(){
+			return size;
+		}
+		void setSound(Sound sound){
+			this->sound = sound;
+		}
+		Sound getSound(){
+			return sound;
+		}
+		friend ostream & operator<<(ostream& o, const Box & b);
+		Point pos;
+		Size size;
+		Color color;
+		Sound sound;
+};
+ostream & operator<<(ostream &o, const Box & b){
+	o << b.pos << b.size << b.color;
+	return o;
+}
 const int MAX_SPEED=10000;
 class Change{
 	public:
@@ -134,13 +207,13 @@ class Change{
 class RelColorChange: public Change{
 	public:
 		RelColorChange(int dr, int dg, int db)
-			:dr(dr), dg(dg), db(db) {
+			:step(dr,dg,db) {
 
 			}
-		void doChange(Box*){
-			cout << "Mod color " << dr << "/" << dg << "/" << db<<endl;
-			//actualiza actualColor según los rangos de que dispone
-			//Le pone a la box el actualColor
+		void doChange(Box* b){
+			Color c = b->getColor();
+			c+=step;
+			b->setColor(c);
 		}
 		bool isFinished()const {
 			return true;
@@ -153,23 +226,21 @@ class RelColorChange: public Change{
 			return ss.str();
 		}
 	private:
-		int dr, dg, db;
+		ColorStep step;
 };
 ////////////////
 class AbsColorChange: public Change{
 	public:
 		AbsColorChange(Color fromColor, Color toColor)
 			:fromColor(fromColor)
-			 ,toColor(toColor)
-			 ,step(fromColor.stepTo(toColor)){
+			,toColor(toColor)
+			,actualColor(fromColor)
+			,step(fromColor.stepTo(toColor)){
 
 			 }
 		void doChange(Box* b){
-			cout << "Abs color " << fromColor << "/" << toColor << "/"<< actualColor << endl;
-			//actualiza actualColor según los rangos de que dispone
-			//Le pone a la box el actualColor
 			actualColor+=step;
-			//b->setColor(actualColor);
+			b->setColor(actualColor);
 		}
 		bool isFinished()const {
 			return (actualColor == toColor);
@@ -187,12 +258,14 @@ class AbsColorChange: public Change{
 class AbsPosChange: public Change{
 	public:
 		AbsPosChange(Point fromPos, Point toPos)
-			:fromPos(fromPos),
-			toPos(toPos){
-			}
-		void doChange(Box*){
-			cout << "Abs Pos" << fromPos<< "/" << toPos<< "/"<< actualPos<< endl;
-			//desplaza a box con el desplazamiento calculado
+			:fromPos(fromPos)
+			,toPos(toPos)
+			,actualPos(fromPos)
+			,step(fromPos.stepTo(toPos)){
+		}
+		void doChange(Box* b){
+			actualPos+=step;
+			b->setPos(actualPos);
 		}
 		bool isFinished() const{
 			return actualPos == toPos;
@@ -203,23 +276,22 @@ class AbsPosChange: public Change{
 	private:
 		Point fromPos, toPos;
 		Point actualPos;
+		PointStep step;
 };
 ////////////////
 class RelPosChange: public Change{
 	public:
 		RelPosChange(int dx, int dy)
-			:dx(dx),
-			dy(dy){
+			:step(dx,dy){
 
-			}
-		void doChange(Box*){
-			//desplaza a box con el desplazamiento calculado
-			cout << "Rel Pos" << dx<< "/" << dy<< endl;
+		}
+		void doChange(Box* b){
+			Point p = b->getPos();
+			p+=step;
+			b->setPos(p);
 		}
 		string toString(){
-			stringstream ss;
-			ss << "RelPosChange. Dx: " << dx<< " dy: "<< dy<<" ";
-			return ss.str();
+			return "!!!"; 
 		}
 		bool isFinished()const {
 			return true;
@@ -228,19 +300,22 @@ class RelPosChange: public Change{
 			//nada
 		}
 	private:
-		int dx, dy;	
+		PointStep step;	
 };
 
 ////////////////
 class AbsSizeChange: public Change{
 	public:
 		AbsSizeChange(Size fromSize, Size toSize)
-			:fromSize(fromSize),
-			toSize(toSize){
+			:fromSize(fromSize)
+			,toSize(toSize)
+			,actualSize(fromSize)
+			,step(fromSize.stepTo(toSize)){
 
 			}
-		void doChange(Box*){
-			cout << "Abs Size" << fromSize<< "/" << toSize<<"/" << actualSize<< endl;
+		void doChange(Box* b){
+			actualSize+=step;
+			b->setSize(actualSize);
 		}
 		bool isFinished()const {
 			return (actualSize == toSize);
@@ -251,17 +326,19 @@ class AbsSizeChange: public Change{
 	private:
 		Size fromSize, toSize;
 		Size actualSize; 
+		SizeStep step;
 };
 ////////////////
 class RelSizeChange: public Change{
 	public:
 		RelSizeChange(int dw, int dh)
-			:dw(dw), 
-			dh(dh){
+			:step(dh,dh){
 
-			}
-		void doChange(Box*){
-			cout << "Rel Size" << dw<< "/" << dh << endl;
+		}
+		void doChange(Box* b){
+			Size s = b->getSize();
+			s+=step;
+			b->setSize(s);
 		}
 		bool isFinished()const{
 			return true;
@@ -270,7 +347,7 @@ class RelSizeChange: public Change{
 			//nada
 		}
 	private:
-		int dw, dh;	
+		SizeStep step;
 };
 ////////////////
 class SoundChange: public Change{
@@ -316,7 +393,8 @@ class Command{
 		~Command(){
 			//liberar los changes
 		}
-		void addChange(Change * change, int repeats){
+		void addChange(Change * change, int repeats, int speed){
+			change->setSpeed(speed);
 			changes[change]= Repeats(repeats);
 		}
 		void start(){
@@ -373,15 +451,6 @@ class Command{
 
 
 ////////////////
-class Box{
-	public:
-		void setColor(Color);
-		void setPos(Point);
-		void setSize(Size);
-		void setSound(Sound);
-		friend ostream & operator<<(ostream& o, Box b);
-};
-////////////////
 class Program{
 	public:
 		Program()
@@ -430,38 +499,52 @@ class Program{
 ////////////////
 class Tablet{
 public:
-	int addProgram(Program p){
-		programs.push_back(p);
+	void setup(){
+		Command * c = new Command;
+		c->addChange(new RelPosChange(-1,0), 10, 1000);
+		c->addChange(new AbsPosChange(Point(1,2), Point(3,3)),20, 200);
+		c->addChange(new AbsColorChange(Color(1,2,3), Color(40,30,40)),10, 300);
+		c->addChange(new RelColorChange(2,3,4),10, 300);
+		c->addChange(new RelSizeChange(-1,0),4, 300);
+		c->addChange(new AbsSizeChange(Size(1,3), Size(4,5)),4, 400);
+		c->addChange(new SoundChange( new Sound),1, 100);
+		Program * p = new Program;
+		p->addCommand(c,10);
+		Box * b = new Box;
+		boxes[b] = p;
 	}
-	int addBox(Box b){
-		boxes.push_back(b);
+	void start(){
+		for(map<Box*,Program*>::iterator i=boxes.begin();
+				i!= boxes.end();
+				i++){
+			(*i).second->start();
+		}
+	}
+	void update(){
+		for(map<Box*,Program*>::iterator i=boxes.begin();
+				i!= boxes.end();
+				i++){
+			(*i).second->update((*i).first);
+		}
 	}
 
-	Box & box(int key){
-		return boxes[key];
+	void show(){
+		for(map<Box*,Program*>::iterator i=boxes.begin();
+				i!= boxes.end();
+				i++){
+			cout <<  *((*i).first);
+		}
 	}
-	Program & program(int key){
-		return programs[key];
-	}
-
-	void start();
-	void stop();
-
-	vector<Box> boxes;
-	vector<Program> programs;
+	map<Box*, Program*>boxes;
 };
 ////////////////
 int main(){
 	Tablet t;
-	Command * c = new Command;
-	c->addChange(new RelPosChange(-1,0), 10);
-	c->addChange(new AbsPosChange(Point(1,2), Point(3,3)),20);
-	c->addChange(new AbsColorChange(Color(1,2,3), Color(40,30,40)),10);
-	c->addChange(new RelColorChange(2,3,4),10);
-	c->addChange(new RelSizeChange(-1,0),4);
-	c->addChange(new AbsSizeChange(Size(1,3), Size(4,5)),4);
-	c->addChange(new SoundChange( new Sound),1);
-	Program p;
-	p.addCommand(c,10);
-	t.addProgram(p);
+	t.setup();
+	t.start();
+	while(true){
+		t.update();
+		t.show();
+		cin.get();
+	}
 }
