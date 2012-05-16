@@ -1,103 +1,102 @@
 #include <iostream>
-#include <sstream>
-#include <cassert>
 #include <vector>
-#include <map>
+#include <cassert>
 using namespace std;
-
-////////////////
-class Sound{
-
-};
-////////////////
 class ColorStep{
-	public:
-		ColorStep(int r=0, int g=0, int b=0)
-			:r(r), g(g), b(b){
+public:
+	ColorStep(int r=0, int g=0, int b=0)
+		:r(r), g(g), b(b){
 		}
 	signed int r,g,b;
 };
+ostream & operator<<(ostream &o, const ColorStep & c){
+	o << "["<<c.r <<","<< c.g<<","<< c.b<<"]";
+	return o;
+}
 ////////////////
 class Color{
-	public:
-		Color(const Color & color)
-			:r(color.r),
-			g(color.g),
-			b(color.b){
+public:
+	Color(const Color & color)
+		:r(color.r),
+		g(color.g),
+		b(color.b){
 
-			}
-		Color(int r=0, int g=0, int b=0)
-			:r(r), g(g), b(b){
-			}
-		ColorStep stepTo(Color c){
-			return ColorStep(
-					c.r==r?0:c.r>r?1:-1,
-					c.g==g?0:c.g>g?1:-1,
-					c.b==b?0:c.b>b?1:-1 
-					);
 		}
-		void operator+=(ColorStep step){
-			r+=step.r;
-			g+=step.g;
-			b+=step.b;
+	Color(int r=0, int g=0, int b=0)
+		:r(r), g(g), b(b){
 		}
-		void approachTo(Color to, ColorStep step){
-			r+=step.r;
-			g+=step.g;
-			b+=step.b;
-			if(step.r >0 && r>to.r) r= to.r;
-			if(step.r <0 && r<to.r) r= to.r;
+	ColorStep stepTo(Color c){
+		return ColorStep(
+			c.r==r?0:c.r>r?1:-1,
+			c.g==g?0:c.g>g?1:-1,
+			c.b==b?0:c.b>b?1:-1 
+		);
+	}
+	void operator+=(ColorStep step){
+		r+=step.r;
+		g+=step.g;
+		b+=step.b;
+		r=r<0?0:r % 256;
+		g=g<0?0:g % 256;
+		b=b<0?0:b % 256;;
+	}
+	void approachTo(Color to, ColorStep step){
+		r+=step.r;
+		g+=step.g;
+		b+=step.b;
+		if(step.r >0 && r>to.r) r= to.r;
+		if(step.r <0 && r<to.r) r= to.r;
 
-			if(step.g >0 && r>to.g) g= to.g;
-			if(step.g <0 && r<to.g) g= to.g;
+		if(step.g >0 && g>to.g) g= to.g;
+		if(step.g <0 && g<to.g) g= to.g;
 
-			if(step.b >0 && r>to.b) b= to.b;
-			if(step.b <0 && r<to.b) b= to.b;
-		}
-		int r,g,b;
+		if(step.b >0 && b>to.b) b= to.b;
+		if(step.b <0 && b<to.b) b= to.b;
+	}
+	int r,g,b;
 };
 bool operator==(const Color& a, const Color& b){
 	return((a.r==b.r) && (a.g==b.g) && (a.b==b.b));
 }
 ostream & operator<<(ostream& o, Color c){
-	o << "R:"<< c.r<<"G:"<<c.g<<"B:"<<c.b<<endl;
+	o << "R:"<< c.r<<" G:"<<c.g<<" B:"<<c.b<< " ";
 	return o;
 }
 ////////////////
 class SizeStep{
-	public:
-		SizeStep(int w=0, int h=0)
-			:w(w),h(h){
+public:
+	SizeStep(int w=0, int h=0)
+		:w(w),h(h){
 		}
 	signed int w, h; 
 };
 ////////////////
 class Size{
-	public:
-		Size(int w=0, int h=0)
-			:w(w), h(h){
+public:
+	Size(int w=0, int h=0)
+		:w(w), h(h){
 		}
-		SizeStep stepTo(Size s){
-			return SizeStep(
-				s.w==w?0:s.w>w?1:-1,
-				s.h==h?0:s.h>h?1:-1 
-			);
-		}
-		void operator+=(SizeStep step){
-			w+=step.w;
-			h+=step.h;
-		}
-		void approachTo(Size to, SizeStep step){
-			w+=step.w;
-			h+=step.h;
+	SizeStep stepTo(Size s){
+		return SizeStep(
+			s.w==w?0:s.w>w?1:-1,
+			s.h==h?0:s.h>h?1:-1 
+		);
+	}
+	void operator+=(SizeStep step){
+		w+=step.w;
+		h+=step.h;
+	}
+	void approachTo(Size to, SizeStep step){
+		w+=step.w;
+		h+=step.h;
 
-			if(step.w >0 && w>to.w) w= to.w;
-			if(step.w <0 && w<to.w) w= to.w;
+		if(step.w >0 && w>to.w) w= to.w;
+		if(step.w <0 && w<to.w) w= to.w;
 
-			if(step.h >0 && h>to.h) h= to.h;
-			if(step.h <0 && h<to.h) h= to.h;
-		}
-		int w,h;
+		if(step.h >0 && h>to.h) h= to.h;
+		if(step.h <0 && h<to.h) h= to.h;
+	}
+	int w,h;
 };
 bool operator==(const Size & p, const Size & q){
 	return ((p.w == q.w) && (p.h == q.h));
@@ -108,39 +107,39 @@ ostream & operator<<(ostream& o, Size s){
 }
 ////////////////
 class PointStep{
-	public:
-		PointStep(int x=0, int y=0)
-			:x(x),y(y){
+public:
+	PointStep(int x=0, int y=0)
+		:x(x),y(y){
 		}
 	signed int x, y; 
 };
 ////////////////
 class Point{
-	public:
-		Point(int x=0, int y=0)
-			:x(x), y(y){
+public:
+	Point(int x=0, int y=0)
+		:x(x), y(y){
 
-		}
-		PointStep stepTo(Point p){
-			return PointStep(
-				p.x==x?0:p.x>x?1:-1,
-				p.y==y?0:p.y>y?1:-1 
-			);
-		}
-		void operator+=(PointStep step){
-			x+=step.x;
-			y+=step.y;
-		}
-		void approachTo(Point to, PointStep step){
-			x+=step.x;
-			y+=step.y;
-			if(step.x >0 && x>to.x) x= to.x;
-			if(step.x <0 && x<to.x) x= to.x;
+	}
+	PointStep stepTo(Point p){
+		return PointStep(
+			p.x==x?0:p.x>x?1:-1,
+			p.y==y?0:p.y>y?1:-1 
+		);
+	}
+	void operator+=(PointStep step){
+		x+=step.x;
+		y+=step.y;
+	}
+	void approachTo(Point to, PointStep step){
+		x+=step.x;
+		y+=step.y;
+		if(step.x >0 && x>to.x) x= to.x;
+		if(step.x <0 && x<to.x) x= to.x;
 
-			if(step.y >0 && y>to.y) y= to.y;
-			if(step.y <0 && y<to.y) y= to.y;
-		}
-		int x,y;
+		if(step.y >0 && y>to.y) y= to.y;
+		if(step.y <0 && y<to.y) y= to.y;
+	}
+	int x,y;
 };
 bool operator==(const Point & p, const Point & q){
 	return ((p.x == q.x) && (p.y == q.y));
@@ -149,38 +148,49 @@ ostream & operator<<(ostream& o, Point p){
 	o << "X:"<< p.x<<"Y:"<<p.y<<endl;
 	return o;
 }
-////////////////
 class Box{
-	public:
-		void setColor(Color color){
-			this->color = color;
+public:
+	void setColor(Color color){
+		this->color = color;
+	}
+	Color getColor(){
+		return color;
+	}
+	void setPos(Point pos){
+		this->pos=pos;
+	}
+	Point getPos(){
+		return pos;
+	}
+	void setSize(Size size){
+		this->size = size;
+	}
+	Size getSize(){
+		return size;
+	}
+	/*
+	void setSound(Sound sound){
+		this->sound = sound;
+	}
+	Sound getSound(){
+		return sound;
+	}
+	void update(){
+		for(vector<Program>::iterator i= programs.begin();
+				i!= programs.end();
+				i++){
+			i->update(this);
 		}
-		Color getColor(){
-			return color;
-		}
-		void setPos(Point pos){
-			this->pos=pos;
-		}
-		Point getPos(){
-			return pos;
-		}
-		void setSize(Size size){
-			this->size = size;
-		}
-		Size getSize(){
-			return size;
-		}
-		void setSound(Sound sound){
-			this->sound = sound;
-		}
-		Sound getSound(){
-			return sound;
-		}
-		friend ostream & operator<<(ostream& o, const Box & b);
-		Point pos;
-		Size size;
-		Color color;
-		Sound sound;
+	}
+	*/
+	friend ostream & operator<<(ostream& o, const Box & b);
+	Color color;
+	Point pos;
+	Size size;
+	/*
+	Sound sound;
+	vector<Program> programs;
+	*/
 };
 ostream & operator<<(ostream &o, const Box & b){
 	o << b.pos << b.size << b.color;
@@ -188,396 +198,254 @@ ostream & operator<<(ostream &o, const Box & b){
 }
 const int MAX_SPEED=10000;
 class Change{
-	public:
-		Change()
-			:speed(0)
-			 ,stopped(true)
-			 ,actualCount(0)
-			 ,initialCount(0){
-
-		 }
-		void setSpeed(int speed){
-			this->speed = speed % MAX_SPEED;
-			start();
-		}
-		void start(){
-			if(speed <=0){
-				stopped= true;
-			}else{
-				initialCount= MAX_SPEED/speed;
-				actualCount=initialCount;
-				stopped=false;
-			}
-		}
-		void stop(){
-			stopped=true;
-		}
-
-		void update(Box *b){
-			if(stopped)return;
-			if(actualCount > 0){
-				actualCount--;
-			}else{
-				actualCount= initialCount;
-				doChange(b);
-			}
-		}
-		bool isStopped(){
-			return stopped;
-		}
-		//el cambio real
-		virtual void doChange(Box *)=0;
-		//si el cambio alcanzó su objetivo completo 
-		virtual bool isFinished()const =0;
-		virtual void reset()=0;
-	private:	
-		int initialCount, actualCount; 
-		int speed;
-		bool stopped;
-};
-////////////////
-class RelColorChange: public Change{
-	public:
-		RelColorChange(int dr, int dg, int db)
-			:step(dr,dg,db) {
-
-			}
-		void doChange(Box* b){
-			Color c = b->getColor();
-			c+=step;
-			b->setColor(c);
-		}
-		bool isFinished()const {
-			return true;
-		}
-		void reset(){
-			//nada
-		}
-		string toString(){
-			stringstream ss;
-			return ss.str();
-		}
-	private:
-		ColorStep step;
-};
-////////////////
-class AbsColorChange: public Change{
-	public:
-		AbsColorChange(Color fromColor, Color toColor)
-			:fromColor(fromColor)
-			 ,toColor(toColor)
-			 ,actualColor(fromColor)
-			 ,step(fromColor.stepTo(toColor)){
-
-			 }
-		void doChange(Box* b){
-			actualColor.approachTo(toColor, step);
-			b->setColor(actualColor);
-		}
-		bool isFinished()const {
-			return (actualColor == toColor);
-		}
-		void reset(){
-			actualColor = fromColor;
-		}
-	private:
-		Color fromColor, toColor;
-		Color actualColor;
-		ColorStep step;
-};
-
-////////////////
-class AbsPosChange: public Change{
-	public:
-		AbsPosChange(Point fromPos, Point toPos)
-			:fromPos(fromPos)
-			 ,toPos(toPos)
-			 ,actualPos(fromPos)
-			 ,step(fromPos.stepTo(toPos)){
-			 }
-		void doChange(Box* b){
-			actualPos.approachTo(toPos, step);
-			b->setPos(actualPos);
-		}
-		bool isFinished() const{
-			return actualPos == toPos;
-		}
-		void reset(){
-			actualPos = fromPos;	
-		}
-	private:
-		Point fromPos, toPos;
-		Point actualPos;
-		PointStep step;
-};
-////////////////
-class RelPosChange: public Change{
-	public:
-		RelPosChange(int dx, int dy)
-			:step(dx,dy){
-
-			}
-		void doChange(Box* b){
-			Point p = b->getPos();
-			p+=step;
-			b->setPos(p);
-		}
-		string toString(){
-			return "!!!"; 
-		}
-		bool isFinished()const {
-			return true;
-		}
-		void reset(){
-			//nada
-		}
-	private:
-		PointStep step;	
-};
-
-////////////////
-class AbsSizeChange: public Change{
-	public:
-		AbsSizeChange(Size fromSize, Size toSize)
-			:fromSize(fromSize)
-			 ,toSize(toSize)
-			 ,actualSize(fromSize)
-			 ,step(fromSize.stepTo(toSize)){
-
-			 }
-		void doChange(Box* b){
-			actualSize.approachTo(toSize, step);
-			b->setSize(actualSize);
-		}
-		bool isFinished()const {
-			return (actualSize == toSize);
-		}
-		void reset(){
-			actualSize = fromSize;	
-		}
-	private:
-		Size fromSize, toSize;
-		Size actualSize; 
-		SizeStep step;
-};
-////////////////
-class RelSizeChange: public Change{
-	public:
-		RelSizeChange(int dw, int dh)
-			:step(dh,dh){
-
-			}
-		void doChange(Box* b){
-			Size s = b->getSize();
-			s+=step;
-			b->setSize(s);
-		}
-		bool isFinished()const{
-			return true;
-		}
-		void reset(){
-			//nada
-		}
-	private:
-		SizeStep step;
-};
-////////////////
-class SoundChange: public Change{
-	public:
-		SoundChange(Sound * sound)
-			:sound(sound){
-
-			}
-		void doChange(Box* b){
-			//b->setSound(sound);	
-			cout << "sound change" << endl;
-		}
-		bool isFinished()const{
-			return true;
-		}
-		void reset(){
-			//nada
-		}
-	private:
-		Sound * sound;	
-};
-////////////////
-struct Repeats{
-	Repeats(int initial=0)
-		:initial(initial)
-		 ,actual(0){
-
-		 }
-	int initial;
-	int actual;
-};
-////////////////
-class Command{
-	/*Conjunto de cambios que se ejecutan SIMULTANEAMENTE.
-	  Se termina cuando todos terminan Cada uno se ejecuta a la velocidad y el
-	  número de veces que se le envió al agregarlo
-	 */
-	public:
-		Command()
-			:stopped(true)
-			 ,finished(false){
-
-			 }
-		~Command(){
-			//liberar los changes
-		}
-		void addChange(Change * change, int repeats, int speed){
-			change->setSpeed(speed);
-			changes[change]= Repeats(repeats);
-		}
-		void start(){
-			stopped = false;
-		}
-		void reset(){
-			while(actualChange != changes.end()){
-				(*actualChange).first->reset();
-				actualChange++;
-			}
-		}
-		void stop(){
-			stopped=true;	
-		}
-		bool isFinished()const{
-			return finished;
-		}
-		/*
-		   Recorremos todos los cambios del comando.
-		   El que no ha terminado se actualiza
-		   El que sí, se le decrementa el número de veces que se repetirá
-		   Si la cuenta llega a cero se deja sin actualizar
-		   Cuando todos han terminado, finished queda a true
-		 */
-		void update(Box * b){
-			if(finished) return;
-			finished=true;
-			actualChange = changes.begin();
-			while(actualChange != changes.end()){
-				if(!(*actualChange).first->isFinished()){
-					(*actualChange).first->update(b);
-					finished=false;
-				}else{
-					if((*actualChange).second.actual == -1){
-						(*actualChange).first->reset();
-					}else{
-						(*actualChange).second.actual --;
-						if((*actualChange).second.actual > 0){
-							(*actualChange).first->reset();
-						}
-					}
+public:
+	Change(int speed, int repeats)
+		:speed(speed)
+		,initialRepeats(repeats)
+		,actualRepeats(initialRepeats)
+		,initialLapse(MAX_SPEED/speed)
+		,actualLapse(initialLapse) 
+		,changeCompleted(false){
+	}
+protected:
+	bool needUpdate(){
+		if(!repeatsCompleted()){
+			if(lapseCompleted()){
+				restartLapse();
+				if(changeCompleted){
+					actualRepeats--;
+					changeCompleted=false;
 				}
-				actualChange++;
-			}
-		}
-	private:
-		map<Change*, Repeats>changes;
-		map<Change*, Repeats>::iterator actualChange;
-		bool finished;
-		bool stopped;
-
-		friend ostream & operator<<(ostream& o, Command c);
-};
-
-
-////////////////
-class Program{
-	public:
-		Program()
-			:actualCommand(commands.begin())
-			 ,stopped(true){
-
-			 }
-		void stop(){
-			stopped = true;
-		}
-		void start(){
-			stopped=false;
-			actualCommand = commands.begin();
-		}
-		bool isFinished()const {
-			return (actualCommand == commands.end());
-		}
-		void addCommand(Command * c , int repeats){
-			commands[c]= repeats;
-		}
-		void update(Box * b){
-			if(actualCommand == commands.end()){
-				return;
-			}
-			if(!(*actualCommand).first->isFinished()){
-				(*actualCommand).first->update(b);
+				return true;
 			}else{
-				if((*actualCommand).second.actual == -1){
-					(*actualCommand).first->reset();
-				}else{
-					(*actualCommand).second.actual --;
-					if((*actualCommand).second.actual > 0){
-						//No hay que poner actual a initial aqui????
-						(*actualCommand).first->reset();
-					}else{
-						actualCommand++;
-					}
+				actualLapse--;
+			}
+		}
+		return false;
+	}
+	bool repeatsCompleted(){
+		return (actualRepeats == 0);
+	}
+	void setChangeCompleted(){
+		changeCompleted = true;
+	}
+private:	
+	void restartLapse(){
+		actualLapse=initialLapse;
+	}
+	void restartRepeats(){
+		actualRepeats=initialRepeats;
+	}
+	bool lapseCompleted(){
+		return (actualLapse == 0);
+	}
+
+	int speed;
+	int initialLapse, actualLapse; 
+	int initialRepeats, actualRepeats;
+	bool changeCompleted;
+};
+///////////////////////////////////
+class ColorChange: public Change{
+public:
+	ColorChange(Color from, Color to, int speed, int repeats)
+		:Change(speed, repeats)
+		,from(from)
+		,to(to)
+		,step(from.stepTo(to))
+		,isRelative(false) {
+			resetData();
+
+	}
+	ColorChange(ColorStep step, int speed, int repeats)
+		:Change(speed, repeats)
+		,step(step)
+		,isRelative(true){
+
+	}
+	bool isCompleted(){
+		return repeatsCompleted();
+	}
+	void update(Box * b){
+		if(needUpdate()){
+			if(isRelative){
+				Color c = b->getColor();
+				c+=step;
+				b->setColor(c);
+				setChangeCompleted();
+			}else{
+				actual.approachTo(to, step);
+				b->setColor(actual);
+				if(actual == to){
+					resetData();	
+					setChangeCompleted();
 				}
 			}
 		}
-
-		map<Command *, Repeats> commands;
-		map<Command *, Repeats>::iterator actualCommand;
-		bool stopped;
+	}
+private:
+	void resetData(){
+		if(!isRelative){
+			actual= from;
+		}
+	}
+	Color from, to, actual;
+	ColorStep step;
+	bool isRelative;
 };
-////////////////
-class Tablet{
-	public:
-		void setup(){
-			Command * c = new Command;
-			c->addChange(new AbsPosChange(Point(10,2), Point(3,7)),20, 800);
-			c->addChange(new RelPosChange(1,1), 10, 10000);
-			c->addChange(new AbsColorChange(Color(1,2,3), Color(40,30,40)),10, 300);
-			c->addChange(new RelColorChange(2,3,4),10, 300);
-			c->addChange(new RelSizeChange(-1,0),4, 300);
-			c->addChange(new AbsSizeChange(Size(1,3), Size(4,5)),4, 400);
-			c->addChange(new SoundChange( new Sound),1, 100);
-			Program * p = new Program;
-			p->addCommand(c,10);
-			Box * b = new Box;
-			boxes[b] = p;
-		}
-		void start(){
-			for(map<Box*,Program*>::iterator i=boxes.begin();
-					i!= boxes.end();
-					i++){
-				(*i).second->start();
-			}
-		}
-		void update(){
-			for(map<Box*,Program*>::iterator i=boxes.begin();
-					i!= boxes.end();
-					i++){
-				(*i).second->update((*i).first);
-			}
-		}
+///////////////////////////////////
+class PosChange: public Change{
+public:
+	PosChange(Point from, Point to, int speed, int repeats)
+		:Change(speed, repeats)
+		,from(from)
+		,to(to)
+		,step(from.stepTo(to))
+		,isRelative(false) {
+			resetData();
 
-		void show(){
-			for(map<Box*,Program*>::iterator i=boxes.begin();
-					i!= boxes.end();
-					i++){
-				cout <<  *((*i).first);
+	}
+	PosChange(PointStep step, int speed, int repeats)
+		:Change(speed, repeats)
+		,step(step)
+		,isRelative(true){
+
+	}
+	bool isCompleted(){
+		return repeatsCompleted();
+	}
+	void update(Box * b){
+		if(needUpdate()){
+			if(isRelative){
+				Point c = b->getPos();
+				c+=step;
+				b->setPos(c);
+				setChangeCompleted();
+			}else{
+				actual.approachTo(to, step);
+				b->setPos(actual);
+				if(actual== to){
+					resetData();	
+					setChangeCompleted();
+				}
 			}
 		}
-		map<Box*, Program*>boxes;
+	}
+private:
+	void resetData(){
+		if(!isRelative){
+			actual= from;
+		}
+	}
+	Point from, to, actual;
+	PointStep step;
+	bool isRelative;
 };
-////////////////
+///////////////////////////////////
+class SizeChange: public Change{
+public:
+	SizeChange(Size from, Size to, int speed, int repeats)
+		:Change(speed, repeats)
+		,from(from)
+		,to(to)
+		,step(from.stepTo(to))
+		,isRelative(false) {
+			resetData();
+
+	}
+	SizeChange(SizeStep step, int speed, int repeats)
+		:Change(speed, repeats)
+		,step(step)
+		,isRelative(true){
+
+	}
+	bool isCompleted(){
+		return repeatsCompleted();
+	}
+	void update(Box * b){
+		if(needUpdate()){
+			if(isRelative){
+				Size c = b->getSize();
+				c+=step;
+				b->setSize(c);
+				setChangeCompleted();
+			}else{
+				actual.approachTo(to, step);
+				b->setSize(actual);
+				if(actual== to){
+					resetData();	
+					setChangeCompleted();
+				}
+			}
+		}
+	}
+private:
+	void resetData(){
+		if(!isRelative){
+			actual= from;
+		}
+	}
+	Size from, to, actual;
+	SizeStep step;
+	bool isRelative;
+};
 int main(){
-	Tablet t;
-	t.setup();
-	t.start();
-	while(true){
-		t.update();
-		t.show();
+	vector<ColorChange> colorChanges;
+	vector<PosChange>   posChanges;
+	vector<SizeChange>  sizeChanges;
+	colorChanges.push_back(ColorChange(Color(8,1,10), Color(7,7,4), 9000,3));
+	colorChanges.push_back(ColorChange(ColorStep(1,100,-1), 9990,10));
+	posChanges.push_back(PosChange(PointStep(1,-1), 9990,10));
+	sizeChanges.push_back(SizeChange(SizeStep(1,-1), 9990,30));
+	sizeChanges.push_back(SizeChange(Size(1,10), Size(7,4), 9000,3));
+	Box b;
+	bool complete = false;
+	while(!complete){
+		complete=true;
+		for(int i=0; i< colorChanges.size();i++){
+			if(!colorChanges[i].isCompleted()){
+				colorChanges[i].update(&b);
+				complete=false;
+			}
+		}
+		for(int i=0; i< posChanges.size();i++){
+			if(!posChanges[i].isCompleted()){
+				posChanges[i].update(&b);
+				complete=false;
+			}
+		}
+		for(int i=0; i< sizeChanges.size();i++){
+			if(!sizeChanges[i].isCompleted()){
+				sizeChanges[i].update(&b);
+				complete=false;
+			}
+		}
+		cout << b;
 		cin.get();
 	}
+
 }
+/*
+class Command{
+public:
+	void addColorChange(Color from, Color to, int speed, int repeats){
+		absColorChanges.push_back( AbsColorChange(from, to, speed, repeats));
+	}
+	void addColorChange(ColorStep step, int speed, int repeats){
+		relColorChanges.push_back(RelColorChange(step, speed, repeats));
+	}
+
+	void addSizeChange(Size from, Size to, int speed, int repeats)
+
+	void addSizeChange(SizeStep step, int speed, int repeats);
+
+	void addPosChange(Pos from, Pos to, int speed, int repeats);
+	void addPosChange(PosStep step, int speed, int repeats);
+
+
+private:
+	vector<AbsColorChange>absColorChanges;
+	vector<RelColorChange>relColorChanges;
+	//mas vectores para los otros tipos de cambios...
+};
+*/
