@@ -2,6 +2,7 @@
 #include <vector>
 #include <cassert>
 using namespace std;
+////////////////
 class ColorStep{
 public:
 	ColorStep(int r=0, int g=0, int b=0)
@@ -85,6 +86,8 @@ public:
 	void operator+=(SizeStep step){
 		w+=step.w;
 		h+=step.h;
+		w=w<0?0:w;
+		h=h<0?0:h;
 	}
 	void approachTo(Size to, SizeStep step){
 		w+=step.w;
@@ -102,35 +105,35 @@ bool operator==(const Size & p, const Size & q){
 	return ((p.w == q.w) && (p.h == q.h));
 }
 ostream & operator<<(ostream& o, Size s){
-	o << "W:"<< s.w<<"H:"<<s.h<<endl;
+	o << " W:"<< s.w<<" H:"<<s.h<<" ";
 	return o;
 }
 ////////////////
-class PointStep{
+class PosStep{
 public:
-	PointStep(int x=0, int y=0)
+	PosStep(int x=0, int y=0)
 		:x(x),y(y){
 		}
 	signed int x, y; 
 };
 ////////////////
-class Point{
+class Pos{
 public:
-	Point(int x=0, int y=0)
+	Pos(int x=0, int y=0)
 		:x(x), y(y){
 
 	}
-	PointStep stepTo(Point p){
-		return PointStep(
+	PosStep stepTo(Pos p){
+		return PosStep(
 			p.x==x?0:p.x>x?1:-1,
 			p.y==y?0:p.y>y?1:-1 
 		);
 	}
-	void operator+=(PointStep step){
+	void operator+=(PosStep step){
 		x+=step.x;
 		y+=step.y;
 	}
-	void approachTo(Point to, PointStep step){
+	void approachTo(Pos to, PosStep step){
 		x+=step.x;
 		y+=step.y;
 		if(step.x >0 && x>to.x) x= to.x;
@@ -141,13 +144,14 @@ public:
 	}
 	int x,y;
 };
-bool operator==(const Point & p, const Point & q){
+bool operator==(const Pos & p, const Pos & q){
 	return ((p.x == q.x) && (p.y == q.y));
 }
-ostream & operator<<(ostream& o, Point p){
-	o << "X:"<< p.x<<"Y:"<<p.y<<endl;
+ostream & operator<<(ostream& o, Pos p){
+	o << " X:"<< p.x<<" Y:"<<p.y << " ";
 	return o;
 }
+///////////////
 class Box{
 public:
 	void setColor(Color color){
@@ -156,10 +160,10 @@ public:
 	Color getColor(){
 		return color;
 	}
-	void setPos(Point pos){
+	void setPos(Pos pos){
 		this->pos=pos;
 	}
-	Point getPos(){
+	Pos getPos(){
 		return pos;
 	}
 	void setSize(Size size){
@@ -175,27 +179,20 @@ public:
 	Sound getSound(){
 		return sound;
 	}
-	void update(){
-		for(vector<Program>::iterator i= programs.begin();
-				i!= programs.end();
-				i++){
-			i->update(this);
-		}
-	}
 	*/
 	friend ostream & operator<<(ostream& o, const Box & b);
 	Color color;
-	Point pos;
+	Pos pos;
 	Size size;
 	/*
 	Sound sound;
-	vector<Program> programs;
 	*/
 };
 ostream & operator<<(ostream &o, const Box & b){
 	o << b.pos << b.size << b.color;
 	return o;
 }
+////////////////////////
 const int MAX_SPEED=10000;
 class Change{
 public:
@@ -296,7 +293,7 @@ private:
 ///////////////////////////////////
 class PosChange: public Change{
 public:
-	PosChange(Point from, Point to, int speed, int repeats)
+	PosChange(Pos from, Pos to, int speed, int repeats)
 		:Change(speed, repeats)
 		,from(from)
 		,to(to)
@@ -305,7 +302,7 @@ public:
 			resetData();
 
 	}
-	PosChange(PointStep step, int speed, int repeats)
+	PosChange(PosStep step, int speed, int repeats)
 		:Change(speed, repeats)
 		,step(step)
 		,isRelative(true){
@@ -317,7 +314,7 @@ public:
 	void update(Box * b){
 		if(needUpdate()){
 			if(isRelative){
-				Point c = b->getPos();
+				Pos c = b->getPos();
 				c+=step;
 				b->setPos(c);
 				setChangeCompleted();
@@ -337,8 +334,8 @@ private:
 			actual= from;
 		}
 	}
-	Point from, to, actual;
-	PointStep step;
+	Pos from, to, actual;
+	PosStep step;
 	bool isRelative;
 };
 ///////////////////////////////////
@@ -389,63 +386,73 @@ private:
 	SizeStep step;
 	bool isRelative;
 };
-int main(){
-	vector<ColorChange> colorChanges;
-	vector<PosChange>   posChanges;
-	vector<SizeChange>  sizeChanges;
-	colorChanges.push_back(ColorChange(Color(8,1,10), Color(7,7,4), 9000,3));
-	colorChanges.push_back(ColorChange(ColorStep(1,100,-1), 9990,10));
-	posChanges.push_back(PosChange(PointStep(1,-1), 9990,10));
-	sizeChanges.push_back(SizeChange(SizeStep(1,-1), 9990,30));
-	sizeChanges.push_back(SizeChange(Size(1,10), Size(7,4), 9000,3));
-	Box b;
-	bool complete = false;
-	while(!complete){
-		complete=true;
+class Program{
+public:
+	Program()
+		:finished(false){
+
+	}
+	void update(Box * b){
+		finished=true;
 		for(int i=0; i< colorChanges.size();i++){
 			if(!colorChanges[i].isCompleted()){
-				colorChanges[i].update(&b);
-				complete=false;
+				colorChanges[i].update(b);
+				finished=false;
 			}
 		}
 		for(int i=0; i< posChanges.size();i++){
 			if(!posChanges[i].isCompleted()){
-				posChanges[i].update(&b);
-				complete=false;
+				posChanges[i].update(b);
+				finished=false;
 			}
 		}
 		for(int i=0; i< sizeChanges.size();i++){
 			if(!sizeChanges[i].isCompleted()){
-				sizeChanges[i].update(&b);
-				complete=false;
+				sizeChanges[i].update(b);
+				finished=false;
 			}
 		}
+	}
+	bool isFinished(){
+		return finished;
+	}
+	void reset(){
+		finished= false;
+	}
+	void addChange(ColorChange c){
+		colorChanges.push_back(c);
+	}
+	void addChange(PosChange p){
+		posChanges.push_back(p);
+	}
+	void addChange(SizeChange s){
+		sizeChanges.push_back(s);
+	}
+
+	vector<ColorChange> colorChanges;
+	vector<PosChange>   posChanges;
+	vector<SizeChange>  sizeChanges;
+
+private:
+	bool finished;
+};
+class Form{
+	Pos pos;
+	vector<Box> boxes;
+};
+int main(){
+	Program p;
+	p.addChange(ColorChange(Color(8,1,10), Color(7,7,4), 9000,3));
+	p.addChange(PosChange  (Pos(1,-1),     Pos(4,4),     9990,10));
+	p.addChange(SizeChange (Size(1,10),    Size(7,4),    9000,3));
+
+	p.addChange(ColorChange(ColorStep(1,100,-1), 9990,10));
+	p.addChange(PosChange  (PosStep(1,-1),       9990,10));
+	p.addChange(SizeChange (SizeStep(1,-1),      9990,30));
+	Box b;
+	while(!p.isFinished()){
+		p.update(&b);
 		cout << b;
 		cin.get();
 	}
-
 }
-/*
-class Command{
-public:
-	void addColorChange(Color from, Color to, int speed, int repeats){
-		absColorChanges.push_back( AbsColorChange(from, to, speed, repeats));
-	}
-	void addColorChange(ColorStep step, int speed, int repeats){
-		relColorChanges.push_back(RelColorChange(step, speed, repeats));
-	}
-
-	void addSizeChange(Size from, Size to, int speed, int repeats)
-
-	void addSizeChange(SizeStep step, int speed, int repeats);
-
-	void addPosChange(Pos from, Pos to, int speed, int repeats);
-	void addPosChange(PosStep step, int speed, int repeats);
-
-
-private:
-	vector<AbsColorChange>absColorChanges;
-	vector<RelColorChange>relColorChanges;
-	//mas vectores para los otros tipos de cambios...
-};
-*/
