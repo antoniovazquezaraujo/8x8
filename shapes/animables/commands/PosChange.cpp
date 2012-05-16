@@ -1,3 +1,5 @@
+#include "PosChange.h"
+#include "Form.h"
 PosChange::PosChange(Pos from, Pos to, int speed, int repeats)
 	:Change(speed, repeats)
 	,from(from)

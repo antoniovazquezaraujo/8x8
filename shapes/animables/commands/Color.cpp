@@ -5,7 +5,7 @@ Color::Color(const Color & color)
 	b(color.b){
 
 	}
-Color::Color(int r=0, int g=0, int b=0)
+Color::Color(int r, int g, int b)
 	:r(r), g(g), b(b){
 	}
 ColorStep Color::stepTo(Color c){

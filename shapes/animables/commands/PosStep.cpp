@@ -1,4 +1,4 @@
 #include "PosStep.h"
-PosStep::PosStep(int x=0, int y=0)
+PosStep::PosStep(int x, int y)
 	:x(x),y(y){
 }

@@ -2,7 +2,7 @@
 #define SIZE_CHANGE
 #include "Change.h"
 #include "Size.h"
-#include "Form.h"
+class Form;
 class SizeChange: public Change{
 public:
 	SizeChange(Size from, Size to, int speed, int repeats);

@@ -1,5 +1,5 @@
 #include "Size.h" 
-Size::Size(int w=0, int h=0)
+Size::Size(int w, int h)
 	:w(w), h(h){
 	}
 SizeStep Size::stepTo(Size s){

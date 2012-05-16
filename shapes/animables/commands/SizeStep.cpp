@@ -1,4 +1,4 @@
 #include "SizeStep.h" 
-SizeStep::SizeStep(int w=0, int h=0)
+SizeStep::SizeStep(int w, int h)
 	:w(w),h(h){
 }

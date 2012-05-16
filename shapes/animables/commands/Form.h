@@ -23,6 +23,6 @@ public:
 	vector<Box> boxes;
 	vector<Program>programs;
 	vector<Program>::iterator actualProgram;
-	friend ostream & operator<<(ostream& o, const Box & b);
+	friend ostream & operator<<(ostream& o, const Form & f);
 };
 #endif

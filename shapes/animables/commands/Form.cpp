@@ -22,7 +22,7 @@ void Form::addProgram(Program p){
 }
 void Form::update(){
 	if(actualProgram != programs.end()){
-		actualProgram.update(this);
+		(*actualProgram).update(this);
 		actualProgram++;
 	}else{
 		actualProgram = programs.begin();

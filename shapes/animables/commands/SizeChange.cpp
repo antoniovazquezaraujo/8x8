@@ -1,4 +1,5 @@
 #include "SizeChange.h"
+#include "Form.h"
 SizeChange::SizeChange(Size from, Size to, int speed, int repeats)
 	:Change(speed, repeats)
 	,from(from)

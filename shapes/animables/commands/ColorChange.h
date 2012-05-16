@@ -1,8 +1,8 @@
 #ifndef COLOR_CHANGE
 #define COLOR_CHANGE
 #include "Change.h"
-#include "Form.h"
 #include "Color.h"
+class Form;
 class ColorChange: public Change{
 public:
 	ColorChange(Color from, Color to, int speed, int repeats);

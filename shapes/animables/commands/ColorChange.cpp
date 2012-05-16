@@ -1,4 +1,5 @@
 #include "ColorChange.h"
+#include "Form.h"
 ColorChange::ColorChange(Color from, Color to, int speed, int repeats)
 	:Change(speed, repeats)
 	,from(from)
