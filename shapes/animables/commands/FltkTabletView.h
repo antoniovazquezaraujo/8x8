@@ -6,7 +6,6 @@
 #include <FL/Fl_Preferences.H>
 #include <FL/fl_draw.H>
 #include <FL/x.H>
-#include <iostream>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>

@@ -1,48 +1,16 @@
 #ifndef SIZE_CHANGE
 #define SIZE_CHANGE
+#include "Change.h"
+#include "Size.h"
+#include "Form.h"
 class SizeChange: public Change{
 public:
-	SizeChange(Size from, Size to, int speed, int repeats)
-		:Change(speed, repeats)
-		,from(from)
-		,to(to)
-		,step(from.stepTo(to))
-		,isRelative(false) {
-			resetData();
-
-	}
-	SizeChange(SizeStep step, int speed, int repeats)
-		:Change(speed, repeats)
-		,step(step)
-		,isRelative(true){
-
-	}
-	bool isCompleted(){
-		return repeatsCompleted();
-	}
-	void update(Form * b){
-		if(needUpdate()){
-			if(isRelative){
-				Size c = b->getSize();
-				c+=step;
-				b->setSize(c);
-				setChangeCompleted();
-			}else{
-				actual.approachTo(to, step);
-				b->setSize(actual);
-				if(actual== to){
-					resetData();	
-					setChangeCompleted();
-				}
-			}
-		}
-	}
+	SizeChange(Size from, Size to, int speed, int repeats);
+	SizeChange(SizeStep step, int speed, int repeats);
+	bool isCompleted();
+	void update(Form * b);
 private:
-	void resetData(){
-		if(!isRelative){
-			actual= from;
-		}
-	}
+	void resetData();
 	Size from, to, actual;
 	SizeStep step;
 	bool isRelative;

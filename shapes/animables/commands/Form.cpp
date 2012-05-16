@@ -1,3 +1,4 @@
+#include "Form.h"
 void Form::setColor(Color color){
 	this->color = color;
 }

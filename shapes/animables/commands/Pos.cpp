@@ -1,4 +1,5 @@
-Pos::Pos(int x=0, int y=0)
+#include "Pos.h"
+Pos::Pos(int x, int y)
 	:x(x), y(y){
 
 }
