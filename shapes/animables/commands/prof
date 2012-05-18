@@ -1,0 +1,511 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+ no time accumulated
+
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  Ts/call  Ts/call  name    
+  0.00      0.00     0.00      372     0.00     0.00  Change::repeatsCompleted()
+  0.00      0.00     0.00      216     0.00     0.00  Change::needUpdate()
+  0.00      0.00     0.00      204     0.00     0.00  Form::getColor() const
+  0.00      0.00     0.00      197     0.00     0.00  FltkTabletView::timeout_cb(FltkTabletView*)
+  0.00      0.00     0.00      195     0.00     0.00  TabletModel::getColorField()
+  0.00      0.00     0.00      195     0.00     0.00  TabletModel::update()
+  0.00      0.00     0.00      195     0.00     0.00  FltkTabletView::draw()
+  0.00      0.00     0.00      195     0.00     0.00  Form::update()
+  0.00      0.00     0.00      195     0.00     0.00  Box::getPos() const
+  0.00      0.00     0.00      195     0.00     0.00  Box::getSize() const
+  0.00      0.00     0.00      195     0.00     0.00  Box::getColor() const
+  0.00      0.00     0.00      195     0.00     0.00  Pos::operator+(Pos const&) const
+  0.00      0.00     0.00      195     0.00     0.00  Form::getPos() const
+  0.00      0.00     0.00      195     0.00     0.00  Form::getSize() const
+  0.00      0.00     0.00      195     0.00     0.00  Size::operator+(Size const&) const
+  0.00      0.00     0.00      195     0.00     0.00  Color::operator+(Color const&) const
+  0.00      0.00     0.00      192     0.00     0.00  Program::isFinished()
+  0.00      0.00     0.00      186     0.00     0.00  ColorChange::isCompleted()
+  0.00      0.00     0.00      186     0.00     0.00  Program::update(Form*)
+  0.00      0.00     0.00      186     0.00     0.00  PosChange::isCompleted()
+  0.00      0.00     0.00      180     0.00     0.00  PosChange::update(Form*)
+  0.00      0.00     0.00      137     0.00     0.00  Color::Color(int, int, int)
+  0.00      0.00     0.00       57     0.00     0.00  Color::Color(Color const&)
+  0.00      0.00     0.00       45     0.00     0.00  Pos::approachTo(Pos, PosStep)
+  0.00      0.00     0.00       45     0.00     0.00  Form::setPos(Pos)
+  0.00      0.00     0.00       45     0.00     0.00  operator==(Pos const&, Pos const&)
+  0.00      0.00     0.00       36     0.00     0.00  ColorChange::update(Form*)
+  0.00      0.00     0.00       15     0.00     0.00  Change::setChangeCompleted()
+  0.00      0.00     0.00       12     0.00     0.00  Change::restartRepeats()
+  0.00      0.00     0.00       11     0.00     0.00  FltkTabletView::handle(int)
+  0.00      0.00     0.00       10     0.00     0.00  Form::setColor(Color)
+  0.00      0.00     0.00        9     0.00     0.00  Color::operator+=(ColorStep const&)
+  0.00      0.00     0.00        8     0.00     0.00  Pos::Pos(int, int)
+  0.00      0.00     0.00        6     0.00     0.00  Program::reset()
+  0.00      0.00     0.00        4     0.00     0.00  Change::Change(int, int)
+  0.00      0.00     0.00        2     0.00     0.00  ColorChange::ColorChange(ColorStep, int, int)
+  0.00      0.00     0.00        2     0.00     0.00  Pos::stepTo(Pos)
+  0.00      0.00     0.00        2     0.00     0.00  Form::addProgram(Program)
+  0.00      0.00     0.00        2     0.00     0.00  Form::Form(Form const&)
+  0.00      0.00     0.00        2     0.00     0.00  Size::Size(int, int)
+  0.00      0.00     0.00        2     0.00     0.00  PosStep::PosStep(int, int)
+  0.00      0.00     0.00        2     0.00     0.00  Program::addChange(ColorChange const&)
+  0.00      0.00     0.00        2     0.00     0.00  Program::addChange(PosChange const&)
+  0.00      0.00     0.00        2     0.00     0.00  Program::Program()
+  0.00      0.00     0.00        2     0.00     0.00  ColorStep::ColorStep(int, int, int)
+  0.00      0.00     0.00        2     0.00     0.00  PosChange::PosChange(Pos, Pos, int, int)
+  0.00      0.00     0.00        2     0.00     0.00  std::vector<ColorChange, std::allocator<ColorChange> >::_M_insert_aux(__gnu_cxx::__normal_iterator<ColorChange*, std::vector<ColorChange, std::allocator<ColorChange> > >, ColorChange const&)
+  0.00      0.00     0.00        2     0.00     0.00  std::vector<Program, std::allocator<Program> >::_M_insert_aux(__gnu_cxx::__normal_iterator<Program*, std::vector<Program, std::allocator<Program> > >, Program const&)
+  0.00      0.00     0.00        2     0.00     0.00  std::vector<PosChange, std::allocator<PosChange> >::_M_insert_aux(__gnu_cxx::__normal_iterator<PosChange*, std::vector<PosChange, std::allocator<PosChange> > >, PosChange const&)
+  0.00      0.00     0.00        1     0.00     0.00  TabletView::setController(TabletController*)
+  0.00      0.00     0.00        1     0.00     0.00  TabletView::setModel(TabletModel*)
+  0.00      0.00     0.00        1     0.00     0.00  TabletModel::addForm(int, Form)
+  0.00      0.00     0.00        1     0.00     0.00  TabletModel::TabletModel()
+  0.00      0.00     0.00        1     0.00     0.00  FltkTabletView::start()
+  0.00      0.00     0.00        1     0.00     0.00  FltkTabletView::FltkTabletView()
+  0.00      0.00     0.00        1     0.00     0.00  TabletController::TabletController(TabletView*)
+  0.00      0.00     0.00        1     0.00     0.00  TabletController::~TabletController()
+  0.00      0.00     0.00        1     0.00     0.00  Box::Box(int, int, int, int, bool)
+  0.00      0.00     0.00        1     0.00     0.00  Form::addBox(Box)
+  0.00      0.00     0.00        1     0.00     0.00  Form::Form(int, int, int, int)
+  0.00      0.00     0.00        1     0.00     0.00  Prueba1::setup()
+  0.00      0.00     0.00        1     0.00     0.00  Prueba1::start()
+  0.00      0.00     0.00        1     0.00     0.00  Prueba1::Prueba1(TabletView*)
+  0.00      0.00     0.00        1     0.00     0.00  Fl_Window::as_window()
+  0.00      0.00     0.00        1     0.00     0.00  std::vector<Box, std::allocator<Box> >::_M_insert_aux(__gnu_cxx::__normal_iterator<Box*, std::vector<Box, std::allocator<Box> > >, Box const&)
+  0.00      0.00     0.00        1     0.00     0.00  std::vector<Form, std::allocator<Form> >::_M_insert_aux(__gnu_cxx::__normal_iterator<Form*, std::vector<Form, std::allocator<Form> > >, Form const&)
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+ 
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this 
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 4 byte(s) no time propagated
+
+index % time    self  children    called     name
+                0.00    0.00     372/372         Program::update(Form*) [96]
+[78]     0.0    0.00    0.00     372         Change::repeatsCompleted() [78]
+-----------------------------------------------
+                0.00    0.00      36/216         ColorChange::update(Form*) [104]
+                0.00    0.00     180/216         PosChange::update(Form*) [98]
+[79]     0.0    0.00    0.00     216         Change::needUpdate() [79]
+-----------------------------------------------
+                0.00    0.00       9/204         ColorChange::update(Form*) [104]
+                0.00    0.00     195/204         TabletModel::update() [83]
+[80]     0.0    0.00    0.00     204         Form::getColor() const [80]
+-----------------------------------------------
+                0.00    0.00     197/197         Fl::wait(double) [671]
+[81]     0.0    0.00    0.00     197         FltkTabletView::timeout_cb(FltkTabletView*) [81]
+-----------------------------------------------
+                0.00    0.00     195/195         FltkTabletView::draw() [84]
+[82]     0.0    0.00    0.00     195         TabletModel::getColorField() [82]
+-----------------------------------------------
+                0.00    0.00     195/195         FltkTabletView::draw() [84]
+[83]     0.0    0.00    0.00     195         TabletModel::update() [83]
+                0.00    0.00     195/195         Form::getPos() const [90]
+                0.00    0.00     195/195         Form::getSize() const [91]
+                0.00    0.00     195/204         Form::getColor() const [80]
+                0.00    0.00     195/195         Form::update() [85]
+                0.00    0.00     195/195         Box::getPos() const [86]
+                0.00    0.00     195/195         Pos::operator+(Pos const&) const [89]
+                0.00    0.00     195/195         Box::getSize() const [87]
+                0.00    0.00     195/195         Size::operator+(Size const&) const [92]
+                0.00    0.00     195/195         Box::getColor() const [88]
+                0.00    0.00     195/195         Color::operator+(Color const&) const [93]
+-----------------------------------------------
+                0.00    0.00     195/195         Fl_Double_Window::flush(int) [505]
+[84]     0.0    0.00    0.00     195         FltkTabletView::draw() [84]
+                0.00    0.00     195/195         TabletModel::update() [83]
+                0.00    0.00     195/195         TabletModel::getColorField() [82]
+-----------------------------------------------
+                0.00    0.00     195/195         TabletModel::update() [83]
+[85]     0.0    0.00    0.00     195         Form::update() [85]
+                0.00    0.00     192/192         Program::isFinished() [94]
+                0.00    0.00     186/186         Program::update(Form*) [96]
+                0.00    0.00       6/6           Program::reset() [111]
+-----------------------------------------------
+                0.00    0.00     195/195         TabletModel::update() [83]
+[86]     0.0    0.00    0.00     195         Box::getPos() const [86]
+-----------------------------------------------
+                0.00    0.00     195/195         TabletModel::update() [83]
+[87]     0.0    0.00    0.00     195         Box::getSize() const [87]
+-----------------------------------------------
+                0.00    0.00     195/195         TabletModel::update() [83]
+[88]     0.0    0.00    0.00     195         Box::getColor() const [88]
+-----------------------------------------------
+                0.00    0.00     195/195         TabletModel::update() [83]
+[89]     0.0    0.00    0.00     195         Pos::operator+(Pos const&) const [89]
+-----------------------------------------------
+                0.00    0.00     195/195         TabletModel::update() [83]
+[90]     0.0    0.00    0.00     195         Form::getPos() const [90]
+-----------------------------------------------
+                0.00    0.00     195/195         TabletModel::update() [83]
+[91]     0.0    0.00    0.00     195         Form::getSize() const [91]
+-----------------------------------------------
+                0.00    0.00     195/195         TabletModel::update() [83]
+[92]     0.0    0.00    0.00     195         Size::operator+(Size const&) const [92]
+-----------------------------------------------
+                0.00    0.00     195/195         TabletModel::update() [83]
+[93]     0.0    0.00    0.00     195         Color::operator+(Color const&) const [93]
+-----------------------------------------------
+                0.00    0.00     192/192         Form::update() [85]
+[94]     0.0    0.00    0.00     192         Program::isFinished() [94]
+-----------------------------------------------
+                0.00    0.00     186/186         Program::update(Form*) [96]
+[95]     0.0    0.00    0.00     186         ColorChange::isCompleted() [95]
+-----------------------------------------------
+                0.00    0.00     186/186         Form::update() [85]
+[96]     0.0    0.00    0.00     186         Program::update(Form*) [96]
+                0.00    0.00     372/372         Change::repeatsCompleted() [78]
+                0.00    0.00     186/186         ColorChange::isCompleted() [95]
+                0.00    0.00     186/186         PosChange::isCompleted() [97]
+                0.00    0.00     180/180         PosChange::update(Form*) [98]
+                0.00    0.00      36/36          ColorChange::update(Form*) [104]
+-----------------------------------------------
+                0.00    0.00     186/186         Program::update(Form*) [96]
+[97]     0.0    0.00    0.00     186         PosChange::isCompleted() [97]
+-----------------------------------------------
+                0.00    0.00     180/180         Program::update(Form*) [96]
+[98]     0.0    0.00    0.00     180         PosChange::update(Form*) [98]
+                0.00    0.00     180/216         Change::needUpdate() [79]
+                0.00    0.00      45/45          Pos::approachTo(Pos, PosStep) [101]
+                0.00    0.00      45/45          Form::setPos(Pos) [102]
+                0.00    0.00      45/45          operator==(Pos const&, Pos const&) [103]
+                0.00    0.00       6/15          Change::setChangeCompleted() [105]
+-----------------------------------------------
+                0.00    0.00       1/137         Box::Box(int, int, int, int, bool) [135]
+                0.00    0.00       1/137         Form::Form(int, int, int, int) [137]
+                0.00    0.00       1/137         Prueba1::setup() [138]
+                0.00    0.00       6/137         ColorChange::ColorChange(ColorStep, int, int) [113]
+                0.00    0.00     128/137         TabletModel::TabletModel() [130]
+[99]     0.0    0.00    0.00     137         Color::Color(int, int, int) [99]
+-----------------------------------------------
+                0.00    0.00       1/57          std::vector<Box, std::allocator<Box> >::_M_insert_aux(__gnu_cxx::__normal_iterator<Box*, std::vector<Box, std::allocator<Box> > >, Box const&) [142]
+                0.00    0.00       6/57          std::vector<ColorChange, std::allocator<ColorChange> >::_M_insert_aux(__gnu_cxx::__normal_iterator<ColorChange*, std::vector<ColorChange, std::allocator<ColorChange> > >, ColorChange const&) [124]
+                0.00    0.00       7/57          Prueba1::setup() [138]
+                0.00    0.00       9/57          std::vector<Program, std::allocator<Program> >::_M_insert_aux(__gnu_cxx::__normal_iterator<Program*, std::vector<Program, std::allocator<Program> > >, Program const&) [125]
+                0.00    0.00      16/57          Form::Form(Form const&) [116]
+                0.00    0.00      18/57          ColorChange::update(Form*) [104]
+[100]    0.0    0.00    0.00      57         Color::Color(Color const&) [100]
+-----------------------------------------------
+                0.00    0.00      45/45          PosChange::update(Form*) [98]
+[101]    0.0    0.00    0.00      45         Pos::approachTo(Pos, PosStep) [101]
+-----------------------------------------------
+                0.00    0.00      45/45          PosChange::update(Form*) [98]
+[102]    0.0    0.00    0.00      45         Form::setPos(Pos) [102]
+-----------------------------------------------
+                0.00    0.00      45/45          PosChange::update(Form*) [98]
+[103]    0.0    0.00    0.00      45         operator==(Pos const&, Pos const&) [103]
+-----------------------------------------------
+                0.00    0.00      36/36          Program::update(Form*) [96]
+[104]    0.0    0.00    0.00      36         ColorChange::update(Form*) [104]
+                0.00    0.00      36/216         Change::needUpdate() [79]
+                0.00    0.00      18/57          Color::Color(Color const&) [100]
+                0.00    0.00       9/204         Form::getColor() const [80]
+                0.00    0.00       9/9           Color::operator+=(ColorStep const&) [109]
+                0.00    0.00       9/10          Form::setColor(Color) [108]
+                0.00    0.00       9/15          Change::setChangeCompleted() [105]
+-----------------------------------------------
+                0.00    0.00       6/15          PosChange::update(Form*) [98]
+                0.00    0.00       9/15          ColorChange::update(Form*) [104]
+[105]    0.0    0.00    0.00      15         Change::setChangeCompleted() [105]
+-----------------------------------------------
+                0.00    0.00      12/12          Program::reset() [111]
+[106]    0.0    0.00    0.00      12         Change::restartRepeats() [106]
+-----------------------------------------------
+                0.00    0.00       1/11          Fl_Window::hide() [836]
+                0.00    0.00       1/11          Fl_Widget::take_focus() [799]
+                0.00    0.00       1/11          Fl_X::make_xid(Fl_Window*, XVisualInfo*, unsigned long) [711]
+                0.00    0.00       2/11          fl_fix_focus() [161]
+                0.00    0.00       6/11          send(int, Fl_Widget*, Fl_Window*) [352]
+[107]    0.0    0.00    0.00      11         FltkTabletView::handle(int) [107]
+-----------------------------------------------
+                0.00    0.00       1/10          Prueba1::setup() [138]
+                0.00    0.00       9/10          ColorChange::update(Form*) [104]
+[108]    0.0    0.00    0.00      10         Form::setColor(Color) [108]
+-----------------------------------------------
+                0.00    0.00       9/9           ColorChange::update(Form*) [104]
+[109]    0.0    0.00    0.00       9         Color::operator+=(ColorStep const&) [109]
+-----------------------------------------------
+                0.00    0.00       1/8           Box::Box(int, int, int, int, bool) [135]
+                0.00    0.00       1/8           Form::Form(int, int, int, int) [137]
+                0.00    0.00       2/8           PosChange::PosChange(Pos, Pos, int, int) [123]
+                0.00    0.00       4/8           Prueba1::setup() [138]
+[110]    0.0    0.00    0.00       8         Pos::Pos(int, int) [110]
+-----------------------------------------------
+                0.00    0.00       6/6           Form::update() [85]
+[111]    0.0    0.00    0.00       6         Program::reset() [111]
+                0.00    0.00      12/12          Change::restartRepeats() [106]
+-----------------------------------------------
+                0.00    0.00       2/4           ColorChange::ColorChange(ColorStep, int, int) [113]
+                0.00    0.00       2/4           PosChange::PosChange(Pos, Pos, int, int) [123]
+[112]    0.0    0.00    0.00       4         Change::Change(int, int) [112]
+-----------------------------------------------
+                0.00    0.00       2/2           Prueba1::setup() [138]
+[113]    0.0    0.00    0.00       2         ColorChange::ColorChange(ColorStep, int, int) [113]
+                0.00    0.00       6/137         Color::Color(int, int, int) [99]
+                0.00    0.00       2/4           Change::Change(int, int) [112]
+-----------------------------------------------
+                0.00    0.00       2/2           PosChange::PosChange(Pos, Pos, int, int) [123]
+[114]    0.0    0.00    0.00       2         Pos::stepTo(Pos) [114]
+                0.00    0.00       2/2           PosStep::PosStep(int, int) [118]
+-----------------------------------------------
+                0.00    0.00       2/2           Prueba1::setup() [138]
+[115]    0.0    0.00    0.00       2         Form::addProgram(Program) [115]
+                0.00    0.00       2/2           std::vector<Program, std::allocator<Program> >::_M_insert_aux(__gnu_cxx::__normal_iterator<Program*, std::vector<Program, std::allocator<Program> > >, Program const&) [125]
+-----------------------------------------------
+                0.00    0.00       1/2           Prueba1::setup() [138]
+                0.00    0.00       1/2           std::vector<Form, std::allocator<Form> >::_M_insert_aux(__gnu_cxx::__normal_iterator<Form*, std::vector<Form, std::allocator<Form> > >, Form const&) [143]
+[116]    0.0    0.00    0.00       2         Form::Form(Form const&) [116]
+                0.00    0.00      16/57          Color::Color(Color const&) [100]
+-----------------------------------------------
+                0.00    0.00       1/2           Form::Form(int, int, int, int) [137]
+                0.00    0.00       1/2           Prueba1::setup() [138]
+[117]    0.0    0.00    0.00       2         Size::Size(int, int) [117]
+-----------------------------------------------
+                0.00    0.00       2/2           Pos::stepTo(Pos) [114]
+[118]    0.0    0.00    0.00       2         PosStep::PosStep(int, int) [118]
+-----------------------------------------------
+                0.00    0.00       2/2           Prueba1::setup() [138]
+[119]    0.0    0.00    0.00       2         Program::addChange(ColorChange const&) [119]
+                0.00    0.00       2/2           std::vector<ColorChange, std::allocator<ColorChange> >::_M_insert_aux(__gnu_cxx::__normal_iterator<ColorChange*, std::vector<ColorChange, std::allocator<ColorChange> > >, ColorChange const&) [124]
+-----------------------------------------------
+                0.00    0.00       2/2           Prueba1::setup() [138]
+[120]    0.0    0.00    0.00       2         Program::addChange(PosChange const&) [120]
+                0.00    0.00       2/2           std::vector<PosChange, std::allocator<PosChange> >::_M_insert_aux(__gnu_cxx::__normal_iterator<PosChange*, std::vector<PosChange, std::allocator<PosChange> > >, PosChange const&) [126]
+-----------------------------------------------
+                0.00    0.00       2/2           Prueba1::setup() [138]
+[121]    0.0    0.00    0.00       2         Program::Program() [121]
+-----------------------------------------------
+                0.00    0.00       2/2           Prueba1::setup() [138]
+[122]    0.0    0.00    0.00       2         ColorStep::ColorStep(int, int, int) [122]
+-----------------------------------------------
+                0.00    0.00       2/2           Prueba1::setup() [138]
+[123]    0.0    0.00    0.00       2         PosChange::PosChange(Pos, Pos, int, int) [123]
+                0.00    0.00       2/4           Change::Change(int, int) [112]
+                0.00    0.00       2/8           Pos::Pos(int, int) [110]
+                0.00    0.00       2/2           Pos::stepTo(Pos) [114]
+-----------------------------------------------
+                0.00    0.00       2/2           Program::addChange(ColorChange const&) [119]
+[124]    0.0    0.00    0.00       2         std::vector<ColorChange, std::allocator<ColorChange> >::_M_insert_aux(__gnu_cxx::__normal_iterator<ColorChange*, std::vector<ColorChange, std::allocator<ColorChange> > >, ColorChange const&) [124]
+                0.00    0.00       6/57          Color::Color(Color const&) [100]
+-----------------------------------------------
+                0.00    0.00       2/2           Form::addProgram(Program) [115]
+[125]    0.0    0.00    0.00       2         std::vector<Program, std::allocator<Program> >::_M_insert_aux(__gnu_cxx::__normal_iterator<Program*, std::vector<Program, std::allocator<Program> > >, Program const&) [125]
+                0.00    0.00       9/57          Color::Color(Color const&) [100]
+-----------------------------------------------
+                0.00    0.00       2/2           Program::addChange(PosChange const&) [120]
+[126]    0.0    0.00    0.00       2         std::vector<PosChange, std::allocator<PosChange> >::_M_insert_aux(__gnu_cxx::__normal_iterator<PosChange*, std::vector<PosChange, std::allocator<PosChange> > >, PosChange const&) [126]
+-----------------------------------------------
+                0.00    0.00       1/1           Prueba1::Prueba1(TabletView*) [140]
+[127]    0.0    0.00    0.00       1         TabletView::setController(TabletController*) [127]
+-----------------------------------------------
+                0.00    0.00       1/1           TabletController::TabletController(TabletView*) [133]
+[128]    0.0    0.00    0.00       1         TabletView::setModel(TabletModel*) [128]
+-----------------------------------------------
+                0.00    0.00       1/1           Prueba1::setup() [138]
+[129]    0.0    0.00    0.00       1         TabletModel::addForm(int, Form) [129]
+                0.00    0.00       1/1           std::vector<Form, std::allocator<Form> >::_M_insert_aux(__gnu_cxx::__normal_iterator<Form*, std::vector<Form, std::allocator<Form> > >, Form const&) [143]
+-----------------------------------------------
+                0.00    0.00       1/1           TabletController::TabletController(TabletView*) [133]
+[130]    0.0    0.00    0.00       1         TabletModel::TabletModel() [130]
+                0.00    0.00     128/137         Color::Color(int, int, int) [99]
+-----------------------------------------------
+                0.00    0.00       1/1           main [74]
+[131]    0.0    0.00    0.00       1         FltkTabletView::start() [131]
+-----------------------------------------------
+                0.00    0.00       1/1           main [74]
+[132]    0.0    0.00    0.00       1         FltkTabletView::FltkTabletView() [132]
+-----------------------------------------------
+                0.00    0.00       1/1           Prueba1::Prueba1(TabletView*) [140]
+[133]    0.0    0.00    0.00       1         TabletController::TabletController(TabletView*) [133]
+                0.00    0.00       1/1           TabletModel::TabletModel() [130]
+                0.00    0.00       1/1           TabletView::setModel(TabletModel*) [128]
+-----------------------------------------------
+                0.00    0.00       1/1           main [74]
+[134]    0.0    0.00    0.00       1         TabletController::~TabletController() [134]
+-----------------------------------------------
+                0.00    0.00       1/1           Prueba1::setup() [138]
+[135]    0.0    0.00    0.00       1         Box::Box(int, int, int, int, bool) [135]
+                0.00    0.00       1/137         Color::Color(int, int, int) [99]
+                0.00    0.00       1/8           Pos::Pos(int, int) [110]
+-----------------------------------------------
+                0.00    0.00       1/1           Prueba1::setup() [138]
+[136]    0.0    0.00    0.00       1         Form::addBox(Box) [136]
+                0.00    0.00       1/1           std::vector<Box, std::allocator<Box> >::_M_insert_aux(__gnu_cxx::__normal_iterator<Box*, std::vector<Box, std::allocator<Box> > >, Box const&) [142]
+-----------------------------------------------
+                0.00    0.00       1/1           Prueba1::setup() [138]
+[137]    0.0    0.00    0.00       1         Form::Form(int, int, int, int) [137]
+                0.00    0.00       1/137         Color::Color(int, int, int) [99]
+                0.00    0.00       1/8           Pos::Pos(int, int) [110]
+                0.00    0.00       1/2           Size::Size(int, int) [117]
+-----------------------------------------------
+                0.00    0.00       1/1           main [74]
+[138]    0.0    0.00    0.00       1         Prueba1::setup() [138]
+                0.00    0.00       7/57          Color::Color(Color const&) [100]
+                0.00    0.00       4/8           Pos::Pos(int, int) [110]
+                0.00    0.00       2/2           Program::Program() [121]
+                0.00    0.00       2/2           ColorStep::ColorStep(int, int, int) [122]
+                0.00    0.00       2/2           ColorChange::ColorChange(ColorStep, int, int) [113]
+                0.00    0.00       2/2           Program::addChange(ColorChange const&) [119]
+                0.00    0.00       2/2           PosChange::PosChange(Pos, Pos, int, int) [123]
+                0.00    0.00       2/2           Program::addChange(PosChange const&) [120]
+                0.00    0.00       2/2           Form::addProgram(Program) [115]
+                0.00    0.00       1/1           Form::Form(int, int, int, int) [137]
+                0.00    0.00       1/2           Size::Size(int, int) [117]
+                0.00    0.00       1/1           Box::Box(int, int, int, int, bool) [135]
+                0.00    0.00       1/1           Form::addBox(Box) [136]
+                0.00    0.00       1/137         Color::Color(int, int, int) [99]
+                0.00    0.00       1/10          Form::setColor(Color) [108]
+                0.00    0.00       1/2           Form::Form(Form const&) [116]
+                0.00    0.00       1/1           TabletModel::addForm(int, Form) [129]
+-----------------------------------------------
+                0.00    0.00       1/1           main [74]
+[139]    0.0    0.00    0.00       1         Prueba1::start() [139]
+-----------------------------------------------
+                0.00    0.00       1/1           main [74]
+[140]    0.0    0.00    0.00       1         Prueba1::Prueba1(TabletView*) [140]
+                0.00    0.00       1/1           TabletView::setController(TabletController*) [127]
+                0.00    0.00       1/1           TabletController::TabletController(TabletView*) [133]
+-----------------------------------------------
+                0.00    0.00       1/1           Fl::focus(Fl_Widget*) [675]
+[141]    0.0    0.00    0.00       1         Fl_Window::as_window() [141]
+-----------------------------------------------
+                0.00    0.00       1/1           Form::addBox(Box) [136]
+[142]    0.0    0.00    0.00       1         std::vector<Box, std::allocator<Box> >::_M_insert_aux(__gnu_cxx::__normal_iterator<Box*, std::vector<Box, std::allocator<Box> > >, Box const&) [142]
+                0.00    0.00       1/57          Color::Color(Color const&) [100]
+-----------------------------------------------
+                0.00    0.00       1/1           TabletModel::addForm(int, Form) [129]
+[143]    0.0    0.00    0.00       1         std::vector<Form, std::allocator<Form> >::_M_insert_aux(__gnu_cxx::__normal_iterator<Form*, std::vector<Form, std::allocator<Form> > >, Form const&) [143]
+                0.00    0.00       1/2           Form::Form(Form const&) [116]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+
+Index by function name
+
+ [127] TabletView::setController(TabletController*) [102] Form::setPos(Pos) [139] Prueba1::start()
+ [128] TabletView::setModel(TabletModel*) [85] Form::update() [140] Prueba1::Prueba1(TabletView*)
+  [95] ColorChange::isCompleted() [108] Form::setColor(Color) [122] ColorStep::ColorStep(int, int, int)
+ [104] ColorChange::update(Form*) [116] Form::Form(Form const&) [141] Fl_Window::as_window()
+ [113] ColorChange::ColorChange(ColorStep, int, int) [137] Form::Form(int, int, int, int) [97] PosChange::isCompleted()
+  [82] TabletModel::getColorField() [117] Size::Size(int, int) [98] PosChange::update(Form*)
+  [83] TabletModel::update() [100] Color::Color(Color const&) [123] PosChange::PosChange(Pos, Pos, int, int)
+ [129] TabletModel::addForm(int, Form) [99] Color::Color(int, int, int) [86] Box::getPos() const
+ [130] TabletModel::TabletModel() [109] Color::operator+=(ColorStep const&) [87] Box::getSize() const
+  [81] FltkTabletView::timeout_cb(FltkTabletView*) [79] Change::needUpdate() [88] Box::getColor() const
+  [84] FltkTabletView::draw() [106] Change::restartRepeats() [89] Pos::operator+(Pos const&) const
+ [131] FltkTabletView::start() [78] Change::repeatsCompleted() [90] Form::getPos() const
+ [107] FltkTabletView::handle(int) [105] Change::setChangeCompleted() [91] Form::getSize() const
+ [132] FltkTabletView::FltkTabletView() [112] Change::Change(int, int) [80] Form::getColor() const
+ [133] TabletController::TabletController(TabletView*) [118] PosStep::PosStep(int, int) [92] Size::operator+(Size const&) const
+ [134] TabletController::~TabletController() [94] Program::isFinished() [93] Color::operator+(Color const&) const
+ [135] Box::Box(int, int, int, int, bool) [111] Program::reset() [124] std::vector<ColorChange, std::allocator<ColorChange> >::_M_insert_aux(__gnu_cxx::__normal_iterator<ColorChange*, std::vector<ColorChange, std::allocator<ColorChange> > >, ColorChange const&)
+ [101] Pos::approachTo(Pos, PosStep) [96] Program::update(Form*) [142] std::vector<Box, std::allocator<Box> >::_M_insert_aux(__gnu_cxx::__normal_iterator<Box*, std::vector<Box, std::allocator<Box> > >, Box const&)
+ [114] Pos::stepTo(Pos)      [119] Program::addChange(ColorChange const&) [143] std::vector<Form, std::allocator<Form> >::_M_insert_aux(__gnu_cxx::__normal_iterator<Form*, std::vector<Form, std::allocator<Form> > >, Form const&)
+ [110] Pos::Pos(int, int)    [120] Program::addChange(PosChange const&) [125] std::vector<Program, std::allocator<Program> >::_M_insert_aux(__gnu_cxx::__normal_iterator<Program*, std::vector<Program, std::allocator<Program> > >, Program const&)
+ [115] Form::addProgram(Program) [121] Program::Program() [126] std::vector<PosChange, std::allocator<PosChange> >::_M_insert_aux(__gnu_cxx::__normal_iterator<PosChange*, std::vector<PosChange, std::allocator<PosChange> > >, PosChange const&)
+ [136] Form::addBox(Box)     [138] Prueba1::setup()      [103] operator==(Pos const&, Pos const&)

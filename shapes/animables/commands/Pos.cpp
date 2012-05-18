@@ -13,7 +13,7 @@ void Pos::operator+=(PosStep step){
 	x+=step.x;
 	y+=step.y;
 }
-Pos Pos::operator+(Pos pos){
+Pos Pos::operator+(const Pos &pos) const{
 	return Pos(x+pos.x, y+pos.y);
 }
 void Pos::approachTo(Pos to, PosStep step){

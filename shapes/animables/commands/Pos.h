@@ -6,7 +6,7 @@ public:
 	Pos(int x=0, int y=0);
 	PosStep stepTo(Pos p);
 	void operator+=(PosStep step);
-	Pos operator+(Pos pos);
+	Pos operator+(const Pos &pos)const;
 	void approachTo(Pos to, PosStep step);
 	int x,y;
 };

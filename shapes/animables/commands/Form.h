@@ -12,11 +12,11 @@ public:
 	Form(const Form & f);
 	Form(int col, int row, int width, int height);
 	void setColor(Color color);
-	Color getColor();
+	const Color &getColor() const;
 	void setPos(Pos pos);
-	Pos getPos();
+	const Pos &getPos() const;
 	void setSize(Size size);
-	Size getSize();
+	const Size &getSize() const;
 	void addProgram(Program p);
 	void addBox(Box b);
 	void update();

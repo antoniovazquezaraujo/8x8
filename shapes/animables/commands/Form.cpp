@@ -17,19 +17,19 @@ Form::Form(int col, int row, int width, int height)
 void Form::setColor(Color color){
 	this->color = color;
 }
-Color Form::getColor(){
+const Color &Form::getColor()const{
 	return color;
 }
 void Form::setPos(Pos pos){
 	this->pos=pos;
 }
-Pos Form::getPos(){
+const Pos &Form::getPos() const{
 	return pos;
 }
 void Form::setSize(Size size){
 	this->size = size;
 }
-Size Form::getSize(){
+const Size &Form::getSize() const{
 	return size;
 }
 void Form::addProgram(Program p){

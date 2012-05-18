@@ -14,8 +14,11 @@ void Size::operator+=(SizeStep step){
 	w=w<0?0:w;
 	h=h<0?0:h;
 }
-Size Size::operator+(Size size){
+Size Size::operator+(const Size & size) const{
 	return Size(w+size.w, h+size.h);
+}
+Size Size::operator*(const Size & size) const{
+	return Size(w*size.w, h*size.h);
 }
 void Size::approachTo(Size to, SizeStep step){
 	w+=step.w;

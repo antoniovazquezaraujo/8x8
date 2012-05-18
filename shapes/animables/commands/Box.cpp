@@ -10,18 +10,18 @@ void Box::setColor(int r, int g, int b){
 void Box::setColor(Color color){
 	this->color = color;
 }
-Color Box::getColor(){
+const Color &Box::getColor() const{
 	return color;
 }
 void Box::setPos(Pos pos){
 	this->pos=pos;
 }
-Pos Box::getPos(){
+const Pos &Box::getPos() const{
 	return pos;
 }
 void Box::setSize(Size size){
 	this->size = size;
 }
-Size Box::getSize(){
+const Size & Box::getSize() const{
 	return size;
 }

@@ -10,11 +10,11 @@ public:
 	Box(int col, int row, int width, int height, bool filled); 
 	void setColor(Color color);
 	void setColor(int r, int g, int b);
-	Color getColor();
+	const Color &getColor() const;
 	void setPos(Pos pos);
-	Pos getPos();
+	const Pos &getPos() const;
 	void setSize(Size size);
-	Size getSize();
+	const Size & getSize() const;
 private:
 	Color color;
 	Pos pos;

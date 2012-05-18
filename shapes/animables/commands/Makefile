@@ -3,10 +3,10 @@ CC            = gcc
 CXX           = g++
 DEFINES       = 
 CFLAGS        = -pipe -Wall -W -D_REENTRANT $(DEFINES)
-CXXFLAGS      = $(INCLUDES) -time -O3 -Wall -DEBUG -ggdb -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_THREAD_SAFE -D_REENTRANT
+CXXFLAGS      = $(INCLUDES) -pg -ggdb -time -O3 -Wall -DEBUG -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_THREAD_SAFE -D_REENTRANT
 INCPATH       = -IGUI -I.
 LINK          = g++
-LFLAGS        = -Wl,-O1 -L/usr/local/lib -lfltk -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11
+LFLAGS        = -Wl,-O1 -L/usr/local/lib -pg -lfltk -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11
 LIBS          = -lstdc++  -lfltk 
 AR            = ar cqs
 RANLIB        = 

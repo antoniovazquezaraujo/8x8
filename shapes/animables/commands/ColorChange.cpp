@@ -1,5 +1,14 @@
 #include "ColorChange.h"
 #include "Form.h"
+ColorChange::ColorChange(Color from, Color to, ColorStep step, int speed, int repeats)
+	:Change(speed, repeats)
+	,from(from)
+	,to(to)
+	,step(step)
+	,isRelative(false) {
+		 resetData();
+
+}
 ColorChange::ColorChange(Color from, Color to, int speed, int repeats)
 	:Change(speed, repeats)
 	,from(from)
@@ -26,9 +35,10 @@ void ColorChange::update(Form * f){
 			f->setColor(c);
 			setChangeCompleted();
 		}else{
-			actual.approachTo(to, step);
 			f->setColor(actual);
-			if(actual == to){
+			if(!(actual == to)){
+				actual.approachTo(to, step);
+			}else{
 				resetData();	
 				setChangeCompleted();
 			}

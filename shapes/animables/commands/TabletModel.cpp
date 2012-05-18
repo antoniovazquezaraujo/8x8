@@ -49,16 +49,20 @@ void TabletModel::update() {
 	for (int level = 0; level < LEVELS; level++) {
 		for (unsigned int n = 0; n < levelForms[level].size(); n++) {
 			Form &f = levelForms[level][n];
+			const Pos    & formPos   = f.getPos();
+			const Size   & formSize  = f.getSize();
+			const Color  & formColor = f.getColor();
 			f.update();
 			for(vector<Box>::iterator i= f.boxes.begin();
 					i!= f.boxes.end();
 					i++){
-				Box box = *i; 
-				Pos pos     = f.getPos()  +box.getPos();
-				Size size   = f.getSize() +box.getSize();
-				Color color = f.getColor()+box.getColor();
+				Box & box = *i; 
+				Pos pos     = formPos   +box.getPos();
+				Size size   = formSize  *box.getSize();
+				Color color = formColor +box.getColor();
 				for (int col = pos.x; col < pos.x + size.w; col++) {
 					for (int row = pos.y; row < pos.y + size.h; row++) {
+						if(col >= 8 || col < 0 || row >= 8 || row < 0) continue;
 						colorField[level][col][row].r = color.r;
 						colorField[level][col][row].g = color.g;
 						colorField[level][col][row].b = color.b;
