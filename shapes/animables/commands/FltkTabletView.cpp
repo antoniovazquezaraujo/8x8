@@ -38,11 +38,12 @@ void FltkTabletView::onRelease(int col, int row) {
 
 
 void FltkTabletView::draw() {
+	unsigned char r,g,b;
 	model->update();
 	ColorField &f = model->getColorField();
 	for (int col= 0; col< COLS; col++ ){
 		for (int row = 0; row< ROWS; row++ ){
-			unsigned char r=0,g=0,b=0;
+			r=g=b=0;
 			for (int level = 0; level < LEVELS; level++ ){
 				r+= f[level][col][row].r;///LEVELS;
 				g+= f[level][col][row].g;///LEVELS;
