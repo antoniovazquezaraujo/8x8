@@ -581,3 +581,15 @@ int main(){
 		cin.get();
 	}
 }
+Tablet no está bien:
+Una Box tiene que tener su PROPIA colección de programas, sin compartirlos con otra.
+Según ordenes o eventos, debe poder seleccionar entre ellos cuál ejecutar.
+Box b;
+Program p;
+	Command c;
+		c.addChange(...);
+		c.addChange(...);
+	p.addCommand(c);
+b.addProgram(p);
+No sé cómo hacer esto más sencillo:
+En fin.
