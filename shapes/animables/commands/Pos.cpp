@@ -13,6 +13,9 @@ void Pos::operator+=(PosStep step){
 	x+=step.x;
 	y+=step.y;
 }
+Pos Pos::operator+(Pos pos){
+	return Pos(x+pos.x, y+pos.y);
+}
 void Pos::approachTo(Pos to, PosStep step){
 	x+=step.x;
 	y+=step.y;
@@ -21,4 +24,7 @@ void Pos::approachTo(Pos to, PosStep step){
 
 	if(step.y >0 && y>to.y) y= to.y;
 	if(step.y <0 && y<to.y) y= to.y;
+}
+bool operator==(const Pos & p, const Pos & q){
+	return ((p.x == q.x) && (p.y == q.y));
 }

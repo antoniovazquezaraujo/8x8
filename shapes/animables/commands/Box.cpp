@@ -1,6 +1,8 @@
 #include "Box.h" 
-Box::Box(int col, int row, int width, int height, bool filled){
-// hacer esto.
+Box::Box(int col, int row, int width, int height, bool filled)
+	:pos(col, row)
+	,size(width, height){
+
 }
 void Box::setColor(int r, int g, int b){
 	this->color = Color(r,g,b);

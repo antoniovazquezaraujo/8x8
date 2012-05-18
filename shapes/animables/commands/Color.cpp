@@ -23,6 +23,13 @@ void Color::operator+=(ColorStep step){
 	g=g<0?0:g % 256;
 	b=b<0?0:b % 256;;
 }
+Color Color::operator+(Color c){
+	Color ret(r+c.r, g+c.g, b+c.b);
+	ret.r=ret.r<0?0:ret.r % 256;
+	ret.g=ret.g<0?0:ret.g % 256;
+	ret.b=ret.b<0?0:ret.b % 256;;
+	return ret;
+}
 void Color::approachTo(Color to, ColorStep step){
 	r+=step.r;
 	g+=step.g;
@@ -35,4 +42,7 @@ void Color::approachTo(Color to, ColorStep step){
 
 	if(step.b >0 && b>to.b) b= to.b;
 	if(step.b <0 && b<to.b) b= to.b;
+}
+bool operator==(const Color& a, const Color& b){
+	return((a.r==b.r) && (a.g==b.g) && (a.b==b.b));
 }

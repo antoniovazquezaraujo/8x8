@@ -5,21 +5,21 @@ Program::Program()
 }
 void Program::update(Form* f){
 	finished=true;
-	for(int i=0; i< colorChanges.size();i++){
-		if(!colorChanges[i].isCompleted()){
-			colorChanges[i].update(f);
+	for(vector<ColorChange>::iterator i = colorChanges.begin();i!=colorChanges.end();i++){
+		if(!((*i).isCompleted())){
+			(*i).update(f);
 			finished=false;
 		}
 	}
-	for(int i=0; i< posChanges.size();i++){
-		if(!posChanges[i].isCompleted()){
-			posChanges[i].update(f);
+	for(vector<SizeChange>::iterator i = sizeChanges.begin();i!=sizeChanges.end();i++){
+		if(!((*i).isCompleted())){
+			(*i).update(f);
 			finished=false;
 		}
 	}
-	for(int i=0; i< sizeChanges.size();i++){
-		if(!sizeChanges[i].isCompleted()){
-			sizeChanges[i].update(f);
+	for(vector<PosChange>::iterator i = posChanges.begin();i!=posChanges.end();i++){
+		if(!((*i).isCompleted())){
+			(*i).update(f);
 			finished=false;
 		}
 	}
@@ -29,14 +29,23 @@ bool Program::isFinished(){
 }
 void Program::reset(){
 	finished= false;
+	for(vector<ColorChange>::iterator i = colorChanges.begin();i!=colorChanges.end();i++){
+		(*i).restartRepeats();
+	}
+	for(vector<SizeChange>::iterator i = sizeChanges.begin();i!=sizeChanges.end();i++){
+		(*i).restartRepeats();
+	}
+	for(vector<PosChange>::iterator i = posChanges.begin();i!=posChanges.end();i++){
+		(*i).restartRepeats();
+	}
 }
-void Program::addChange(ColorChange c){
+void Program::addChange(const ColorChange &c){
 	colorChanges.push_back(c);
 }
-void Program::addChange(PosChange p){
+void Program::addChange(const PosChange &p){
 	posChanges.push_back(p);
 }
-void Program::addChange(SizeChange s){
+void Program::addChange(const SizeChange & s){
 	sizeChanges.push_back(s);
 }
 

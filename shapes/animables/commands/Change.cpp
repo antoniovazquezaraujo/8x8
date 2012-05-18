@@ -4,9 +4,9 @@
 	,initialRepeats(repeats)
 	,actualRepeats(initialRepeats)
 	,initialLapse(MAX_SPEED/speed)
-	 ,actualLapse(initialLapse) 
-	 ,changeCompleted(false){
-	 }
+	,actualLapse(initialLapse) 
+	,changeCompleted(false){
+}
 bool Change::needUpdate(){
 	if(!repeatsCompleted()){
 		if(lapseCompleted()){

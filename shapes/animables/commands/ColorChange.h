@@ -5,8 +5,8 @@
 class Form;
 class ColorChange: public Change{
 public:
-	ColorChange(Color from, Color to, int speed, int repeats);
-	ColorChange(ColorStep step, int speed, int repeats);
+	ColorChange(Color from=Color(), Color to=Color(), int speed=1, int repeats=1);
+	ColorChange(ColorStep step=ColorStep(), int speed=1, int repeats=1);
 	bool isCompleted();	
 	void update(Form * f);
 private:

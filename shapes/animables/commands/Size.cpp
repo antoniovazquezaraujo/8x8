@@ -14,6 +14,9 @@ void Size::operator+=(SizeStep step){
 	w=w<0?0:w;
 	h=h<0?0:h;
 }
+Size Size::operator+(Size size){
+	return Size(w+size.w, h+size.h);
+}
 void Size::approachTo(Size to, SizeStep step){
 	w+=step.w;
 	h+=step.h;
@@ -23,4 +26,7 @@ void Size::approachTo(Size to, SizeStep step){
 
 	if(step.h >0 && h>to.h) h= to.h;
 	if(step.h <0 && h<to.h) h= to.h;
+}
+bool operator==(const Size & p, const Size & q){
+	return ((p.w == q.w) && (p.h == q.h));
 }

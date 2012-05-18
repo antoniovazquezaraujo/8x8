@@ -9,6 +9,8 @@ using namespace std;
 #include "Program.h"
 class Form{
 public:
+	Form(const Form & f);
+	Form(int col, int row, int width, int height);
 	void setColor(Color color);
 	Color getColor();
 	void setPos(Pos pos);
@@ -16,6 +18,7 @@ public:
 	void setSize(Size size);
 	Size getSize();
 	void addProgram(Program p);
+	void addBox(Box b);
 	void update();
 	Color color;
 	Pos pos;

@@ -13,9 +13,9 @@ public:
 	void update(Form* f);
 	bool isFinished();
 	void reset();
-	void addChange(ColorChange c);
-	void addChange(PosChange p);
-	void addChange(SizeChange s);
+	void addChange(const ColorChange &c);
+	void addChange(const PosChange &p);
+	void addChange(const SizeChange &s);
 
 	vector<ColorChange> colorChanges;
 	vector<PosChange>   posChanges;

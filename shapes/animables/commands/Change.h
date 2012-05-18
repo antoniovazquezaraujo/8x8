@@ -3,19 +3,19 @@
 const int MAX_SPEED=10000;
 class Change{
 public:
-	Change(int speed, int repeats);
+	Change(int speed=1, int repeats=1);
+	void restartRepeats();
 protected:
 	bool needUpdate();
 	bool repeatsCompleted();
 	void setChangeCompleted();
 private:	
 	void restartLapse();
-	void restartRepeats();
 	bool lapseCompleted();
 
 	int speed;
-	int initialLapse, actualLapse; 
 	int initialRepeats, actualRepeats;
+	int initialLapse, actualLapse; 
 	bool changeCompleted;
 };
 #endif

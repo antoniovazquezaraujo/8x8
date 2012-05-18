@@ -2,7 +2,7 @@
 #define TABLET_MODEL_H_
 #include <stdlib.h>
 #include <vector>
-#include "Box.h"
+#include "Form.h"
 using namespace std;
 
 #define RGBA(r, g, b, a) ((r)<<16)|((g)<<8)|((b))|((a)<<24)
@@ -19,20 +19,14 @@ public:
 	static void test();
 	TabletModel();
 	void reset();
-	void addBox(
-		int level, 
-		int col, int row, 
-		int width, int height,
-		bool filled = false
-	);
-	void addBox(int level, Box b);
-	Box & box(int level, int n);
-	Box & lastBox(int level);
+	void addForm(int level, Form b);
+	Form & form(int level, int n);
+	Form & lastForm(int level);
 	void update();
 	ColorField & getColorField();
 private:
-	vector<vector<Box> > levelBoxes;
+	vector<vector<Form> > levelForms;
 	ColorField colorField;
-	int boxW, boxH;
+	int formW, formH;
 };
 #endif /* TABLET_MODEL_H_ */
