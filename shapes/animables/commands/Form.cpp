@@ -43,7 +43,7 @@ void Form::commandFinished(int pos){
 	if(events.find(pos) != events.end()){
 		actualCommand = events[pos];
 	}else{
- 	//	actualCommand++;
+ 		actualCommand++;
 	}
 }
 void Form::update(){
@@ -55,7 +55,9 @@ void Form::update(){
 			commands[actualCommand].update(this);
 		}
 	}else{
-		actualCommand = 0;
+		//Con esto se reiniciaría al terminar todos.
+		//Puede ser interesante.
+		//actualCommand = 0;
 	}
 }
 void Form::operator()(string title, int speed){
@@ -65,13 +67,13 @@ void Form::operator()(string title, int speed){
 	names[title] = commands.size()-1;
 }
 void Form::operator()(const Pos & pos){
-	this->pos=pos;
+	commands.back().addChange(PosChange(pos));	
 }
 void Form::operator()(const Size & size){
-	this->size=size;
+	commands.back().addChange(SizeChange(size));	
 }
 void Form::operator()(const Color & color){
-	this->color = color;
+	commands.back().addChange(ColorChange(color));	
 }
 void Form::operator()(const Pos   & from, const Pos   & to, int times){
 	commands.back().addChange(PosChange(from, to, times));	
@@ -104,7 +106,7 @@ void Form::on(string onTitle, string doTitle){
 	events[names[onTitle]] = names[doTitle];
 }
 void Form::go(string title){
-	assert(names.find(title) != names.end());
-	assert(events.find(names[title]) != events.end());
+	if(names.find(title) == names.end()) return;
+	if(events.find(names[title]) == events.end()) return;
 	actualCommand = events[names[title]];
 }

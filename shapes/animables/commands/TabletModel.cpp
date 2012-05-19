@@ -1,7 +1,7 @@
 #include "TabletModel.h"
 #include "Form.h"
 TabletModel::TabletModel()
-	:levelForms(LEVELS, vector<Form>()){
+	:levels(LEVELS, vector<int>()){
 	formW = 200/ COLS;
 	formH = 200/ ROWS;
 	reset();
@@ -15,23 +15,18 @@ void TabletModel::reset() {
 				colorField[level][col][row].b = 0;
 
 			}
-			/*
-			   vector<Form>::iterator actualForm = levelForms[level].begin();
-			   while (actualForm != levelForms[level].end()) {
-			   actualForm->reset();
-			   }
-			 */
 		}
 	}
 }
-void TabletModel::addForm(int level, Form form) {
-	levelForms[level].push_back(form);
+void TabletModel::addForm(string name, int level, Form form) {
+	forms.push_back(form);
+	int formKey = forms.size()-1; 
+	namesToForms[name] = formKey; 
+	levels[level].push_back(formKey);
+	formsToLevels[formKey]=level;
 }
-Form & TabletModel::form(int level, int n) {
-	return levelForms[level][n];
-}
-Form & TabletModel::lastForm(int level) {
-	return levelForms[level][levelForms[level].size() - 1];
+Form & TabletModel::getForm(string name){
+	return forms[namesToForms[name]];
 }
 ColorField & TabletModel::getColorField(){
 	return colorField;
@@ -47,8 +42,8 @@ void TabletModel::update() {
 		}
 	}
 	for (int level = 0; level < LEVELS; level++) {
-		for (unsigned int n = 0; n < levelForms[level].size(); n++) {
-			Form &f = levelForms[level][n];
+		for (unsigned int n = 0; n < levels[level].size(); n++) {
+			Form &f = forms[levels[level][n]];
 			const Pos    & formPos   = f.getPos();
 			const Size   & formSize  = f.getSize();
 			const Color  & formColor = f.getColor();
@@ -57,9 +52,9 @@ void TabletModel::update() {
 					i!= f.boxes.end();
 					i++){
 				Box & box = *i; 
-				Pos pos     = formPos   +box.getPos();
-				Size size   = formSize  *box.getSize();
-				Color color = formColor +box.getColor();
+				Pos pos     = formPos   +box.getPos();//Pos de la caja + origen del form
+				Size size   = formSize  *box.getSize();//Size * size del form !!
+				Color color = formColor +box.getColor();//Color + el del form??
 				for (int col = pos.x; col < pos.x + size.w; col++) {
 					for (int row = pos.y; row < pos.y + size.h; row++) {
 						if(col >= 8 || col < 0 || row >= 8 || row < 0) continue;

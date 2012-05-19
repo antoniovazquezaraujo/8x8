@@ -2,6 +2,7 @@
 #define TABLET_MODEL_H_
 #include <stdlib.h>
 #include <vector>
+#include <map>
 #include "Form.h"
 using namespace std;
 
@@ -19,13 +20,15 @@ public:
 	static void test();
 	TabletModel();
 	void reset();
-	void addForm(int level, Form b);
-	Form & form(int level, int n);
-	Form & lastForm(int level);
+	void addForm(string name, int level, Form b);
+	Form & getForm(string name);
 	void update();
 	ColorField & getColorField();
 private:
-	vector<vector<Form> > levelForms;
+	vector<Form> forms;
+	vector<vector<int> > levels;
+	map<string, int> namesToForms;
+	map<int, int> formsToLevels;
 	ColorField colorField;
 	int formW, formH;
 };

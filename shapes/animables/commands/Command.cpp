@@ -56,11 +56,14 @@ void Command::reset(){
 }
 void Command::addChange(const ColorChange &c){
 	colorChanges.push_back(c);
+	colorChanges.back().setSpeed(speed);;
 }
 void Command::addChange(const PosChange &p){
 	posChanges.push_back(p);
+	posChanges.back().setSpeed(speed);;
 }
 void Command::addChange(const SizeChange & s){
 	sizeChanges.push_back(s);
+	sizeChanges.back().setSpeed(speed);;
 }
 
