@@ -31,12 +31,15 @@ void Program::reset(){
 	finished= false;
 	for(vector<ColorChange>::iterator i = colorChanges.begin();i!=colorChanges.end();i++){
 		(*i).restartRepeats();
+		(*i).resetData();
 	}
 	for(vector<SizeChange>::iterator i = sizeChanges.begin();i!=sizeChanges.end();i++){
 		(*i).restartRepeats();
+		(*i).resetData();
 	}
 	for(vector<PosChange>::iterator i = posChanges.begin();i!=posChanges.end();i++){
 		(*i).restartRepeats();
+		(*i).resetData();
 	}
 }
 void Program::addChange(const ColorChange &c){

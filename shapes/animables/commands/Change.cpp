@@ -14,6 +14,7 @@ bool Change::needUpdate(){
 			if(changeCompleted){
 				actualRepeats--;
 				changeCompleted=false;
+				return false; 
 			}
 			return true;
 		}else{

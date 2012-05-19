@@ -39,7 +39,7 @@ void PosChange::update(Form * f){
 			if(!(actual == to)){
 				actual.approachTo(to, step);
 			}else{
-				resetData();	
+			//	resetData();	
 				setChangeCompleted();
 			}
 		}

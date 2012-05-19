@@ -11,8 +11,8 @@ public:
 	PosChange(PosStep step=PosStep(), int speed=1, int repeats=1);
 	bool isCompleted();
 	void update(Form * b);
-private:
 	void resetData();
+private:
 	Pos from, to, actual;
 	PosStep step;
 	bool isRelative;

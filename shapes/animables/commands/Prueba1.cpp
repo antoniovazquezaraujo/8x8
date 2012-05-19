@@ -16,7 +16,7 @@ void Prueba1::setup(){
 			Program p;
 			p.addChange(SizeChange(Size(1,1), Size(1,1), 3000, 1));
 			p.addChange(ColorChange(Color(10,0,255), Color(10,210,255), ColorStep(0,30,0),3000, 1));
-			p.addChange(PosChange  (Pos(0,0), Pos(0,7), 3000,1));
+			p.addChange(PosChange  (Pos(0,0), Pos(7,0), 3000,1));
 			f.addProgram(p);
 
 			Program p2;
@@ -25,8 +25,9 @@ void Prueba1::setup(){
 			f.addProgram(p2);
 
 			Program p3;
-			p3.addChange(PosChange  (Pos(3,3), Pos(0,0), PosStep(-1,-1), 5000,2));
-			p3.addChange(SizeChange (Size(2,2),Size(8,8),SizeStep(2,2) , 5000,2));
+			p3.addChange(PosChange  (Pos(3,3), Pos(0,0), PosStep(-1,-1), 5000,1));
+			p3.addChange(SizeChange (Size(2,2),Size(8,8),SizeStep(2,2) , 5000,1));
+			p3.addChange(ColorChange(Color(0,255,0), Color(240,255,0), ColorStep(80,0,0),3000, 1));
 			f.addProgram(p3);
 
 			model->addForm(0, f);

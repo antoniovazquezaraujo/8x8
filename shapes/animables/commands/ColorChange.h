@@ -10,8 +10,8 @@ public:
 	ColorChange(ColorStep step=ColorStep(), int speed=1, int repeats=1);
 	bool isCompleted();	
 	void update(Form * f);
-private:
 	void resetData();
+private:
 	Color from, to, actual;
 	ColorStep step;
 	bool isRelative;

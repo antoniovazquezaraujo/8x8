@@ -10,8 +10,8 @@ public:
 	SizeChange(SizeStep step=SizeStep(), int speed=1, int repeats=1);
 	bool isCompleted();
 	void update(Form * b);
-private:
 	void resetData();
+private:
 	Size from, to, actual;
 	SizeStep step;
 	bool isRelative;
