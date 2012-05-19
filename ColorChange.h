@@ -1,33 +1,20 @@
-#ifndef COLOR_CHANGE_H 
-#define COLOR_CHANGE_H 
-
-#include <stdlib.h>
-
-using namespace std;
-class ColorChange {
-
+#ifndef COLOR_CHANGE
+#define COLOR_CHANGE
+#include "Change.h"
+#include "Color.h"
+class Form;
+class ColorChange: public Change{
 public:
-	static void test();
-	ColorChange(int fromR = 0, int toR = 0, int fromG = 0, int toG = 0,
-			int fromB = 0, int toB = 0, int time = 1);
-	void reset();
-	void update();
-	bool isFinished();
-	void start();
-	void stop();
-	unsigned char getR();
-	unsigned char getG();
-	unsigned char getB();
-
+	ColorChange(Color from, Color to, ColorStep step, int repeats=1);
+	ColorChange(Color from, Color to,                 int repeats=1);
+	ColorChange(ColorStep step,                       int repeats=1);
+	ColorChange(Color color);
+	bool isCompleted();	
+	void update(Form * f);
+	void resetData();
 private:
-	unsigned char fromR, toR, fromG, toG, fromB, toB;
-	int rDelta, gDelta, bDelta;
-	int rLapse, gLapse, bLapse;
-	int rRange, gRange, bRange;
-	int rCount, gCount, bCount;
-	unsigned char r, g, b;
-	int time, actualTime;
-	bool finished;
+	Color from, to, actual;
+	ColorStep step;
+	bool isRelative;
 };
-
 #endif

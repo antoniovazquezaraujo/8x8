@@ -1,11 +1,9 @@
 #include "TabletModel.h"
-#include "Box.h"
-TabletModel::TabletModel() {
-	boxW = 200/ COLS;
-	boxH = 200/ ROWS;
-	for (int level = 0; level < LEVELS; level++) {
-		levelBoxes.push_back(vector<Box>());
-	}
+#include "Form.h"
+TabletModel::TabletModel()
+	:levels(LEVELS, vector<int>()){
+	formW = 200/ COLS;
+	formH = 200/ ROWS;
 	reset();
 }
 void TabletModel::reset() {
@@ -15,32 +13,26 @@ void TabletModel::reset() {
 				colorField[level][col][row].r = 0;
 				colorField[level][col][row].g = 0;
 				colorField[level][col][row].b = 0;
+
 			}
-		}
-		vector<Box>::iterator actualBox = levelBoxes[level].begin();
-		while (actualBox != levelBoxes[level].end()) {
-			actualBox->reset();
 		}
 	}
 }
-void TabletModel::addBox(int level, int col, int row, int width, int height,
-		bool filled) {
-	levelBoxes[level].push_back(Box(col, row, width, height, filled));
+void TabletModel::addForm(string name, int level, Form form) {
+	forms.push_back(form);
+	int formKey = forms.size()-1; 
+	namesToForms[name] = formKey; 
+	levels[level].push_back(formKey);
+	formsToLevels[formKey]=level;
 }
-void TabletModel::addBox(int level, Box box) {
-	levelBoxes[level].push_back(box);
-}
-Box & TabletModel::box(int level, int n) {
-	return levelBoxes[level][n];
-}
-Box & TabletModel::lastBox(int level) {
-	return levelBoxes[level][levelBoxes[level].size() - 1];
+Form & TabletModel::getForm(string name){
+	return forms[namesToForms[name]];
 }
 ColorField & TabletModel::getColorField(){
 	return colorField;
 }
 void TabletModel::update() {
-	for (int level = 1; level < LEVELS; level++) {
+	for (int level = 0; level < LEVELS; level++) {
 		for (int col = 0; col < COLS; col++) {
 			for (int row = 0; row < ROWS; row++) {
 				colorField[level][col][row].r = 0;
@@ -50,16 +42,26 @@ void TabletModel::update() {
 		}
 	}
 	for (int level = 0; level < LEVELS; level++) {
-		for (unsigned int n = 0; n < levelBoxes[level].size(); n++) {
-			if (!levelBoxes[level][n].isTerminated()) {
-				levelBoxes[level][n].update();
-			}
-			Box b = levelBoxes[level][n];
-			for (int col = b.getCol(); col < b.getCol() + b.getWidth(); col++) {
-				for (int row = b.getRow(); row < b.getRow() + b.getHeight(); row++) {
-					colorField[level][col][row].r = b.getR();
-					colorField[level][col][row].g = b.getG();
-					colorField[level][col][row].b = b.getB();
+		for (unsigned int n = 0; n < levels[level].size(); n++) {
+			Form &f = forms[levels[level][n]];
+			const Pos    & formPos   = f.getPos();
+			const Size   & formSize  = f.getSize();
+			const Color  & formColor = f.getColor();
+			f.update();
+			for(vector<Box>::iterator i= f.boxes.begin();
+					i!= f.boxes.end();
+					i++){
+				Box & box = *i; 
+				Pos pos     = formPos   +box.getPos();//Pos de la caja + origen del form
+				Size size   = formSize  *box.getSize();//Size * size del form !!
+				Color color = formColor +box.getColor();//Color + el del form??
+				for (int col = pos.x; col < pos.x + size.w; col++) {
+					for (int row = pos.y; row < pos.y + size.h; row++) {
+						if(col >= 8 || col < 0 || row >= 8 || row < 0) continue;
+						colorField[level][col][row].r = color.r;
+						colorField[level][col][row].g = color.g;
+						colorField[level][col][row].b = color.b;
+					}
 				}
 			}
 		}

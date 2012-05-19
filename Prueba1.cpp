@@ -6,17 +6,51 @@ Prueba1::Prueba1(TabletView * view)
 
 }
 void Prueba1::setup(){
-	for(int col =0; col <COLS; col++){
-		for(int row = 0; row < ROWS; row++){ 
-			model->addBox(0, col, row, 1,1, false);
-			model->lastBox(0).addColorChange(     0, col*32,    128,      0,      0,      0, 100);
-			model->lastBox(0).addColorChange(col*32, col*32,      0, row*32,      0,      0, 100);
-			model->lastBox(0).addColorChange(col*32,      0, row*32,    128,      0, col*32, 100);
-			model->lastBox(0).addColorChange(     0, col*32,      0, row*32, col*32, row*32, 100);
-			model->lastBox(0).addColorChange(col*32, col*32, row*32,      0, col*32,    128, 100);
-			model->lastBox(0).startColorChanges();
-		}
-	}
+	Form f(0,0, 1,1);
+	f.setColor(Color(255,0,0));
+
+	Box b(0,0, 1,1, false);
+	b.setColor(Color(255,0,0));
+	f.addBox(b);
+
+	Box c(-1,-1, 1,1, false);
+	c.setColor(Color(0,0,100));
+	f.addBox(c);
+
+	f("inicio");//agrega comando "inicio". si no hay speed es la máxima
+	f(Size(1,1)); //un solo dato es un setter(size, color o pos)
+	f(Color(10,0,255));
+	f(Pos(0,0));
+
+	f("dcha",1000);//speed es num turnos que tarda el comando
+	f(Size(1,1), Size(1,1), 1); //dos datos: desde hasta, y número de veces
+	f(Color(10,0,255), Color(10,210,255), ColorStep(0,30,0),1); //dos datos y step
+	f(Pos(7,7), Pos(0,7), 1);
+
+	f("bajar", 9000);
+	f(Pos(3,3), Pos(0,0), PosStep(-1,-1), 1);
+	f(Size(2,2),Size(8,8),SizeStep(2,2) , 1);
+	f(Color(0,255,0), Color(240,255,0), ColorStep(80,0,0), 1);
+
+	f("subir",6000);//speed es num turnos que tarda el comando
+	f(Size(1,1), Size(1,8), 1); //dos datos: desde hasta, y número de veces
+	f(Color(10,0,255), Color(10,210,255), ColorStep(0,30,0),1); //dos datos y step
+	f(Pos(0,0), Pos(7,0), 1);
+
+	f("fin");
+	f(Pos(1,5));
+	f(Size(3,1));
+	f(Color(255,0,0));
+
+	//Si se comentan los "on", se ejecutan todos, uno tras otro
+	//f.on("inicio", "subir");
+	//f.on("subir", "dcha");
+	//f.on("dcha","bajar"); 
+	//f.on("bajar","fin");
+
+	f.go("inicio"); //ejecutar ahora ese comando
+
+	model->addForm("uno", 0, f);
 }
 void Prueba1::start(){
 	view->start();
@@ -25,22 +59,8 @@ void Prueba1::stop(){
 	view->stop();
 }
 void Prueba1::onClick(int col, int row){
-	static bool added = false;
-	if(!added){
-		model->addBox(1, col, row, 1,1,false);
-		model->lastBox(1).setColor(64,64,64);
-		model->lastBox(1).addColorChange(255,155,  0,155,100, 40,100);
-		model->lastBox(1).addColorChange(155,  0,155,255, 40,  0,100);
-		model->lastBox(1).addColorChange(0,   50,255, 25,  0, 50,100);
-		model->lastBox(1).addColorChange(50, 255, 25,  0, 50,100,100);
-		model->lastBox(1).startColorChanges();
-		//added=true;
-	}
-	model->lastBox(1).setPos(Rect(col,row));
 }
 void Prueba1::onRelease(int col, int row){
 }
 void Prueba1::onDrag(int col, int row){
-	Rect pos = model->lastBox(1).getPos();
-	model->lastBox(1).setSize(col-pos.col+1, row-pos.row+1);
 }

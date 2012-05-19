@@ -1,49 +1,61 @@
 #include "PosChange.h"
+#include "Form.h"
+PosChange::PosChange(Pos from, Pos to, PosStep step, int repeats)
+	:Change(repeats)
+	,from(from)
+	,to(to)
+	,step(step)
+	,isRelative(false) {
+		 resetData();
 
-PosChange::PosChange(int colDelta, int rowDelta, int time, int repetitions) 
-	:colDelta(colDelta),
-	rowDelta(rowDelta),
-	time(time),
-	actualTime(time),
-	repetitions(repetitions),
-	actualRepetitions(repetitions){
-	reset();
 }
-void PosChange::reset() {
-	finished = false;
-	actualTime = time;
+PosChange::PosChange(Pos from, Pos to, int repeats)
+	:Change(repeats)
+	,from(from)
+	,to(to)
+	,step(from.stepTo(to))
+	,isRelative(false) {
+		 resetData();
+
 }
-void PosChange::update() {
-	if(repetitions >0){
-		if (actualTime >0) {
-			actualTime--;
-		} else {
-			repetitions--;
-			actualTime = time;
+PosChange::PosChange(PosStep step, int repeats)
+	:Change(repeats)
+	,step(step)
+	,isRelative(true){
+
+}
+PosChange::PosChange(Pos to)
+	:Change(1)
+	,from(to)
+	,to(to)
+	,actual(to)
+	,isRelative(false) {
+		 resetData();
+
+}
+bool PosChange::isCompleted(){
+	return repeatsCompleted();
+}
+void PosChange::update(Form * f){
+	if(needUpdate()){
+		if(isRelative){
+			Pos c = f->getPos();
+			c+=step;
+			f->setPos(c);
+			setChangeCompleted();
+		}else{
+			f->setPos(actual);
+			if(!(actual == to)){
+				actual.approachTo(to, step);
+			}else{
+			//	resetData();	
+				setChangeCompleted();
+			}
 		}
-	}else{
-		finished = true;
 	}
 }
-bool PosChange::isFinished() {
-	return finished;
-}
-
-void PosChange::start() {
-	actualTime = time;
-}
-void PosChange::stop() {
-	finished = true;
-	actualTime = 0;
-}
-
-Rect PosChange::getRect(Rect original) {
-	Rect r = original;
-	if(finished)return r;
-	if(actualTime == time){
-		r.col+=colDelta;
-		r.row+=rowDelta;
+void PosChange::resetData(){
+	if(!isRelative){
+		actual= from;
 	}
-	return r;
 }
-

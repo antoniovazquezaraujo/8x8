@@ -1,50 +1,61 @@
 #include "SizeChange.h"
-#include <iostream> 
+#include "Form.h"
+SizeChange::SizeChange(Size from, Size to, SizeStep step, int repeats)
+	:Change(repeats)
+	,from(from)
+	,to(to)
+	,step(step)
+	,isRelative(false) {
+		 resetData();
 
-SizeChange::SizeChange(int widthDelta, int heightDelta, int time, int repetitions) 
-	:widthDelta(widthDelta),
-	heightDelta(heightDelta),
-	time(time),
-	actualTime(time),
-	repetitions(repetitions),
-	actualRepetitions(repetitions){
-	reset();
 }
-void SizeChange::reset() {
-	finished = false;
-	actualTime = time;
+SizeChange::SizeChange(Size from, Size to, int repeats)
+	:Change(repeats)
+	,from(from)
+	,to(to)
+	,step(from.stepTo(to))
+	,isRelative(false) {
+	 resetData();
+
 }
-void SizeChange::update() {
-	if(repetitions >0){
-		if (actualTime >0) {
-			actualTime--;
-		} else {
-			repetitions--;
-			actualTime = time;
+SizeChange::SizeChange(SizeStep step, int repeats)
+	:Change(repeats)
+	,step(step)
+	,isRelative(true){
+
+}
+SizeChange::SizeChange(Size to)
+	:Change(1)
+	,from(to)
+	,to(to)
+	,actual(to)
+	,isRelative(false) {
+		 resetData();
+
+}
+bool SizeChange::isCompleted(){
+	return repeatsCompleted();
+}
+void SizeChange::update(Form * f){
+	if(needUpdate()){
+		if(isRelative){
+			Size c = f->getSize();
+			c+=step;
+			f->setSize(c);
+			setChangeCompleted();
+		}else{
+			f->setSize(actual);
+			if(!(actual == to)){
+				actual.approachTo(to, step);
+			}else{
+		//		resetData();	
+				setChangeCompleted();
+			}
 		}
-	}else{
-		finished = true;
 	}
 }
-bool SizeChange::isFinished() {
-	return finished;
-}
-
-void SizeChange::start() {
-	actualTime = time;
-}
-void SizeChange::stop() {
-	finished = true;
-	actualTime = 0;
-}
-
-Rect SizeChange::getRect(Rect original) {
-	Rect r = original;
-	if(finished)return r;
-	if(actualTime == time){
-		r.width+=widthDelta;
-		r.height+=heightDelta;
+void SizeChange::resetData(){
+	if(!isRelative){
+		actual= from;
 	}
-	return r;
 }
-

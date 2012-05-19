@@ -1,24 +1,20 @@
-#ifndef SIZE_CHANGE_H_
-#define SIZE_CHANGE_H_
-#include <stdlib.h>
-#include "Rect.h" 
-
-using namespace std;
-class SizeChange {
+#ifndef SIZE_CHANGE
+#define SIZE_CHANGE
+#include "Change.h"
+#include "Size.h"
+class Form;
+class SizeChange: public Change{
 public:
-	static void test();
-	SizeChange(int widthDelta, int heightDelta, int time, int repetitions);
-	void reset();
-	void update();
-	bool isFinished();
-	void start();
-	void stop();
-	Rect getRect(Rect original);
+	SizeChange(Size from, Size to, SizeStep step, int repeats=1);
+	SizeChange(Size from, Size to,                int repeats=1);
+	SizeChange(SizeStep step,                     int repeats=1);
+	SizeChange(Size size);
+	bool isCompleted();
+	void update(Form * b);
+	void resetData();
 private:
-	int widthDelta, heightDelta;
-	int time, actualTime;
-	int repetitions, actualRepetitions;
-	bool finished;
+	Size from, to, actual;
+	SizeStep step;
+	bool isRelative;
 };
-
 #endif

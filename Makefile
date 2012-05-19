@@ -3,10 +3,10 @@ CC            = gcc
 CXX           = g++
 DEFINES       = 
 CFLAGS        = -pipe -Wall -W -D_REENTRANT $(DEFINES)
-CXXFLAGS      = $(INCLUDES) -time -O3 -Wall -DEBUG -ggdb -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_THREAD_SAFE -D_REENTRANT
+CXXFLAGS      = $(INCLUDES) -pg -ggdb -time -O3 -Wall -DEBUG -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_THREAD_SAFE -D_REENTRANT
 INCPATH       = -IGUI -I.
 LINK          = g++
-LFLAGS        = -Wl,-O1 -L/usr/local/lib -lfltk -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11
+LFLAGS        = -Wl,-O1 -L/usr/local/lib -pg -lfltk -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11
 LIBS          = -lstdc++  -lfltk 
 AR            = ar cqs
 RANLIB        = 
@@ -33,33 +33,47 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-BASE = ColorChange.o\
-		PosChange.o        \
-		SizeChange.o       \
-		Box.o              \
-		TabletModel.o      \
-		TabletView.o       \
-		TabletController.o  
-
-OBJECTS = ColorChange.o\
-		PosChange.o        \
-		SizeChange.o       \
-		Box.o              \
-		TabletModel.o      \
-		TabletView.o       \
+SOURCES       = Box.cpp \
+		Change.cpp \
+		Color.cpp \
+		ColorChange.cpp \
+		ColorStep.cpp \
+		FltkMain.cpp \
+		FltkTabletView.cpp \
+		Form.cpp \
+		Pos.cpp \
+		PosChange.cpp \
+		PosStep.cpp \
+		Command.cpp \
+		Prueba1.cpp \
+		Size.cpp \
+		SizeChange.cpp \
+		SizeStep.cpp \
+		TabletController.cpp \
+		TabletModel.cpp \
+		TabletView.cpp 
+OBJECTS       = Box.o \
+		Change.o \
+		Color.o \
+		ColorChange.o \
+		ColorStep.o \
+		FltkMain.o \
+		FltkTabletView.o \
+		Form.o \
+		Pos.o \
+		PosChange.o \
+		PosStep.o \
+		Command.o \
+		Prueba1.o \
+		Size.o \
+		SizeChange.o \
+		SizeStep.o \
 		TabletController.o \
-		FltkTabletView.o   \
-		Prueba1.o          \
-		FltkPrueba1.o
+		TabletModel.o \
+		TabletView.o
 
-OBJECTS_DEMO1  = $(BASE)   \
-		FltkTabletView.o   \
-		Demo1.o           
-
-QMAKE_TARGET  = 8x8
 DESTDIR       = 
-TARGET        = 8x8
-DEMO1         = demo1 
+TARGET        = commands
 
 first: all
 ####### Implicit rules
@@ -83,94 +97,217 @@ first: all
 
 ####### Build rules
 
-all: Makefile $(TARGET) $(DEMO1)
+all: $(TARGET)
 
 $(TARGET):  $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
-$(DEMO1):  $(OBJECTS_DEMO1)  
-	$(LINK) $(LFLAGS) -o $(DEMO1) $(OBJECTS_DEMO1) $(OBJCOMP) $(LIBS)
 
 clean:
 	-$(DEL_FILE) $(OBJECTS)
 	-$(DEL_FILE) *~ core *.core
-
-
-####### Sub-libraries
-
-distclean: clean
 	-$(DEL_FILE) $(TARGET) 
-	-$(DEL_FILE) Makefile
 
-
-####### Compile
-
-SizeChange.o: SizeChange.cpp SizeChange.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SizeChange.o SizeChange.cpp
-
-ColorChange.o: ColorChange.cpp ColorChange.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ColorChange.o ColorChange.cpp
-
-PosChange.o: PosChange.cpp PosChange.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o PosChange.o PosChange.cpp
-
-Box.o:	Box.cpp          \
-		Box.h            \
-		ColorChange.h    \
-		PosChange.h      \
-		SizeChange.h     \
-		Rect.h           \
-		Color.h
+Box.o: Box.cpp Box.h \
+		Color.h \
+		ColorStep.h \
+		Pos.h \
+		PosStep.h \
+		Size.h \
+		SizeStep.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Box.o Box.cpp
 
-FltkPrueba1.o: FltkPrueba1.cpp     \
-		FltkTabletView.h           \
-		Prueba1.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FltkPrueba1.o FltkPrueba1.cpp
+Change.o: Change.cpp Change.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Change.o Change.cpp
 
-Demo1.o: Demo1.cpp         \
-		FltkTabletView.h       \
-		TabletView.h           \
-		TabletController.h     \
-		TabletModel.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Demo1.o Demo1.cpp
+Color.o: Color.cpp Color.h \
+		ColorStep.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Color.o Color.cpp
 
-Prueba1.o: Prueba1.cpp         \
-		Prueba1.h              \
-		TabletView.h           \
-		TabletModel.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Prueba1.o Prueba1.cpp
+ColorChange.o: ColorChange.cpp ColorChange.h \
+		Change.h \
+		Color.h \
+		ColorStep.h \
+		Form.h \
+		Pos.h \
+		PosStep.h \
+		Size.h \
+		SizeStep.h \
+		Box.h \
+		Command.h \
+		PosChange.h \
+		SizeChange.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ColorChange.o ColorChange.cpp
 
-TabletController.o: TabletController.cpp         \
-		TabletView.h                             \
-		TabletModel.h                            \
-		Box.h                                    \
-		ColorChange.h                            \
-		SizeChange.h                             \
-		PosChange.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TabletController.o TabletController.cpp
+ColorStep.o: ColorStep.cpp ColorStep.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ColorStep.o ColorStep.cpp
 
-FltkTabletView.o: FltkTabletView.cpp \
-		FltkTabletView.h             \
-		TabletView.h                 \
-		TabletModel.h                \
-		Box.h                        \
-		SizeChange.h                 \
-		PosChange.h                   
+FltkMain.o: FltkMain.cpp FltkTabletView.h \
+		TabletView.h \
+		Prueba1.h \
+		TabletController.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FltkMain.o FltkMain.cpp
+
+FltkTabletView.o: FltkTabletView.cpp FltkTabletView.h \
+		TabletView.h \
+		TabletController.h \
+		TabletModel.h \
+		Form.h \
+		Color.h \
+		ColorStep.h \
+		Pos.h \
+		PosStep.h \
+		Size.h \
+		SizeStep.h \
+		Box.h \
+		Command.h \
+		ColorChange.h \
+		Change.h \
+		PosChange.h \
+		SizeChange.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FltkTabletView.o FltkTabletView.cpp
 
-TabletModel.o: TabletModel.cpp  \
-		TabletModel.h           \
-		Box.h                   \
-		ColorChange.h           \
-		SizeChange.h            \
+Form.o: Form.cpp Form.h \
+		Color.h \
+		ColorStep.h \
+		Pos.h \
+		PosStep.h \
+		Size.h \
+		SizeStep.h \
+		Box.h \
+		Command.h \
+		ColorChange.h \
+		Change.h \
+		PosChange.h \
+		SizeChange.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Form.o Form.cpp
+
+Pos.o: Pos.cpp Pos.h \
+		PosStep.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Pos.o Pos.cpp
+
+PosChange.o: PosChange.cpp PosChange.h \
+		Change.h \
+		Pos.h \
+		PosStep.h \
+		Form.h \
+		Color.h \
+		ColorStep.h \
+		Size.h \
+		SizeStep.h \
+		Box.h \
+		Command.h \
+		ColorChange.h \
+		SizeChange.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o PosChange.o PosChange.cpp
+
+PosStep.o: PosStep.cpp PosStep.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o PosStep.o PosStep.cpp
+
+Command.o: Command.cpp Command.h \
+		ColorChange.h \
+		Change.h \
+		Color.h \
+		ColorStep.h \
+		PosChange.h \
+		Pos.h \
+		PosStep.h \
+		SizeChange.h \
+		Size.h \
+		SizeStep.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Command.o Command.cpp
+
+Prueba1.o: Prueba1.cpp Prueba1.h \
+		TabletController.h \
+		TabletModel.h \
+		Form.h \
+		Color.h \
+		ColorStep.h \
+		Pos.h \
+		PosStep.h \
+		Size.h \
+		SizeStep.h \
+		Box.h \
+		Command.h \
+		ColorChange.h \
+		Change.h \
+		PosChange.h \
+		SizeChange.h \
+		TabletView.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Prueba1.o Prueba1.cpp
+
+Size.o: Size.cpp Size.h \
+		SizeStep.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Size.o Size.cpp
+
+SizeChange.o: SizeChange.cpp SizeChange.h \
+		Change.h \
+		Size.h \
+		SizeStep.h \
+		Form.h \
+		Color.h \
+		ColorStep.h \
+		Pos.h \
+		PosStep.h \
+		Box.h \
+		Command.h \
+		ColorChange.h \
 		PosChange.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SizeChange.o SizeChange.cpp
+
+SizeStep.o: SizeStep.cpp SizeStep.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SizeStep.o SizeStep.cpp
+
+TabletController.o: TabletController.cpp TabletController.h \
+		TabletView.h \
+		TabletModel.h \
+		Form.h \
+		Color.h \
+		ColorStep.h \
+		Pos.h \
+		PosStep.h \
+		Size.h \
+		SizeStep.h \
+		Box.h \
+		Command.h \
+		ColorChange.h \
+		Change.h \
+		PosChange.h \
+		SizeChange.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TabletController.o TabletController.cpp
+
+TabletModel.o: TabletModel.cpp TabletModel.h \
+		Form.h \
+		Color.h \
+		ColorStep.h \
+		Pos.h \
+		PosStep.h \
+		Size.h \
+		SizeStep.h \
+		Box.h \
+		Command.h \
+		ColorChange.h \
+		Change.h \
+		PosChange.h \
+		SizeChange.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TabletModel.o TabletModel.cpp
 
-TabletView.o: TabletView.cpp  \
-		TabletView.h          \
-		TabletModel.h         \
-		TabletController.h     
+TabletView.o: TabletView.cpp TabletView.h \
+		TabletModel.h \
+		Form.h \
+		Color.h \
+		ColorStep.h \
+		Pos.h \
+		PosStep.h \
+		Size.h \
+		SizeStep.h \
+		Box.h \
+		Command.h \
+		ColorChange.h \
+		Change.h \
+		PosChange.h \
+		SizeChange.h \
+		TabletController.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TabletView.o TabletView.cpp
 
 ####### Install
