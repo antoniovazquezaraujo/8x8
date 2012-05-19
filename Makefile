@@ -1,12 +1,16 @@
 INCLUDES = -I"$(FLTK)" -I/usr/local/include -I/usr/include/freetype2 
+# Esto sirve para usar gprof. Si no se usa se puede quitar
+#PROFILING     = -pg
+PROFILING     = 
+
 CC            = gcc
 CXX           = g++
 DEFINES       = 
 CFLAGS        = -pipe -Wall -W -D_REENTRANT $(DEFINES)
-CXXFLAGS      = $(INCLUDES) -pg -ggdb -time -O3 -Wall -DEBUG -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_THREAD_SAFE -D_REENTRANT
+CXXFLAGS      = $(INCLUDES) $(PROFILING) -ggdb -time -O3 -Wall -DEBUG -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_THREAD_SAFE -D_REENTRANT
 INCPATH       = -IGUI -I.
 LINK          = g++
-LFLAGS        = -Wl,-O1 -L/usr/local/lib -pg -lfltk -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11
+LFLAGS        = -Wl,-O1 -L/usr/local/lib $(PROFILING) -lfltk -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11
 LIBS          = -lstdc++  -lfltk 
 AR            = ar cqs
 RANLIB        = 
@@ -73,7 +77,7 @@ OBJECTS       = Box.o \
 		TabletView.o
 
 DESTDIR       = 
-TARGET        = commands
+TARGET        = 8x8 
 
 first: all
 ####### Implicit rules
