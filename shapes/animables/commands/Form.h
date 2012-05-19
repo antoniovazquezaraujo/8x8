@@ -47,7 +47,6 @@ public:
 	void go(string title);
 	void commandFinished(int pos);
 
-	void addCommand(Command p);
 	void addBox(Box b);
 	void update();
 	Color color;
@@ -55,7 +54,7 @@ public:
 	Size size;
 	vector<Box> boxes;
 	vector<Command>commands;
-	int actualCommand;
+	unsigned int actualCommand;
 	map<string, int> names;//command name->position in commands
 	map<int, int> events;  //on position->do position
 	friend ostream & operator<<(ostream& o, const Form & f);

@@ -1,17 +1,21 @@
 #include "Form.h"
+#include <cassert>
+#include <iostream>
 Form::Form(const Form & f)
 	:color(f.color)
 	,pos(f.pos)
 	,size(f.size)
 	,boxes(f.boxes)
-	,commands(f.commands){
-	actualCommand = -1; 
+	,commands(f.commands)
+	,actualCommand(f.actualCommand) 
+	,names(f.names)
+	,events(f.events){
 
 }
 Form::Form(int col, int row, int width, int height)
 	:pos(col, row)
 	,size(width,height){
-	actualCommand = -1; 
+	actualCommand = 0; 
 
 }
 void Form::setColor(Color color){
@@ -32,10 +36,6 @@ void Form::setSize(Size size){
 const Size &Form::getSize() const{
 	return size;
 }
-void Form::addCommand(Command p){
-	commands.push_back(p);
-	actualCommand = 0; 
-}
 void Form::addBox(Box b){
 	boxes.push_back(b);
 }
@@ -43,7 +43,7 @@ void Form::commandFinished(int pos){
 	if(events.find(pos) != events.end()){
 		actualCommand = events[pos];
 	}else{
-		actualCommand++;
+ 	//	actualCommand++;
 	}
 }
 void Form::update(){
@@ -104,5 +104,7 @@ void Form::on(string onTitle, string doTitle){
 	events[names[onTitle]] = names[doTitle];
 }
 void Form::go(string title){
-	actualCommand = names[title];
+	assert(names.find(title) != names.end());
+	assert(events.find(names[title]) != events.end());
+	actualCommand = events[names[title]];
 }

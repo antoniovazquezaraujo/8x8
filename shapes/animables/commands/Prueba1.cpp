@@ -20,7 +20,7 @@ void Prueba1::setup(){
 	f(Pos(0,0));
 
 	f("subir",3000);//speed es num turnos que tarda el comando
-	f(Size(1,1), Size(3,1), 1); //dos datos: desde hasta, y número de veces
+	f(Size(1,1), Size(1,8), 1); //dos datos: desde hasta, y número de veces
 	f(Color(10,0,255), Color(10,210,255), ColorStep(0,30,0),1); //dos datos y step
 	f(Pos(0,0), Pos(7,0), 1);
 
@@ -34,14 +34,15 @@ void Prueba1::setup(){
 	f(Size(2,2),Size(8,8),SizeStep(2,2) , 1);
 	f(Color(0,255,0), Color(240,255,0), ColorStep(80,0,0), 1);
 
-	model->addForm(0, f);
 
 	f.on("inicio", "subir");
 	f.on("subir", "dcha");
-	f.on("dcha","subir"); //al terminar un comando vamos a otro
-	//f.on("subir","dcha");
+	f.on("dcha","bajar"); //al terminar un comando vamos a otro
+	f.on("bajar","subir");
 	//f.on("dcha","inicio");
 	f.go("inicio"); //ejecutar ahora ese comando
+
+	model->addForm(0, f);
 }
 void Prueba1::start(){
 	view->start();

@@ -1,6 +1,7 @@
 #ifndef BASE
 #define BASE
 #include <iostream>
+#include <cassert>
 using namespace std;
 #include "Box.h"
 #include "Color.h"
