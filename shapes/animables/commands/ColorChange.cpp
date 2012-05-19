@@ -1,7 +1,7 @@
 #include "ColorChange.h"
 #include "Form.h"
-ColorChange::ColorChange(Color from, Color to, ColorStep step, int speed, int repeats)
-	:Change(speed, repeats)
+ColorChange::ColorChange(Color from, Color to, ColorStep step, int repeats)
+	:Change(repeats)
 	,from(from)
 	,to(to)
 	,step(step)
@@ -9,8 +9,8 @@ ColorChange::ColorChange(Color from, Color to, ColorStep step, int speed, int re
 		 resetData();
 
 }
-ColorChange::ColorChange(Color from, Color to, int speed, int repeats)
-	:Change(speed, repeats)
+ColorChange::ColorChange(Color from, Color to, int repeats)
+	:Change(repeats)
 	,from(from)
 	,to(to)
 	,step(from.stepTo(to))
@@ -18,10 +18,19 @@ ColorChange::ColorChange(Color from, Color to, int speed, int repeats)
 		 resetData();
 
 }
-ColorChange::ColorChange(ColorStep step, int speed, int repeats)
-	:Change(speed, repeats)
+ColorChange::ColorChange(ColorStep step, int repeats)
+	:Change(repeats)
 	,step(step)
 	,isRelative(true){
+
+}
+ColorChange::ColorChange(Color to)
+	:Change(1)
+	,from(to)
+	,to(to)
+	,actual(to)
+	,isRelative(false) {
+		 resetData();
 
 }
 bool ColorChange::isCompleted(){

@@ -192,7 +192,6 @@ ostream & operator<<(ostream &o, const Box & b){
 	o << b.pos << b.size << b.color;
 	return o;
 }
-class Form;
 ////////////////////////
 const int MAX_SPEED=10000;
 class Change{
@@ -264,16 +263,16 @@ public:
 	bool isCompleted(){
 		return repeatsCompleted();
 	}
-	void update(Form * f){
+	void update(Box * b){
 		if(needUpdate()){
 			if(isRelative){
-				Color c = f->getColor();
+				Color c = b->getColor();
 				c+=step;
-				f->setColor(c);
+				b->setColor(c);
 				setChangeCompleted();
 			}else{
 				actual.approachTo(to, step);
-				f->setColor(actual);
+				b->setColor(actual);
 				if(actual == to){
 					resetData();	
 					setChangeCompleted();
@@ -312,7 +311,7 @@ public:
 	bool isCompleted(){
 		return repeatsCompleted();
 	}
-	void update(Form * b){
+	void update(Box * b){
 		if(needUpdate()){
 			if(isRelative){
 				Pos c = b->getPos();
@@ -360,7 +359,7 @@ public:
 	bool isCompleted(){
 		return repeatsCompleted();
 	}
-	void update(Form * b){
+	void update(Box * b){
 		if(needUpdate()){
 			if(isRelative){
 				Size c = b->getSize();
@@ -387,30 +386,29 @@ private:
 	SizeStep step;
 	bool isRelative;
 };
-//////////////////
 class Program{
 public:
 	Program()
 		:finished(false){
 
 	}
-	void update(Form* f){
+	void update(Box * b){
 		finished=true;
 		for(int i=0; i< colorChanges.size();i++){
 			if(!colorChanges[i].isCompleted()){
-				colorChanges[i].update(f);
+				colorChanges[i].update(b);
 				finished=false;
 			}
 		}
 		for(int i=0; i< posChanges.size();i++){
 			if(!posChanges[i].isCompleted()){
-				posChanges[i].update(f);
+				posChanges[i].update(b);
 				finished=false;
 			}
 		}
 		for(int i=0; i< sizeChanges.size();i++){
 			if(!sizeChanges[i].isCompleted()){
-				sizeChanges[i].update(f);
+				sizeChanges[i].update(b);
 				finished=false;
 			}
 		}
@@ -438,47 +436,9 @@ public:
 private:
 	bool finished;
 };
-////////////////
-//Form es un conjunto de cajas
-class Program;
 class Form{
-public:
-	void setColor(Color color){
-		this->color = color;
-	}
-	Color getColor(){
-		return color;
-	}
-	void setPos(Pos pos){
-		this->pos=pos;
-	}
-	Pos getPos(){
-		return pos;
-	}
-	void setSize(Size size){
-		this->size = size;
-	}
-	Size getSize(){
-		return size;
-	}
-	void addProgram(Program p){
-		programs.push_back(p);
-	}
-	void update(){
-		if(actualProgram != programs.end()){
-			actualProgram.update(this);
-			actualProgram++;
-		}else{
-			actualProgram = programs.begin();
-		}
-	}
-	Color color;
 	Pos pos;
-	Size size;
 	vector<Box> boxes;
-	vector<Program>programs;
-	vector<Program>::iterator actualProgram;
-	friend ostream & operator<<(ostream& o, const Box & b);
 };
 int main(){
 	Program p;
@@ -489,10 +449,22 @@ int main(){
 	p.addChange(ColorChange(ColorStep(1,100,-1), 9990,10));
 	p.addChange(PosChange  (PosStep(1,-1),       9990,10));
 	p.addChange(SizeChange (SizeStep(1,-1),      9990,30));
-	Form f;
+	Box b;
 	while(!p.isFinished()){
-		f.update();
-		cout << f;
+		p.update(&b);
+		cout << b;
 		cin.get();
 	}
 }
+Tablet no está bien:
+Una Box tiene que tener su PROPIA colección de programas, sin compartirlos con otra.
+Según ordenes o eventos, debe poder seleccionar entre ellos cuál ejecutar.
+Box b;
+Program p;
+	Command c;
+		c.addChange(...);
+		c.addChange(...);
+	p.addCommand(c);
+b.addProgram(p);
+No sé cómo hacer esto más sencillo:
+En fin.

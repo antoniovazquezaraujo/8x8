@@ -5,9 +5,10 @@
 class Form;
 class SizeChange: public Change{
 public:
-	SizeChange(Size from, Size to, SizeStep step, int speed=1, int repeats=1);
-	SizeChange(Size from=Size(), Size to=Size(), int speed=1, int repeats=1);
-	SizeChange(SizeStep step=SizeStep(), int speed=1, int repeats=1);
+	SizeChange(Size from, Size to, SizeStep step, int repeats=1);
+	SizeChange(Size from, Size to,                int repeats=1);
+	SizeChange(SizeStep step,                     int repeats=1);
+	SizeChange(Size size);
 	bool isCompleted();
 	void update(Form * b);
 	void resetData();

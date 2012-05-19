@@ -1,7 +1,7 @@
 #include "PosChange.h"
 #include "Form.h"
-PosChange::PosChange(Pos from, Pos to, PosStep step, int speed, int repeats)
-	:Change(speed, repeats)
+PosChange::PosChange(Pos from, Pos to, PosStep step, int repeats)
+	:Change(repeats)
 	,from(from)
 	,to(to)
 	,step(step)
@@ -9,8 +9,8 @@ PosChange::PosChange(Pos from, Pos to, PosStep step, int speed, int repeats)
 		 resetData();
 
 }
-PosChange::PosChange(Pos from, Pos to, int speed, int repeats)
-	:Change(speed, repeats)
+PosChange::PosChange(Pos from, Pos to, int repeats)
+	:Change(repeats)
 	,from(from)
 	,to(to)
 	,step(from.stepTo(to))
@@ -18,10 +18,19 @@ PosChange::PosChange(Pos from, Pos to, int speed, int repeats)
 		 resetData();
 
 }
-PosChange::PosChange(PosStep step, int speed, int repeats)
-	:Change(speed, repeats)
+PosChange::PosChange(PosStep step, int repeats)
+	:Change(repeats)
 	,step(step)
 	,isRelative(true){
+
+}
+PosChange::PosChange(Pos to)
+	:Change(1)
+	,from(to)
+	,to(to)
+	,actual(to)
+	,isRelative(false) {
+		 resetData();
 
 }
 bool PosChange::isCompleted(){

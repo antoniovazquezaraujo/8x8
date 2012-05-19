@@ -1,7 +1,7 @@
 #include "SizeChange.h"
 #include "Form.h"
-SizeChange::SizeChange(Size from, Size to, SizeStep step, int speed, int repeats)
-	:Change(speed, repeats)
+SizeChange::SizeChange(Size from, Size to, SizeStep step, int repeats)
+	:Change(repeats)
 	,from(from)
 	,to(to)
 	,step(step)
@@ -9,8 +9,8 @@ SizeChange::SizeChange(Size from, Size to, SizeStep step, int speed, int repeats
 		 resetData();
 
 }
-SizeChange::SizeChange(Size from, Size to, int speed, int repeats)
-	:Change(speed, repeats)
+SizeChange::SizeChange(Size from, Size to, int repeats)
+	:Change(repeats)
 	,from(from)
 	,to(to)
 	,step(from.stepTo(to))
@@ -18,10 +18,19 @@ SizeChange::SizeChange(Size from, Size to, int speed, int repeats)
 	 resetData();
 
 }
-SizeChange::SizeChange(SizeStep step, int speed, int repeats)
-	:Change(speed, repeats)
+SizeChange::SizeChange(SizeStep step, int repeats)
+	:Change(repeats)
 	,step(step)
 	,isRelative(true){
+
+}
+SizeChange::SizeChange(Size to)
+	:Change(1)
+	,from(to)
+	,to(to)
+	,actual(to)
+	,isRelative(false) {
+		 resetData();
 
 }
 bool SizeChange::isCompleted(){

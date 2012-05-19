@@ -1,11 +1,15 @@
 #include "Change.h"
-	Change::Change(int speed, int repeats)
-	:speed(speed)
-	,initialRepeats(repeats)
+	Change::Change(int repeats)
+	:initialRepeats(repeats)
 	,actualRepeats(initialRepeats)
-	,initialLapse(MAX_SPEED/speed)
-	,actualLapse(initialLapse) 
 	,changeCompleted(false){
+		setSpeed(MAX_SPEED);
+}
+
+void Change::setSpeed(int speed){
+	this->speed = speed;
+	initialLapse= MAX_SPEED/speed;
+	actualLapse = initialLapse;
 }
 bool Change::needUpdate(){
 	if(!repeatsCompleted()){

@@ -44,7 +44,7 @@ SOURCES       = Box.cpp \
 		Pos.cpp \
 		PosChange.cpp \
 		PosStep.cpp \
-		Program.cpp \
+		Command.cpp \
 		Prueba1.cpp \
 		Size.cpp \
 		SizeChange.cpp \
@@ -63,7 +63,7 @@ OBJECTS       = Box.o \
 		Pos.o \
 		PosChange.o \
 		PosStep.o \
-		Program.o \
+		Command.o \
 		Prueba1.o \
 		Size.o \
 		SizeChange.o \
@@ -134,7 +134,7 @@ ColorChange.o: ColorChange.cpp ColorChange.h \
 		Size.h \
 		SizeStep.h \
 		Box.h \
-		Program.h \
+		Command.h \
 		PosChange.h \
 		SizeChange.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ColorChange.o ColorChange.cpp
@@ -160,7 +160,7 @@ FltkTabletView.o: FltkTabletView.cpp FltkTabletView.h \
 		Size.h \
 		SizeStep.h \
 		Box.h \
-		Program.h \
+		Command.h \
 		ColorChange.h \
 		Change.h \
 		PosChange.h \
@@ -175,7 +175,7 @@ Form.o: Form.cpp Form.h \
 		Size.h \
 		SizeStep.h \
 		Box.h \
-		Program.h \
+		Command.h \
 		ColorChange.h \
 		Change.h \
 		PosChange.h \
@@ -196,7 +196,7 @@ PosChange.o: PosChange.cpp PosChange.h \
 		Size.h \
 		SizeStep.h \
 		Box.h \
-		Program.h \
+		Command.h \
 		ColorChange.h \
 		SizeChange.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o PosChange.o PosChange.cpp
@@ -204,7 +204,7 @@ PosChange.o: PosChange.cpp PosChange.h \
 PosStep.o: PosStep.cpp PosStep.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o PosStep.o PosStep.cpp
 
-Program.o: Program.cpp Program.h \
+Command.o: Command.cpp Command.h \
 		ColorChange.h \
 		Change.h \
 		Color.h \
@@ -215,7 +215,7 @@ Program.o: Program.cpp Program.h \
 		SizeChange.h \
 		Size.h \
 		SizeStep.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Program.o Program.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Command.o Command.cpp
 
 Prueba1.o: Prueba1.cpp Prueba1.h \
 		TabletController.h \
@@ -228,7 +228,7 @@ Prueba1.o: Prueba1.cpp Prueba1.h \
 		Size.h \
 		SizeStep.h \
 		Box.h \
-		Program.h \
+		Command.h \
 		ColorChange.h \
 		Change.h \
 		PosChange.h \
@@ -250,7 +250,7 @@ SizeChange.o: SizeChange.cpp SizeChange.h \
 		Pos.h \
 		PosStep.h \
 		Box.h \
-		Program.h \
+		Command.h \
 		ColorChange.h \
 		PosChange.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SizeChange.o SizeChange.cpp
@@ -269,7 +269,7 @@ TabletController.o: TabletController.cpp TabletController.h \
 		Size.h \
 		SizeStep.h \
 		Box.h \
-		Program.h \
+		Command.h \
 		ColorChange.h \
 		Change.h \
 		PosChange.h \
@@ -285,7 +285,7 @@ TabletModel.o: TabletModel.cpp TabletModel.h \
 		Size.h \
 		SizeStep.h \
 		Box.h \
-		Program.h \
+		Command.h \
 		ColorChange.h \
 		Change.h \
 		PosChange.h \
@@ -302,7 +302,7 @@ TabletView.o: TabletView.cpp TabletView.h \
 		Size.h \
 		SizeStep.h \
 		Box.h \
-		Program.h \
+		Command.h \
 		ColorChange.h \
 		Change.h \
 		PosChange.h \

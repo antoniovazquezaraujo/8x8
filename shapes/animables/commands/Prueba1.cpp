@@ -6,31 +6,42 @@ Prueba1::Prueba1(TabletView * view)
 
 }
 void Prueba1::setup(){
-			Form f(0,0, 1,1);
-			Box b(0,0, 1,1, false);
-			b.setColor(Color(255,0,0));
-			f.addBox(b);
+	Form f(0,0, 1,1);
+	f.setColor(Color(255,0,0));
 
-			f.setColor(Color(255,0,0));
+	Box b(0,0, 1,1, false);
+	b.setColor(Color(255,0,0));
 
-			Program p;
-			p.addChange(SizeChange(Size(1,1), Size(1,1), 3000, 1));
-			p.addChange(ColorChange(Color(10,0,255), Color(10,210,255), ColorStep(0,30,0),3000, 1));
-			p.addChange(PosChange  (Pos(0,0), Pos(7,0), 3000,1));
-			f.addProgram(p);
+	f.addBox(b);
 
-			Program p2;
-			p2.addChange(ColorChange(Color(10,255,0), Color(10,255,240), ColorStep(0,0,30),3000, 1));
-			p2.addChange(PosChange  (Pos(0,7), Pos(7,7), 3000,1));
-			f.addProgram(p2);
+	f("inicio");//agrega comando "inicio". si no hay speed es la máxima
+	f(Size(1,1)); //un solo dato es un setter(size, color o pos)
+	f(Color(10,0,255));
+	f(Pos(0,0));
 
-			Program p3;
-			p3.addChange(PosChange  (Pos(3,3), Pos(0,0), PosStep(-1,-1), 5000,1));
-			p3.addChange(SizeChange (Size(2,2),Size(8,8),SizeStep(2,2) , 5000,1));
-			p3.addChange(ColorChange(Color(0,255,0), Color(240,255,0), ColorStep(80,0,0),3000, 1));
-			f.addProgram(p3);
+	f("subir",3000);//speed es num turnos que tarda el comando
+	f(Size(1,1), Size(3,1), 1); //dos datos: desde hasta, y número de veces
+	f(Color(10,0,255), Color(10,210,255), ColorStep(0,30,0),1); //dos datos y step
+	f(Pos(0,0), Pos(7,0), 1);
 
-			model->addForm(0, f);
+	f("dcha",3000);//speed es num turnos que tarda el comando
+	f(Size(1,1), Size(1,1), 1); //dos datos: desde hasta, y número de veces
+	f(Color(10,0,255), Color(10,210,255), ColorStep(0,30,0),1); //dos datos y step
+	f(Pos(7,7), Pos(0,7), 1);
+
+	f("bajar", 3000);
+	f(Pos(3,3), Pos(0,0), PosStep(-1,-1), 1);
+	f(Size(2,2),Size(8,8),SizeStep(2,2) , 1);
+	f(Color(0,255,0), Color(240,255,0), ColorStep(80,0,0), 1);
+
+	model->addForm(0, f);
+
+	f.on("inicio", "subir");
+	f.on("subir", "dcha");
+	f.on("dcha","subir"); //al terminar un comando vamos a otro
+	//f.on("subir","dcha");
+	//f.on("dcha","inicio");
+	f.go("inicio"); //ejecutar ahora ese comando
 }
 void Prueba1::start(){
 	view->start();

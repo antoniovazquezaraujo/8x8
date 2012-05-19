@@ -6,9 +6,10 @@
 class Form;
 class PosChange: public Change{
 public:
-	PosChange(Pos from, Pos to, PosStep step, int speed=1, int repeats=1);
-	PosChange(Pos from=Pos(), Pos to=Pos(), int speed=1, int repeats=1);
-	PosChange(PosStep step=PosStep(), int speed=1, int repeats=1);
+	PosChange(Pos from, Pos to, PosStep step, int repeats=1);
+	PosChange(Pos from, Pos to,               int repeats=1);
+	PosChange(PosStep step,                   int repeats=1);
+	PosChange(Pos pos);
 	bool isCompleted();
 	void update(Form * b);
 	void resetData();

@@ -3,8 +3,9 @@
 const int MAX_SPEED=10000;
 class Change{
 public:
-	Change(int speed=1, int repeats=1);
+	Change(int repeats=1);
 	void restartRepeats();
+	void setSpeed(int speed);
 protected:
 	bool needUpdate();
 	bool repeatsCompleted();
