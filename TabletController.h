@@ -9,6 +9,7 @@ public:
 	void start();
 	void stop();
 	virtual void onClick(int col, int row)=0;
+	virtual void onDoubleClick(int col, int row)=0;
 	virtual void onRelease(int col, int row)=0;
 	virtual void onDrag(int col, int row)=0;
 protected:

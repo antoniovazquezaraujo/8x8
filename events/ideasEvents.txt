@@ -1,0 +1,18 @@
+Qué eventos pueden interesar en un programa?
+Form:
+	-Fin de un comando
+	-Eventos de ratón sobre el form
+	-
+Box:
+	-Eventos de ratón sobre el box
+
+
+En general, se necesita saber cuando un evento tactil ha tenido lugar sobre un form determinado, para que lo pueda atender el mismo form. Así que cuando recibimos un evento sabemos cuál es su posición, entonces tenemos que buscar en el modelo que form hay en esa posición, y enviárselo. Si está en alguna box del mismo se le envía a la box también. El que atienda el evento ha de devolver un valor para avisar de ello de forma que no se siga enviando más y se de por atendido.
+Lo reciben los elementos que estén en los niveles superiores, y se sigue profundizando hasta que alguno lo atiende. Si llega al final sin atender se le envía a la propia pantalla.
+Para responder a un evento tendrá que haber métodos adecuados para que se pueda hacer:
+	on(TOUCH, touchMethod);
+	on(DRAG, dragMethod); 
+	...
+En los métodos se recibirá el evento y se actuará y devolverá el valor adecuado.
+Cómo seguir pasándolo hacia arriba?
+

@@ -55,6 +55,9 @@ void Prueba1::setup(){
 	*/
 }
 void Prueba1::start(){
+	Form f(0,0,  1,1);
+	f.setColor(Color(255,0,0));
+	model->addForm("uno", 0, f);
 	view->start();
 }
 void Prueba1::stop(){
@@ -62,27 +65,29 @@ void Prueba1::stop(){
 }
 void Prueba1::onClick(int col, int row){
 }
+void Prueba1::onDoubleClick(int col, int row){
+	Form & f = model->getForm("uno");
+	Box b(col, row, 1,1, false);
+	b.setColor(Color(255,255,0));
+	f.addBox(b);
+}
 void Prueba1::onRelease(int col, int row){
 }
 void Prueba1::onDrag(int col, int row){
-	Form f(col, row,  1,1);
-	f.setColor(Color(255,0,0));
-
-	Box b(0,0, 1,1, false);
+	Form & f = model->getForm("uno");
+	Box b(col, row, 1,1, false);
 	b.setColor(Color(255,0,0));
 	f.addBox(b);
 
-	f("a", 8000);
-	f(Color(0,255,0), Color(240,255,0), ColorStep(80,0,0), 1);
-	f(SizeStep(1,1),1);
-
-	f("b", 8000);
-	f(Color(0,255,255), Color(240,255,255), ColorStep(80,0,0), 1);
-	f(SizeStep(-1,-1),1);
-
-	f.on("a","b");
-	f.on("b","a");
-	f.go("a");
-
-	model->addForm("uno", 0, f);
+//	f("a", 8000);
+//	f(Color(0,255,0), Color(240,255,0), ColorStep(80,0,0), 1);
+//	f(SizeStep(1,1),1);
+//
+//	f("b", 8000);
+//	f(Color(0,255,255), Color(240,255,255), ColorStep(80,0,0), 1);
+//	f(SizeStep(-1,-1),1);
+//
+//	f.on("a","b");
+//	f.on("b","a");
+//	f.go("a");
 }

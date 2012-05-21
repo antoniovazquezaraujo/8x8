@@ -26,6 +26,9 @@ void FltkTabletView::setup() {
 	redraw();
 }
 
+void FltkTabletView::onDoubleClick(int col, int row) {
+	controller->onDoubleClick(col, row);
+}
 void FltkTabletView::onClick(int col, int row) {
 	controller->onClick(col, row);
 }
@@ -70,7 +73,11 @@ int FltkTabletView::handle(int event) {
 	if(row >= ROWS) row=ROWS-1;
 	switch (event) {
 	case FL_PUSH :
-		onClick(col, row);
+		if(Fl::event_clicks() != 0){
+			onDoubleClick(col, row);
+		}else{
+			onClick(col, row);
+		}
 		break;
 	case FL_DRAG:
 		onDrag(col, row);

@@ -1,8 +1,8 @@
 - Sonido
-- Formas diferentes de un rectángulo, estilo tetris
+V Formas diferentes de un rectángulo, estilo tetris
 - Componentes, como botones, pantallas, páginas, scrolls, etc, que reciban eventos
 - Problema de la mezcla de varios planos, estudio de las mezclas de color
-- Offscreen, espacio de dibujo fuera de la pantalla, scroll, arrastres...
+V Offscreen, espacio de dibujo fuera de la pantalla, scroll, arrastres...
 - Choques entre objetos
 - Degradados, sombras, suavizado de bordes
 - Texto, fuentes, scroll de palabras
@@ -12,7 +12,7 @@
 - VanGo
 - Juegos: ajedrez, pentominos, pacman, tenis, tetris, galaxian, frog, parchis, inventar nuevos.
 - Expresiones mediante cambios de color, caracter de personajes, ritmos, mezclas de color, tonalidades, estudio
-- Mejorar ColorChange, PosChange y SpaceChange, mismo interfaz, repeticiones consistentes
+V Mejorar ColorChange, PosChange y SpaceChange, mismo interfaz, repeticiones consistentes
 - Permitir editar animaciones, objetos, rellenos, colores, etc
 - Un solo interfaz de programación para todos: 8x8, con factorías para cada sistema
 - Instrumento musical marciano

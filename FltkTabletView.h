@@ -33,6 +33,7 @@ private:
 
 	int	  handle(int event);
 	void  onClick(int col, int row);
+	void  onDoubleClick(int col, int row);
 	void  onDrag(int col, int row);
 	void  onRelease(int col, int row);
 	void  setup();
