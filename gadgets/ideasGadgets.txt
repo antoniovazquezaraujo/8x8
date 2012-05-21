@@ -4,3 +4,32 @@ En principio estos gadgets se agregarán a la página actual como cualquier otro
 Interactuarán y se podrán eliminar.
 Así que vamos primero a crear páginas y volvemos aquí.
 
+Bien, ya funcionan.
+Un gadget se puede agregar a una página y hacerlo visible o invisible, pero casi es mejor seleccionar otra página que lo contenga y al terminar de usarlo volver a la página anterior. Esto sería el efecto de un diálogo modal: seleccionar otra página y volver. También se puede agregar un Gadget a una página y mostrarlo o no. Si un gadget no se muestra no se considera para eventos? Bueno, más que mostrarlo habría que DESACTIVARLO. Así que puede estar enabled o disabled. Que esté visible o no es otra cuestión, además de su opacidad, que está pendiente todavía.
+Bien.
+Así que todos los Gadget heredan de Form. Vamos a hacer el primero, que sería el más necesario, un ColorChooser.
+
+class ColorChooser: public Form{
+
+	ColorChooser();
+	void setup(){
+		Pintar dos botones en vertical para cada color
+		Uno sube y otro baja ese color
+		Debajo a la izda: negro->cancelar
+		Debajo centro: color elegido
+		Debajo dcha: blanco->aceptar
+	}
+	void show();
+	Color getColor();
+};
+
+Cuando se muestra se agrega a la pagina actual en un nivel superior.
+Revisar el asunto de los niveles, ha de ser flexible e infinito.
+Una vez que se termina debería eliminarse de la página.
+Así que tenemos que pensar en eliminar forms de una página.
+Además tenemos que pensar en métodos virtuales de forms, puesto que vamos a tener
+diferentes tipos.
+Grave problema: no hay escapatoria, se necesita hacer métodos virtuales y guardar
+punteros a Form en el vector de la Page.
+Así que los crearemos y mantendremos en la memoria dinámica. Eliminarlos en el destructor.
+No pasa nada.
