@@ -44,6 +44,7 @@ SOURCES       = Box.cpp \
 		ColorStep.cpp \
 		FltkMain.cpp \
 		FltkTabletView.cpp \
+		Page.cpp \
 		Form.cpp \
 		Pos.cpp \
 		PosChange.cpp \
@@ -63,6 +64,7 @@ OBJECTS       = Box.o \
 		ColorStep.o \
 		FltkMain.o \
 		FltkTabletView.o \
+		Page.o \
 		Form.o \
 		Pos.o \
 		PosChange.o \
@@ -280,11 +282,28 @@ TabletController.o: TabletController.cpp TabletController.h \
 		SizeChange.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TabletController.o TabletController.cpp
 
+Page.o: Page.cpp Page.h \
+		Form.h \
+		Color.h \
+		ColorStep.h \
+		Pos.h \
+		PosStep.h \
+		Size.h \
+		SizeStep.h \
+		Box.h \
+		Command.h \
+		ColorChange.h \
+		Change.h \
+		PosChange.h \
+		SizeChange.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Page.o Page.cpp
+
 TabletModel.o: TabletModel.cpp TabletModel.h \
 		Form.h \
 		Color.h \
 		ColorStep.h \
 		Pos.h \
+		Page.h \
 		PosStep.h \
 		Size.h \
 		SizeStep.h \

@@ -18,6 +18,7 @@ public:
 	const Pos &getPos() const;
 	void setSize(Size size);
 	const Size &getSize() const;
+	bool containsBoxAt(Pos pos);
 
 	//create command "title" at speed
 	void operator()(string title, int speed=MAX_SPEED);
@@ -32,7 +33,7 @@ public:
 	void operator()(const Size  & from, const Size  & to, int times=1);
 	void operator()(const Color & from, const Color & to, int times=1);
 
-	//changes with a step 
+ 	//changes with a step 
 	void operator()(const Pos   & from, const Pos   & to, const PosStep   & step, int times=1);
 	void operator()(const Size  & from, const Size  & to, const SizeStep  & step, int times=1);
 	void operator()(const Color & from, const Color & to, const ColorStep & step, int times=1);

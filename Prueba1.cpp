@@ -1,5 +1,6 @@
 #include "Prueba1.h"
 #include "TabletModel.h"
+#include <cassert> 
 #include "TabletView.h"
 Prueba1::Prueba1(TabletView * view)
 	:TabletController(view){
@@ -55,28 +56,36 @@ void Prueba1::setup(){
 	*/
 }
 void Prueba1::start(){
+	model->newPage("pagina0");
+	model->selectPage(FIRST);
 	Form f(0,0,  1,1);
 	f.setColor(Color(255,0,0));
-	model->addForm("uno", 0, f);
+	model->getSelectedPage().addForm("uno", 0, f);
 	view->start();
 }
 void Prueba1::stop(){
 	view->stop();
 }
 void Prueba1::onClick(int col, int row){
+	//Form & f = model->getForm("uno");
+	//Box b(col, row, 1,1, false);
+	//b.setColor(Color(255,255,0));
+	//f.addBox(b);
 }
 void Prueba1::onDoubleClick(int col, int row){
-	Form & f = model->getForm("uno");
-	Box b(col, row, 1,1, false);
-	b.setColor(Color(255,255,0));
-	f.addBox(b);
+	vector<Form *> forms = model->getSelectedPage().getFormsAt(Pos(col, row));
+	for(vector<Form*>::iterator i= forms.begin();
+			i!=forms.end();
+			i++){
+		(*i)->setColor(Color(123,234,4));
+	}
 }
 void Prueba1::onRelease(int col, int row){
 }
 void Prueba1::onDrag(int col, int row){
-	Form & f = model->getForm("uno");
+	Form & f = model->getSelectedPage().getForm("uno");
 	Box b(col, row, 1,1, false);
-	b.setColor(Color(255,0,0));
+	//b.setColor(Color(255,0,0));
 	f.addBox(b);
 
 //	f("a", 8000);

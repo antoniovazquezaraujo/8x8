@@ -1,0 +1,6 @@
+Un Gadget será un form con una serie de boxes que tendrá un comportamiento predefinido.
+Por ejemplo, un botón, un letrero, un reloj, un selector de color, un menú, etc.
+En principio estos gadgets se agregarán a la página actual como cualquier otro form.
+Interactuarán y se podrán eliminar.
+Así que vamos primero a crear páginas y volvemos aquí.
+

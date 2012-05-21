@@ -1,0 +1,20 @@
+Una page es una pantalla en la que hay una serie de forms con sus boxes y cualquier otro tipo de componentes. 
+Podremos agregar páginas nuevas en cualquier momento. También seleccionar la página actual. Cada página tendrá un nombre. Podemos hacer que según eventos se seleccione una página determinada.
+Todo el sistema es un simple conjunto de páginas y más páginas. Una página puede ser un juego, otra otro, otro juego puede constar de 100 páginas. Habría que organizar esto un poco.
+Bueno, de momento puede funcionar así.
+
+El modelo tendrá el control de las páginas con los siguientes servicios:
+	newPage(string name);
+	selectPage(NEXT);
+	selectPage(PREV);
+	selectPage(FIRST);
+	selectPage(LAST);
+	selectPage(string name);
+	getSelectedPage();
+
+Una página (Page) dispondrá de los siguientes servicios:
+	void addForm(string name, int level, Form form);
+	Form & getForm(string name);
+	vector<Form*> getFormsAt(Pos pos);
+
+En realidad solo se trata de agregar un delegado más al modelo. Vamos a ello.

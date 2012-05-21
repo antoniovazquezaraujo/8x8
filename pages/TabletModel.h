@@ -4,9 +4,10 @@
 #include <vector>
 #include <map>
 #include "Form.h"
-#include "Page.h"
 using namespace std;
 
+const int COLS = 8;
+const int ROWS = 8;
 
 enum PagePosition{
 	FIRST, PREV, NEXT, LAST
@@ -26,6 +27,6 @@ private:
 	vector<Page> pages;
 	map<string, int> namesToPages;
 	int formW, formH;
-	unsigned int selectedPage;
+	int selectedPage;
 };
 #endif /* TABLET_MODEL_H_ */

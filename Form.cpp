@@ -18,6 +18,16 @@ Form::Form(int col, int row, int width, int height)
 	actualCommand = 0; 
 
 }
+bool Form::containsBoxAt(Pos pos){
+	for(vector<Box>::iterator i = boxes.begin(); 
+			i!= boxes.end();
+			i++){
+		if(pos == (*i).getPos()){
+			return true;
+		}
+	}
+	return false;
+}
 void Form::setColor(Color color){
 	this->color = color;
 }
