@@ -1,4 +1,5 @@
 #include "Change.h"
+using namespace std;
 	Change::Change(int repeats)
 	:initialRepeats(repeats)
 	,actualRepeats(initialRepeats)

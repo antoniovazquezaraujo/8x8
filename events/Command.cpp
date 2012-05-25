@@ -1,6 +1,27 @@
 #include "Command.h"
+#include "Button.h"
+#include "Component.h"
+void Command::test(){
+	/*
+	Command c;
+	Component * b = new Button(0,0,1,1);
+	c.addChange(ColorChange(Color(0,0,0), Color(10,10,10), ColorStep(1,1,1), 1000));
+	while(!c.isFinished()){
+		c.update(b);
+		cout << "actualizando";
+	}
+	c.reset();
+	while(!c.isFinished()){
+		c.update(b);
+		cout << "continuando ";
+	}
+	*/
+	
+
+}
 Command::Command()
-	:finished(false){
+	:finished(false)
+	,speed(MAX_SPEED){
 
 }
 void Command::update(Component* f){

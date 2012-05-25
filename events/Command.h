@@ -1,6 +1,7 @@
 #ifndef COMMAND 
 #define COMMAND 
 #include <vector>
+#include <cassert>
 using namespace std;
 #include "ColorChange.h"
 #include "PosChange.h"
@@ -9,6 +10,7 @@ using namespace std;
 class Component;
 class Command{
 public:
+	static void test();
 	Command();
 	void update(Component* f);
 	bool isFinished();

@@ -88,27 +88,6 @@ OBJECTS       = Button.o \
 		TabletController.o \
 		TabletModel.o \
 		TabletView.o
-DIST          = /usr/share/qt4/mkspecs/common/g++.conf \
-		/usr/share/qt4/mkspecs/common/unix.conf \
-		/usr/share/qt4/mkspecs/common/linux.conf \
-		/usr/share/qt4/mkspecs/qconfig.pri \
-		/usr/share/qt4/mkspecs/features/qt_functions.prf \
-		/usr/share/qt4/mkspecs/features/qt_config.prf \
-		/usr/share/qt4/mkspecs/features/exclusive_builds.prf \
-		/usr/share/qt4/mkspecs/features/default_pre.prf \
-		/usr/share/qt4/mkspecs/features/release.prf \
-		/usr/share/qt4/mkspecs/features/default_post.prf \
-		/usr/share/qt4/mkspecs/features/warn_on.prf \
-		/usr/share/qt4/mkspecs/features/qt.prf \
-		/usr/share/qt4/mkspecs/features/unix/thread.prf \
-		/usr/share/qt4/mkspecs/features/moc.prf \
-		/usr/share/qt4/mkspecs/features/resources.prf \
-		/usr/share/qt4/mkspecs/features/uic.prf \
-		/usr/share/qt4/mkspecs/features/yacc.prf \
-		/usr/share/qt4/mkspecs/features/lex.prf \
-		/usr/share/qt4/mkspecs/features/include_source_dir.prf \
-		events.pro
-QMAKE_TARGET  = events
 DESTDIR       = 
 TARGET        = events
 
@@ -134,96 +113,16 @@ first: all
 
 ####### Build rules
 
-all: Makefile $(TARGET)
+all: $(TARGET)
 
 $(TARGET):  $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
-Makefile: events.pro  /usr/share/qt4/mkspecs/linux-g++/qmake.conf /usr/share/qt4/mkspecs/common/g++.conf \
-		/usr/share/qt4/mkspecs/common/unix.conf \
-		/usr/share/qt4/mkspecs/common/linux.conf \
-		/usr/share/qt4/mkspecs/qconfig.pri \
-		/usr/share/qt4/mkspecs/features/qt_functions.prf \
-		/usr/share/qt4/mkspecs/features/qt_config.prf \
-		/usr/share/qt4/mkspecs/features/exclusive_builds.prf \
-		/usr/share/qt4/mkspecs/features/default_pre.prf \
-		/usr/share/qt4/mkspecs/features/release.prf \
-		/usr/share/qt4/mkspecs/features/default_post.prf \
-		/usr/share/qt4/mkspecs/features/warn_on.prf \
-		/usr/share/qt4/mkspecs/features/qt.prf \
-		/usr/share/qt4/mkspecs/features/unix/thread.prf \
-		/usr/share/qt4/mkspecs/features/moc.prf \
-		/usr/share/qt4/mkspecs/features/resources.prf \
-		/usr/share/qt4/mkspecs/features/uic.prf \
-		/usr/share/qt4/mkspecs/features/yacc.prf \
-		/usr/share/qt4/mkspecs/features/lex.prf \
-		/usr/share/qt4/mkspecs/features/include_source_dir.prf \
-		/usr/lib/libQtGui.prl \
-		/usr/lib/libQtCore.prl
-	$(QMAKE) -unix -o Makefile events.pro
-/usr/share/qt4/mkspecs/common/g++.conf:
-/usr/share/qt4/mkspecs/common/unix.conf:
-/usr/share/qt4/mkspecs/common/linux.conf:
-/usr/share/qt4/mkspecs/qconfig.pri:
-/usr/share/qt4/mkspecs/features/qt_functions.prf:
-/usr/share/qt4/mkspecs/features/qt_config.prf:
-/usr/share/qt4/mkspecs/features/exclusive_builds.prf:
-/usr/share/qt4/mkspecs/features/default_pre.prf:
-/usr/share/qt4/mkspecs/features/release.prf:
-/usr/share/qt4/mkspecs/features/default_post.prf:
-/usr/share/qt4/mkspecs/features/warn_on.prf:
-/usr/share/qt4/mkspecs/features/qt.prf:
-/usr/share/qt4/mkspecs/features/unix/thread.prf:
-/usr/share/qt4/mkspecs/features/moc.prf:
-/usr/share/qt4/mkspecs/features/resources.prf:
-/usr/share/qt4/mkspecs/features/uic.prf:
-/usr/share/qt4/mkspecs/features/yacc.prf:
-/usr/share/qt4/mkspecs/features/lex.prf:
-/usr/share/qt4/mkspecs/features/include_source_dir.prf:
-/usr/lib/libQtGui.prl:
-/usr/lib/libQtCore.prl:
-qmake:  FORCE
-	@$(QMAKE) -unix -o Makefile events.pro
-
-dist: 
-	@$(CHK_DIR_EXISTS) .tmp/events1.0.0 || $(MKDIR) .tmp/events1.0.0 
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/events1.0.0/ && $(COPY_FILE) --parents Button.h Change.h Color.h ColorBlock.h ColorChange.h ColorSpace.h ColorStep.h Command.h Component.h Container.h EventListener.h FltkTabletView.h Page.h PixelMatrix.h Pos.h PosChange.h PosStep.h Prueba1.h Size.h SizeChange.h SizeStep.h TabletController.h TabletModel.h TabletView.h .tmp/events1.0.0/ && $(COPY_FILE) --parents Button.cpp Change.cpp Color.cpp ColorBlock.cpp ColorChange.cpp ColorSpace.cpp ColorStep.cpp Command.cpp Component.cpp Components.cpp Container.cpp FltkTabletView.cpp Page.cpp Pos.cpp PosChange.cpp PosStep.cpp Prueba1.cpp Size.cpp SizeChange.cpp SizeStep.cpp TabletController.cpp TabletModel.cpp TabletView.cpp .tmp/events1.0.0/ && (cd `dirname .tmp/events1.0.0` && $(TAR) events1.0.0.tar events1.0.0 && $(COMPRESS) events1.0.0.tar) && $(MOVE) `dirname .tmp/events1.0.0`/events1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/events1.0.0
-
-
-clean:compiler_clean 
+clean:
 	-$(DEL_FILE) $(OBJECTS)
 	-$(DEL_FILE) *~ core *.core
-
-
-####### Sub-libraries
-
-distclean: clean
 	-$(DEL_FILE) $(TARGET) 
-	-$(DEL_FILE) Makefile
 
-
-mocclean: compiler_moc_header_clean compiler_moc_source_clean
-
-mocables: compiler_moc_header_make_all compiler_moc_source_make_all
-
-compiler_moc_header_make_all:
-compiler_moc_header_clean:
-compiler_rcc_make_all:
-compiler_rcc_clean:
-compiler_image_collection_make_all: qmake_image_collection.cpp
-compiler_image_collection_clean:
-	-$(DEL_FILE) qmake_image_collection.cpp
-compiler_moc_source_make_all:
-compiler_moc_source_clean:
-compiler_uic_make_all:
-compiler_uic_clean:
-compiler_yacc_decl_make_all:
-compiler_yacc_decl_clean:
-compiler_yacc_impl_make_all:
-compiler_yacc_impl_clean:
-compiler_lex_make_all:
-compiler_lex_clean:
-compiler_clean: 
 
 ####### Compile
 

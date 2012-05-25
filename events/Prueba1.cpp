@@ -2,24 +2,29 @@
 #include "TabletModel.h"
 #include "TabletController.h"
 #include <cassert> 
-#include <iostream> 
 #include "TabletView.h"
 Prueba1::Prueba1(TabletView * view)
 	:TabletController(view){
 
 }
 void Prueba1::setup(){
+	Command::test();
 	model->newPage("inicio");
 	model->selectPage(FIRST);
 	model->getSelectedPage().addComponent("pulsar", 0, new Button(3,3,1,2));
 	model->getSelectedPage().addComponent("otro", 0, new Button(2,1,3,1));
-	/*
+
 	Component * z = new Button(0,0,1,1);
-	Command * cp = new Command();
-	cp->addChange(ColorChange(Color(1,1,1), Color(0,200,0), ColorStep(0,10,0)));
-	z->commands.push_back(cp);
+	Component & c = *z;
+	c("pruebas", 10000);
+		c(Color(1,0,1), Color(1,200,1), ColorStep(0,1,0), 3);
+	c("pruebas2", 7000);
+		c(Color(100,0,200), Color(0,200,0), ColorStep(-10,10,-20), 1);
+		//c(Pos(1,0), Pos(7,2), PosStep(1,1), 5);
+	c.on("pruebas", "pruebas2");
+	c.on("pruebas2", "pruebas");
+	c.go("pruebas");
 	model->getSelectedPage().addComponent("otro", 0, z);
-	*/
 }
 void Prueba1::start(){
 	view->start();

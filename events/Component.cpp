@@ -2,16 +2,32 @@
 Component::Component(Pos pos, Size size, Color color)
 	:pos(pos)
 	,size(size)
-	 ,color(color)
-	 ,pixels(size.h, vector<Color>(size.w)){
+	,color(color)
+	,actualCommand(0){ 
+
+}
+Component::Component(const Component & c)
+	:pos(c.pos)
+	,size(c.size)
+	,color(c.color)
+	,actualCommand(c.actualCommand){ 
 
 }
 Component::~Component(){
 
 }
 void Component::update(){
-	for(Command *c: commands){
-		c->update(this);
+	if(actualCommand < commands.size()){
+		if(commands[actualCommand].isFinished()){
+			commands[actualCommand].reset();
+			commandFinished();
+		}else{
+			commands[actualCommand].update(this);
+		}
+	}else{
+		//Con esto se reiniciaría al terminar todos.
+		//Puede ser interesante.
+		actualCommand = 0;
 	}
 }
 bool Component::containsPoint(const Pos & p){
@@ -57,4 +73,61 @@ const Color & Component::getColor(){
 }
 void Component::setColor(const Color & c){
 	color = c;
+}
+void Component::commandFinished(){
+	if(events.find(actualCommand) != events.end()){
+		actualCommand = events[actualCommand];
+	}else{
+ 		actualCommand++;
+	}
+}
+void Component::operator()(string title, int speed){
+	Command c;
+	c.setSpeed(speed);
+	commands.push_back(c);
+	names[title] = commands.size()-1;
+}
+void Component::operator()(const Pos & pos){
+	commands.back().addChange(PosChange(pos));	
+}
+void Component::operator()(const Size & size){
+	commands.back().addChange(SizeChange(size));	
+}
+void Component::operator()(const Color & color){
+	commands.back().addChange(ColorChange(color));	
+}
+void Component::operator()(const Pos   & from, const Pos   & to, int times){
+	commands.back().addChange(PosChange(from, to, times));	
+}
+void Component::operator()(const Size  & from, const Size  & to, int times){
+	commands.back().addChange(SizeChange(from, to, times));	
+}
+void Component::operator()(const Color & from, const Color & to, int times){
+	commands.back().addChange(ColorChange(from, to, times));	
+}
+void Component::operator()(const Pos   & from, const Pos   & to, const PosStep & step,   int times){
+	commands.back().addChange(PosChange(from, to,step, times));	
+}
+void Component::operator()(const Size  & from, const Size  & to, const SizeStep & step,  int times){
+	commands.back().addChange(SizeChange(from, to,step, times));	
+}
+void Component::operator()(const Color & from, const Color & to, const ColorStep & step, int times){
+	commands.back().addChange(ColorChange(from, to,step, times));	
+}
+void Component::operator()(const PosStep & step,   int times){
+	commands.back().addChange(PosChange(step, times));	
+}
+void Component::operator()(const SizeStep & step,  int times){
+	commands.back().addChange(SizeChange(step, times));	
+}
+void Component::operator()(const ColorStep & step, int times){
+	commands.back().addChange(ColorChange(step, times));	
+}
+void Component::on(string onTitle, string doTitle){
+	events[names[onTitle]] = names[doTitle];
+}
+void Component::go(string title){
+	if(names.find(title) == names.end()) return;
+	if(events.find(names[title]) == events.end()) return;
+	actualCommand = events[names[title]];
 }

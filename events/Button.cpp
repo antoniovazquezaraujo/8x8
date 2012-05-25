@@ -1,5 +1,4 @@
 #include "Button.h"
-#include <iostream> 
 Button::Button(int x, int y, int w, int h)
 	:Component(Pos(x,y), Size(w,h), Color(253,2,3)) 
 	,pressedColor(Color(0,233,0))
