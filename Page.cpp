@@ -1,81 +1,60 @@
+#include "Component.h"
 #include "Page.h"
-#include "Form.h"
 Page::Page()
-	:levels(LEVELS, vector<int>()){
-	formW = 200/ COLS;
-	formH = 200/ ROWS;
+	:levels(1, vector<int>())
+	,colorBlock(1, COLS, ROWS){
+	this->componentW = 200/ COLS;
+	this->componentH = 200/ ROWS;
 	reset();
 }
-void Page::reset() {
-	for (int level = 0; level < LEVELS; level++) {
-		for (int col = 0; col < COLS; col++) {
-			for (int row = 0; row < ROWS; row++) {
-				colorField[level][col][row].r = 0;
-				colorField[level][col][row].g = 0;
-				colorField[level][col][row].b = 0;
-
-			}
-		}
+Page::~Page(){
+	for(vector<Component*>::iterator i = components.begin();
+			i != components.end(); 
+			i++){
+		delete (*i);
 	}
 }
-void Page::addForm(string name, int level, Form form) {
-	forms.push_back(form);
-	int formKey = forms.size()-1; 
-	namesToForms[name] = formKey; 
-	levels[level].push_back(formKey);
-	formsToLevels[formKey]=level;
+void Page::reset() {
+	colorBlock.reset();
 }
-Form & Page::getForm(string name){
-	return forms[namesToForms[name]];
+void Page::addComponent(string name, int level, Component * component) {
+	if(level >= colorBlock.getNumLevels()){
+		colorBlock.addLevel();
+		levels.push_back(vector<int>());
+	}
+	components.push_back(component);
+	int componentKey = components.size()-1; 
+	namesToComponents[name] = componentKey; 
+	levels[level].push_back(componentKey);
+	componentsToLevels[componentKey]=level;
 }
-vector<Form*> Page::getFormsAt(Pos pos){
+Component * Page::getComponent(string name){
+	return components[namesToComponents[name]];
+}
+vector<Component*> Page::getComponentsAt(Pos pos){
 	// ordenar esto por NIVEL!!
-	vector<Form*> ret;
-	for(vector<Form>::iterator i = forms.begin();
-			i != forms.end(); 
+	vector<Component*> ret;
+	for(vector<Component*>::iterator i = components.begin();
+			i != components.end(); 
 			i++){
-		if(i->containsBoxAt(pos)){
-			ret.push_back(&(*i));
+		if((*i)->containsPoint(pos)){
+			ret.push_back((*i));
 		}
 	}
 	return ret;
 }
-ColorField & Page::getColorField(){
-	return colorField;
+ColorBlock & Page::getColorBlock(){
+	return colorBlock; 
 }
 void Page::update() {
-	for (int level = 0; level < LEVELS; level++) {
-		for (int col = 0; col < COLS; col++) {
-			for (int row = 0; row < ROWS; row++) {
-				colorField[level][col][row].r = 0;
-				colorField[level][col][row].g = 0;
-				colorField[level][col][row].b = 0;
-			}
-		}
+	reset();
+	for(Component * c: components){
+		c->update();
 	}
-	for (int level = 0; level < LEVELS; level++) {
+	for (int level = 0; level < colorBlock.getNumLevels(); level++) {
 		for (unsigned int n = 0; n < levels[level].size(); n++) {
-			Form &f = forms[levels[level][n]];
-			const Pos    & formPos   = f.getPos();
-			const Size   & formSize  = f.getSize();
-			const Color  & formColor = f.getColor();
-			f.update();
-			for(vector<Box>::iterator i= f.boxes.begin();
-					i!= f.boxes.end();
-					i++){
-				Box & box = *i; 
-				Pos pos     = formPos   +box.getPos();//Pos de la caja + origen del form
-				Size size   = formSize  *box.getSize();//Size * size del form !!
-				Color color = formColor +box.getColor();//Color + el del form??
-				for (int col = pos.x; col < pos.x + size.w; col++) {
-					for (int row = pos.y; row < pos.y + size.h; row++) {
-						if(col >= 8 || col < 0 || row >= 8 || row < 0) continue;
-						colorField[level][col][row].r = color.r;
-						colorField[level][col][row].g = color.g;
-						colorField[level][col][row].b = color.b;
-					}
-				}
-			}
+			Component *c = components[levels[level][n]];
+			c->paint(colorBlock[level], Pos(0,0), Size(COLS, ROWS));
 		}
 	}
 }

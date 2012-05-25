@@ -2,7 +2,7 @@
 #define SIZE_CHANGE
 #include "Change.h"
 #include "Size.h"
-class Form;
+class Component;
 class SizeChange: public Change{
 public:
 	SizeChange(Size from, Size to, SizeStep step, int repeats=1);
@@ -10,7 +10,7 @@ public:
 	SizeChange(SizeStep step,                     int repeats=1);
 	SizeChange(Size size);
 	bool isCompleted();
-	void update(Form * b);
+	void update(Component* b);
 	void resetData();
 private:
 	Size from, to, actual;

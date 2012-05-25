@@ -1,5 +1,5 @@
 #include "PosChange.h"
-#include "Form.h"
+#include "Component.h"
 PosChange::PosChange(Pos from, Pos to, PosStep step, int repeats)
 	:Change(repeats)
 	,from(from)
@@ -36,7 +36,7 @@ PosChange::PosChange(Pos to)
 bool PosChange::isCompleted(){
 	return repeatsCompleted();
 }
-void PosChange::update(Form * f){
+void PosChange::update(Component * f){
 	if(needUpdate()){
 		if(isRelative){
 			Pos c = f->getPos();

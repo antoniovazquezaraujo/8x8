@@ -2,7 +2,7 @@
 #define COLOR_CHANGE
 #include "Change.h"
 #include "Color.h"
-class Form;
+class Component;
 class ColorChange: public Change{
 public:
 	ColorChange(Color from, Color to, ColorStep step, int repeats=1);
@@ -10,7 +10,7 @@ public:
 	ColorChange(ColorStep step,                       int repeats=1);
 	ColorChange(Color color);
 	bool isCompleted();	
-	void update(Form * f);
+	void update(Component* f);
 	void resetData();
 private:
 	Color from, to, actual;

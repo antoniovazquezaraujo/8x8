@@ -1,5 +1,5 @@
 #include "SizeChange.h"
-#include "Form.h"
+#include "Component.h"
 SizeChange::SizeChange(Size from, Size to, SizeStep step, int repeats)
 	:Change(repeats)
 	,from(from)
@@ -36,7 +36,7 @@ SizeChange::SizeChange(Size to)
 bool SizeChange::isCompleted(){
 	return repeatsCompleted();
 }
-void SizeChange::update(Form * f){
+void SizeChange::update(Component * f){
 	if(needUpdate()){
 		if(isRelative){
 			Size c = f->getSize();

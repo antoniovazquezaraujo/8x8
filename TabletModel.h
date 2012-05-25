@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <vector>
 #include <map>
-#include "Form.h"
+#include "Component.h"
 #include "Page.h"
 using namespace std;
 
@@ -21,11 +21,10 @@ public:
 	Page & getSelectedPage();
 	Page & getPage(string name);
 	void update();
-	ColorField & getColorField();
 private:
 	vector<Page> pages;
 	map<string, int> namesToPages;
-	int formW, formH;
+	int componentW, componentH;
 	unsigned int selectedPage;
 };
 #endif /* TABLET_MODEL_H_ */

@@ -3,7 +3,7 @@
 #include "Change.h"
 #include "Pos.h"
 #include "PosStep.h"
-class Form;
+class Component;
 class PosChange: public Change{
 public:
 	PosChange(Pos from, Pos to, PosStep step, int repeats=1);
@@ -11,7 +11,7 @@ public:
 	PosChange(PosStep step,                   int repeats=1);
 	PosChange(Pos pos);
 	bool isCompleted();
-	void update(Form * b);
+	void update(Component * b);
 	void resetData();
 private:
 	Pos from, to, actual;

@@ -18,8 +18,8 @@ typedef Level ColorField[LEVELS];
 
 class Page{
 public:
-	static void test();
 	Page();
+	~Page();
 	void reset();
 	void addForm(string name, int level, Form b);
 	vector<Form *> getFormsAt(Pos pos);

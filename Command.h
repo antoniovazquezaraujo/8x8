@@ -1,16 +1,18 @@
-#ifndef PROGRAM
-#define PROGRAM
+#ifndef COMMAND 
+#define COMMAND 
 #include <vector>
+#include <cassert>
 using namespace std;
 #include "ColorChange.h"
 #include "PosChange.h"
 #include "SizeChange.h"
 
-class Form;
+class Component;
 class Command{
 public:
+	static void test();
 	Command();
-	void update(Form* f);
+	void update(Component* f);
 	bool isFinished();
 	void setSpeed(int speed);
 	void reset();

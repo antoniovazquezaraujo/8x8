@@ -33,3 +33,10 @@ Grave problema: no hay escapatoria, se necesita hacer métodos virtuales y guard
 punteros a Form en el vector de la Page.
 Así que los crearemos y mantendremos en la memoria dinámica. Eliminarlos en el destructor.
 No pasa nada.
+Bien, cambiado esto. Ahora podemos hacer un Form con métodos virtuales. Cuáles serían?
+
+
+No tengo claro esto. Un form es un conjunto de Boxes pero animable mediante cambios programados.
+No debería ser menos? Un ColorChooser no debe ser animable. Incluso podría estar formado por varios forms diferentes, cada uno con su animación diferente. Algo está mal aqui.
+Da igual, seguiremos adelante. Haremos un ColorChooser derivado de Form y luego vemos.
+

@@ -1,9 +1,8 @@
 #include "TabletModel.h"
-#include "Form.h"
 #include <cassert> 
 TabletModel::TabletModel(){
-	formW = 200/ COLS;
-	formH = 200/ ROWS;
+	componentW = 200/ COLS;
+	componentH = 200/ ROWS;
 }
 void TabletModel::newPage(string name) {
 	pages.push_back(Page());
@@ -45,7 +44,4 @@ void TabletModel::selectPage(PagePosition pos){
 }
 void TabletModel::update(){
 	pages[selectedPage].update();
-}
-ColorField & TabletModel::getColorField(){
-	return pages[selectedPage].getColorField();
 }

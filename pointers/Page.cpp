@@ -6,6 +6,13 @@ Page::Page()
 	formH = 200/ ROWS;
 	reset();
 }
+Page::~Page(){
+	for(vector<Form*>::iterator i = forms.begin();
+			i != forms.end(); 
+			i++){
+		delete *i;
+	}
+}
 void Page::reset() {
 	for (int level = 0; level < LEVELS; level++) {
 		for (int col = 0; col < COLS; col++) {

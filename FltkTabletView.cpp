@@ -43,11 +43,11 @@ void FltkTabletView::onRelease(int col, int row) {
 void FltkTabletView::draw() {
 	unsigned char r,g,b;
 	model->update();
-	ColorField &f = model->getColorField();
+	ColorBlock &f = model->getSelectedPage().getColorBlock();
 	for (int col= 0; col< COLS; col++ ){
 		for (int row = 0; row< ROWS; row++ ){
 			r=g=b=0;
-			for (int level = 0; level < LEVELS; level++ ){
+			for (int level = 0; level < f.getNumLevels(); level++ ){
 				r+= f[level][col][row].r;///LEVELS;
 				g+= f[level][col][row].g;///LEVELS;
 				b+= f[level][col][row].b;///LEVELS;
@@ -73,11 +73,13 @@ int FltkTabletView::handle(int event) {
 	if(row >= ROWS) row=ROWS-1;
 	switch (event) {
 	case FL_PUSH :
-		if(Fl::event_clicks() != 0){
-			onDoubleClick(col, row);
-		}else{
+		//El doble click va muy lento aqui.
+		//Arreglar esto!!
+	//	if(Fl::event_clicks() != 0){
+	//		onDoubleClick(col, row);
+	//	}else{
 			onClick(col, row);
-		}
+	//	}
 		break;
 	case FL_DRAG:
 		onDrag(col, row);
@@ -86,7 +88,7 @@ int FltkTabletView::handle(int event) {
 		onRelease(col, row);
 		break;
 	}
-	return (0);
+	return (1);
 }
 
 void FltkTabletView::timeout_cb(FltkTabletView *bw) {

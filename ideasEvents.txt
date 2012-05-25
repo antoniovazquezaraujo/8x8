@@ -1,0 +1,79 @@
+Vamos a aclarar de una vez el asunto de los eventos.
+Cuando la vista detecta un evento se lo envía a la página actual.
+Esa página busca entre sus forms si alguno queda dentro de la posición del evento.
+Puede encontrar varios. Devolverá una lista con ellos.
+Pueden estar en varios niveles de la página o superpuestos en el mismo nivel o ambas cosas.
+El evento se envía al form que está en el nivel superior. Si ese form devuelve true el evento se 
+da por atendido. Si devuelve false se le envía al siguiente de la lista ordenada por niveles.
+Si todos devuelven false, el evento acaba sin atender y se pierde ??
+
+Cuando un form recibe un evento puede buscar si en esa posición tiene alguna Box, entonces se lo envía y si la caja lo atiende entonces se termina. Si no hay ninguna caja en esa posición, o la caja que lo recibe no lo atiende entonces lo recibe el propio Form, con lo que puede dar un comportamiento genérico para todo el Form.
+
+Tipos de evento:
+	-click
+	-release
+	-doubleClick
+	-drag
+Orden de recepción:
+	Page -> Forms ->Boxes
+
+Page:
+	recibe el evento en una posición
+	busca entre sus forms cuáles caen dentro
+	recorre una lista de esos forms ordenados por nivel
+	si alguno devuelve true se termina, el evento está atendido
+	si ninguno devuelve true, lo puede atender la propia página
+
+Métodos:
+	onPress(Pos pos)
+	onRelease(Pos pos)
+	onClick(Pos pos)
+	onDoubleClick(Pos pos)
+	onDrag(Pos pos)
+
+Listeners:
+	addEventListener(EventListener l);
+	class EventListener{
+		onPress(Pos pos)
+		onRelease(Pos pos)
+		onClick(Pos pos)
+		onDoubleClick(Pos pos)
+		onDrag(Pos pos)
+	};
+		
+Box b;
+b.addEventListener(this);
+onPress(quién???)
+
+
+Gran problema!!!!
+Un form debe ser un contenedor, hemos de copiar la estructura de eventos de Swing.
+De esa forma, cada vez que recibes un evento como oyente tendrás un remitente que será un form.
+Entonces habría que cambiar todo.
+Un form sería un Container, y podría contener Components.
+Adoptemos la misma nomenclatura para no liarnos.
+Un Component puede ser un botón, o un contenedor de componentes.
+De esa forma el remitente de un evento será siempre un Component.
+Las animaciones podrían hacerse a un Component, y un contenedor puede animar a todos sus componentes
+Primero se pinta el contenedor con posición, tamaño y su fondo y transparencia. 
+Luego pinta todos sus componentes. Si tiene una animación la realiza. Luego realiza las de sus componentes.
+Básicamente, hay que cambiar el Form para que sea un Container. Y el padre de Box y Form sea Component, que tendrá los métodos básicos virtuales.
+class Component{
+	animación
+	posición
+	tamaño
+	color
+};
+class Container: public Component{
+
+};
+class ColorChooser: public Component{
+
+};
+class Button: public Component{
+
+};
+
+Algo así.
+Vamos a REESCRIBIRLO TODO DE NUEVO. Y VAN CUATRO!
+

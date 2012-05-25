@@ -1,8 +1,19 @@
 #ifndef  PRUEBA1_H
 #define  PRUEBA1_H 
 #include "TabletController.h"
+#include "Color.h"
+#include "Size.h"
+#include "Pos.h"
+#include "Page.h"
+#include "Button.h"
+#include "TabletModel.h"
+#include "Command.h"
+#include <vector> 
+#include <stdlib.h>
+#include <map>
+#include <iostream>
+using namespace std;
 class TabletView;
-class Box; 
 class Color;
 class Prueba1 :public TabletController{
 public:
@@ -15,7 +26,5 @@ public:
 	void onRelease(int col, int row);
 	void onDrag(int col, int row);
 private:
-//Provisional...
-	Box * box;
 };
 #endif

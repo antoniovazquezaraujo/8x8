@@ -1,9 +1,30 @@
 #include "Command.h"
-Command::Command()
-	:finished(false){
+#include "Button.h"
+#include "Component.h"
+void Command::test(){
+	/*
+	Command c;
+	Component * b = new Button(0,0,1,1);
+	c.addChange(ColorChange(Color(0,0,0), Color(10,10,10), ColorStep(1,1,1), 1000));
+	while(!c.isFinished()){
+		c.update(b);
+		cout << "actualizando";
+	}
+	c.reset();
+	while(!c.isFinished()){
+		c.update(b);
+		cout << "continuando ";
+	}
+	*/
+	
 
 }
-void Command::update(Form* f){
+Command::Command()
+	:finished(false)
+	,speed(MAX_SPEED){
+
+}
+void Command::update(Component* f){
 	finished=true;
 	for(vector<ColorChange>::iterator i = colorChanges.begin();i!=colorChanges.end();i++){
 		if(!((*i).isCompleted())){

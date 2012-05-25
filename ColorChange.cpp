@@ -1,5 +1,5 @@
 #include "ColorChange.h"
-#include "Form.h"
+#include "Component.h"
 ColorChange::ColorChange(Color from, Color to, ColorStep step, int repeats)
 	:Change(repeats)
 	,from(from)
@@ -36,7 +36,7 @@ ColorChange::ColorChange(Color to)
 bool ColorChange::isCompleted(){
 	return repeatsCompleted();
 }
-void ColorChange::update(Form * f){
+void ColorChange::update(Component * f){
 	if(needUpdate()){
 		if(isRelative){
 			Color c = f->getColor();
@@ -48,7 +48,7 @@ void ColorChange::update(Form * f){
 			if(!(actual == to)){
 				actual.approachTo(to, step);
 			}else{
-			//	resetData();	
+//				resetData();	
 				setChangeCompleted();
 			}
 		}
