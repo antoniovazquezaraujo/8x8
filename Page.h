@@ -20,6 +20,7 @@ public:
 	~Page();
 	void reset();
 	void addComponent(string name, int level, Component * f);
+	void removeComponent(string name);
 	vector<Component *> getComponentsAt(Pos pos);
 	Component * getComponent(string name);
 	void update();

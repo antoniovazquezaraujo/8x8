@@ -49,6 +49,22 @@ bool Component::onClick(Pos pos){
 	}
 	return false;
 }
+bool Component::onRelease(Pos pos){
+	for(EventListener *l: listeners){
+		if(l->released(this, pos)){
+			return true;
+		}
+	}
+	return false;
+}
+bool Component::onDrag(Pos pos){
+	for(EventListener *l: listeners){
+		if(l->dragged(this, pos)){
+			return true;
+		}
+	}
+	return false;
+}
 void Component::paint(ColorSpace & space, const Pos& p, const Size & s){
 	//llena pixels con su color
 	for(int x=pos.x; x<pos.x+size.w; x++){

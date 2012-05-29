@@ -12,6 +12,8 @@ public:
 	void update();
 	void paint(ColorSpace & space, const Pos& p, const Size &s);
 	bool onClick(Pos pos);
+	bool onRelease(Pos pos);
+	bool onDrag(Pos pos);
 	Component * getComponentAt(const Pos& pos);
 	vector<Component*> components;
 };

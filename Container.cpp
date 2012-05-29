@@ -28,6 +28,22 @@ bool Container::onClick(Pos pos){
 		return Component::onClick(pos);
 	}
 }
+bool Container::onRelease(Pos pos){
+	Component * c = getComponentAt(pos);
+	if(c){
+		return c->onRelease(pos);	
+	}else{
+		return Component::onRelease(pos);
+	}
+}
+bool Container::onDrag(Pos pos){
+	Component * c = getComponentAt(pos);
+	if(c){
+		return c->onDrag(pos);	
+	}else{
+		return Component::onDrag(pos);
+	}
+}
 Component * Container::getComponentAt(const Pos& pos){
 	for(Component* c:components){
 		if(c->getPos()+this->pos == pos){

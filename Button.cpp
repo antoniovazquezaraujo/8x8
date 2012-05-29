@@ -16,11 +16,3 @@ Button::Button(int x, int y, int w, int h)
 Button::~Button(){
 
 }
-bool Button::pressed (Component* c, Pos pos){
-	color = pressedColor;
-	return true;
-}
-bool Button::released (Component* c, Pos pos){
-	color = releasedColor;
-	return true;
-}

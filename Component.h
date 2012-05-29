@@ -19,13 +19,17 @@ public:
 	bool containsPoint(const Pos & p);
 
 	void addListener(EventListener * l);
+
 	virtual bool onClick(Pos pos);
+	virtual bool onRelease(Pos pos);
+	virtual bool onDrag(Pos pos);
+
 	virtual void paint(ColorSpace & space, const Pos& p, const Size & s);
 	const Pos & getPos();
-	void setPos(const Pos & p);
 	const Size & getSize();
-	void setSize(const Size & s);
 	const Color & getColor();
+	void setPos(const Pos & p);
+	void setSize(const Size & s);
 	void setColor(const Color & c);
 
 	void operator()(string title, int speed=MAX_SPEED);

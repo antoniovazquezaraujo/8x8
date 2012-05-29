@@ -41,18 +41,31 @@ void FltkTabletView::onRelease(int col, int row) {
 
 
 void FltkTabletView::draw() {
-	unsigned char r,g,b;
+	int level=0;
 	model->update();
 	ColorBlock &f = model->getSelectedPage().getColorBlock();
 	for (int col= 0; col< COLS; col++ ){
+		//Aquí hay que manejar la transparencia, y que cada
+		//nivel tenga en cuenta al anterior, si quiere.
+		//Transparencia por nivel o por componente???
+		//Buena pregunta. Lo veremos más adelante.
 		for (int row = 0; row< ROWS; row++ ){
-			r=g=b=0;
-			for (int level = 0; level < f.getNumLevels(); level++ ){
-				r+= f[level][col][row].r;///LEVELS;
-				g+= f[level][col][row].g;///LEVELS;
-				b+= f[level][col][row].b;///LEVELS;
+			level=0;
+			float percent= f[level][col][row].a /255;
+			f[level][col][row].r*= percent;
+			f[level][col][row].g*= percent;
+			f[level][col][row].b*= percent;
+			for (level = 1; level < f.getNumLevels(); level++ ){
+				float percent= f[level][col][row].a /255;
+				f[level][col][row].r= f[level-1][col][row].r*(1-percent) + f[level][col][row].r* percent;
+				f[level][col][row].g= f[level-1][col][row].g*(1-percent) + f[level][col][row].g* percent;
+				f[level][col][row].b= f[level-1][col][row].b*(1-percent) + f[level][col][row].b* percent;
 			}
-			fl_color(r,g,b);
+			fl_color(
+				f[level-1][col][row].r,
+				f[level-1][col][row].g,
+				f[level-1][col][row].b
+			);
 			fl_rectf( 
 				col*BLOCK_SIZE, 
 				row*BLOCK_SIZE, 

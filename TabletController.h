@@ -8,10 +8,10 @@ public:
 	~TabletController();
 	void start();
 	void stop();
-	virtual void onClick(int col, int row)=0;
-	virtual void onDoubleClick(int col, int row)=0;
-	virtual void onRelease(int col, int row)=0;
-	virtual void onDrag(int col, int row)=0;
+	virtual bool onClick(int col, int row);
+	virtual bool onDoubleClick(int col, int row);
+	virtual bool onRelease(int col, int row);
+	virtual bool onDrag(int col, int row);
 protected:
 	TabletModel* model;
 	TabletView * view;

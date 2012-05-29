@@ -9,10 +9,10 @@
 using namespace std;
 class EventListener{
 public:
-	virtual bool pressed       (Component* c, Pos pos){return false;}
-	virtual bool released      (Component* c, Pos pos){return false;}
-	virtual bool clicked       (Component* c, Pos pos){return false;}
-	virtual bool doubleClicked (Component* c, Pos pos){return false;}
-	virtual bool dragged       (Component* c, Pos pos){return false;}
+	virtual bool pressed       (Component* c, Pos pos)=0;
+	virtual bool released      (Component* c, Pos pos)=0;
+	virtual bool clicked       (Component* c, Pos pos)=0;
+	virtual bool doubleClicked (Component* c, Pos pos)=0;
+	virtual bool dragged       (Component* c, Pos pos)=0;
 };
 #endif
