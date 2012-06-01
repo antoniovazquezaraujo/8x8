@@ -30,7 +30,7 @@ public:
 	bool onRelease(int col, int row);
 	bool onDrag(int col, int row);
 	ColorChooser * chooser;
-	Container * imagen;
+	Container * imagen, * chooserBack;
 	bool editing;
 	Pos lastPos;
 	Color actualColor;

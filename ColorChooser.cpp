@@ -53,7 +53,10 @@ ColorChooser::ColorChooser(int x, int y, int w, int h)
 }
 ColorChooser::~ColorChooser(){
 }
-
+void ColorChooser::setActualColor(const Color & c){
+	actualColor = c;
+	actual->setColor(c);
+}
 //interfaz EventListener:
 bool ColorChooser::pressed       (Component* c, Pos pos){
 	return true;

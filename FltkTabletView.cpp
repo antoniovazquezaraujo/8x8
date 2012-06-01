@@ -45,21 +45,17 @@ void FltkTabletView::draw() {
 	model->update();
 	ColorBlock &f = model->getSelectedPage().getColorBlock();
 	for (int col= 0; col< COLS; col++ ){
-		//Aquí hay que manejar la transparencia, y que cada
-		//nivel tenga en cuenta al anterior, si quiere.
-		//Transparencia por nivel o por componente???
-		//Buena pregunta. Lo veremos más adelante.
 		for (int row = 0; row< ROWS; row++ ){
 			level=0;
-			float percent= f[level][col][row].a /255;
-			f[level][col][row].r*= percent;
-			f[level][col][row].g*= percent;
-			f[level][col][row].b*= percent;
+			float percent= float(f[level][col][row].a) /255;
+			f[level][col][row].r= float(f[level][col][row].r) * percent;
+			f[level][col][row].g= float(f[level][col][row].g) * percent;
+			f[level][col][row].b= float(f[level][col][row].b) * percent;
 			for (level = 1; level < f.getNumLevels(); level++ ){
-				float percent= f[level][col][row].a /255;
-				f[level][col][row].r= f[level-1][col][row].r*(1-percent) + f[level][col][row].r* percent;
-				f[level][col][row].g= f[level-1][col][row].g*(1-percent) + f[level][col][row].g* percent;
-				f[level][col][row].b= f[level-1][col][row].b*(1-percent) + f[level][col][row].b* percent;
+				float percent= float(f[level][col][row].a) /255;
+				f[level][col][row].r= float(f[level-1][col][row].r)*(1-percent) + float(f[level][col][row].r)* percent;
+				f[level][col][row].g= float(f[level-1][col][row].g)*(1-percent) + float(f[level][col][row].g)* percent;
+				f[level][col][row].b= float(f[level-1][col][row].b)*(1-percent) + float(f[level][col][row].b)* percent;
 			}
 			fl_color(
 				f[level-1][col][row].r,
@@ -69,8 +65,8 @@ void FltkTabletView::draw() {
 			fl_rectf( 
 				col*BLOCK_SIZE, 
 				row*BLOCK_SIZE, 
-				BLOCK_SIZE, 
-				BLOCK_SIZE
+				BLOCK_SIZE-1, 
+				BLOCK_SIZE-1
 			);
 		}
 	}
